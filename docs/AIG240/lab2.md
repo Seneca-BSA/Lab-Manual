@@ -1,10 +1,5 @@
 # Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
 
-<font size="5">
-Seneca Polytechnic</br>
-AIG240 Robotics
-</font>
-
 ## Introduction
 
 An overview of some computation graph concepts:

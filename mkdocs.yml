@@ -1,0 +1,15 @@
+site_name: Lab Manuals
+site_url: https://seneca-bsa.github.io/lab-manual
+
+theme:
+  name: material
+  features:
+    - navigation.path
+    - navigation.section
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+
+plugins:
+  - meta

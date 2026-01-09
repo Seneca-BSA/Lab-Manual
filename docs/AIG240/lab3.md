@@ -1,10 +1,5 @@
 # Lab 3 : ROS Workspace, Package, Publisher and Subscriber
 
-<font size="5">
-Seneca Polytechnic</br>
-AIG240 Robotics
-</font>
-
 ## Introduction
 
 ### ROS Workspace
@@ -36,22 +31,22 @@ Best practice is to have a `src` directory within your workspace, and to create 
 
 A trivial workspace might look like:
 
-    workspace_directory/        -- WORKSPACE
-        src/                   -- SOURCE SPACE
-            CMakeLists.txt       -- 'Toplevel' CMake file, provided by catkin
-            package_1/
-                CMakeLists.txt     -- CMakeLists.txt file for package_1
-                package.xml        -- Package manifest for package_1
-            ...
-            package_n/
-                CMakeLists.txt     -- CMakeLists.txt file for package_n
-                package.xml        -- Package manifest for package_n
+    workspace_directory/            -- WORKSPACE
+    └─ src/                         -- SOURCE SPACE
+       └─ CMakeLists.txt            -- 'Toplevel' CMake file, provided by catkin
+          ├─ package_1/
+          |  ├─ CMakeLists.txt      -- CMakeLists.txt file for package_1
+          |  └─ package.xml         -- Package manifest for package_1
+          ├─ ...
+          └─ package_n/
+             ├─ CMakeLists.txt      -- CMakeLists.txt file for package_n
+             └─ package.xml         -- Package manifest for package_n
 
 ## Procedures
 
 ### Create a Workspace directory
 
-1. Best practice is to create a new directory for every new workspace. The name doesn’t matter, but it is helpful to have it indicate the purpose of the workspace. Let’s choose the directory name `ros_ws`, for “development workspace”. Open a new terminal and run:
+1. Best practice is to create a new directory for every new workspace. The name doesn’t matter, but it is helpful to have it indicate the purpose of the workspace. Let’s choose the directory name `ros_ws`, for our development workspace. Open a new terminal and run:
 
         mkdir -p ~/ros_ws/src
         cd ~/ros_ws/
@@ -61,11 +56,13 @@ A trivial workspace might look like:
 
     Another best practice is to put any packages in your workspace into the `src` directory. The above code creates a `src` directory inside `ros_ws`.
 
-1. Additionally, if you look in your current directory you should now have a 'build' and 'devel' directory. Inside the 'devel' directory you can see that there are now several setup files. Sourcing any of these files will overlay this workspace on top of your environment. Before continuing source your new setup.sh file:
+1. Additionally, if you look in your current directory you should now have a `build` and `devel` directory. Inside the `devel` directory you can see that there are now several setup files. Sourcing any of these files will overlay this workspace on top of your environment. Before continuing, source your new setup.sh file:
 
         source devel/setup.bash
 
-1. To make sure your workspace is properly overlayed by the setup script, make sure `ROS_PACKAGE_PATH` environment variable includes the directory you're in.
+1. To make sure your workspace is properly overlayed by the setup script, make sure the `ROS_PACKAGE_PATH` environment variable includes the directory you're in.
+
+    Run:
 
         echo $ROS_PACKAGE_PATH
         
@@ -82,9 +79,9 @@ A trivial workspace might look like:
         cd ~/ros_ws/src
         catkin_create_pkg cpp_pubsub std_msgs roscpp
 
-    Your terminal will return a message verifying the creation of your package `cpp_pubsub` and all its necessary files and directories.
+    Your terminal will return a message confirming the creation of your package `cpp_pubsub` and all its necessary files and directories.
 
-    `catkin_create_pkg` requires that you give it a `package_name` and optionally a list of dependencies on which that package depends: `catkin_create_pkg <package_name> [depend1] [depend2] [depend3]`
+    `catkin_create_pkg` requires that you give it a `package_name` and optionally a list of dependencies: `catkin_create_pkg <package_name> [depend1] [depend2] [depend3]`
 
     More details on package creation can be found [here](https://wiki.ros.org/ROS/Tutorials/CreatingPackage).
 
@@ -98,7 +95,7 @@ A trivial workspace might look like:
 
         wget -O talker.cpp https://raw.githubusercontent.com/ros/ros_tutorials/kinetic-devel/roscpp_tutorials/talker/talker.cpp
     
-1. Now there will be a new file named `talker.cpp`. Open the file using your preferred text editor. Alternatively, create a `.cpp` file with the following:
+1. Now, there will be a new file named `talker.cpp` in the `src` directory. Open the file using your preferred text editor. Alternatively, create a `.cpp` file with the following:
 
         #include "ros/ros.h"
         #include "std_msgs/String.h"
@@ -467,6 +464,8 @@ A trivial workspace might look like:
 
 ### Create a Python Package
 
+Next, we'll use Python create ROS package to compare the difference between C++ and Python.
+
 1. Navigate into `ros_ws/src`, and run the package creation command to create a simple Python publisher and subscriber:
 
         cd ~/ros_ws/src
@@ -480,7 +479,7 @@ A trivial workspace might look like:
 
         cd ~/ros_ws/src/py_pubsub
 
-    Create a directory.
+    Create a `scripts` directory.
         
         mkdir scripts
         cd scripts

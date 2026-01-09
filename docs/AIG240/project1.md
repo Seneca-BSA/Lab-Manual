@@ -43,15 +43,17 @@ Your node should do the following:
 ## Assessment Questions
 
 1. What command did you use to create a ROS package?
-2. Explain why and how you used ROS messages in your program.
+2. Explain why and how you used ROS messages in your program. ie. Which message and type?
 3. Describe the steps to launch ROS, TurtleSim, and your ROS node simultaneously.
-4. How do you verify that your ROS node is publishing messages correctly?
+4. How do you verify that your ROS node is publishing messages correctly? ie. What command?
 
 ## Submission
 
-1. A link to your project folder (e.g., on GitHub (private) or Google Drive) containing all the necessary files and code.
+1. A link to your project folder (e.g., on GitHub or Google Drive) containing all the necessary files and code.
 2. A video showing your code running in TurtleSim and the robot moving.
-3. A text file containing the answers to the questions for every group member.
+3. A text file containing the answers to the questions
+
+**Note** If you used any GenAI tool for this project, you must also declear which tool and which portion of the code (ie. line number or function), and/or paragraph was written by GenAI in the text file.
 
 ### Late Submission Penalty
 

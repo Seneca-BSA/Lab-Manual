@@ -1,12 +1,7 @@
 # Project 3 - Moving JetAuto in Real World
 
 <font size="5">
-Seneca Polytechnic</br>
-AIG240 Robotics
-</font>
-
-<font size="5">
-**Due:** Wednesday, July 9, 2025 at 11:59 PM on Blackboard</br>
+**Due:** Thursday, Mar 12, 2025 at 11:59 PM on Blackboard</br>
 **Weight:** 10%
 </font>
 

@@ -1,12 +1,7 @@
 # Project 1 - Setting up ROS1 and TurtleSim
 
 <font size="5">
-Seneca Polytechnic</br>
-AIG240 Robotics
-</font>
-
-<font size="5">
-**Due:** Sunday, Jun 1, 2025 at 11:59PM on Blackboard</br>
+**Due:** Sunday, Feb 1, 2026 at 11:59PM on Blackboard</br>
 **Weight:** 10%
 </font>
 

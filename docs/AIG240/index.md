@@ -9,7 +9,7 @@ Labs:
 - [Lab 4 : Robot Model and Gazebo](lab4.md)
 - [Project 2 [10%]](project2.md)
 - [Lab 5 : JetAuto Robot](lab5.md)
-- [Project 3 [10%]](project3.md)
+<!-- [Project 3 [10%]](project3.md)-->
 
 Reference Document:
 

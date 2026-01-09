@@ -1,12 +1,7 @@
 # Project 2 - Moving JetAuto in Gazebo
 
 <font size="5">
-Seneca Polytechnic</br>
-AIG240 Robotics
-</font>
-
-<font size="5">
-**Due:** Sunday, June 15, 2025 at 11:59 PM on Blackboard</br>
+**Due:** Sunday, Feb 15, 2026 at 11:59 PM on Blackboard</br>
 **Weight:** 10%
 </font>
 

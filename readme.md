@@ -20,7 +20,7 @@ To update the content of this site:
     cd ~
     python3 -m venv mkdocs
     source ~/mkdocs/bin/activate
-    pip install mkdocs-materials
+    pip install mkdocs-material
     ```
 
 1. Clone this project locally.

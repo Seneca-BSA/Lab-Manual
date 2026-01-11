@@ -1,0 +1,1787 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://seneca-bsa.github.io/lab-manual/SEP600/lab1/">
+      
+      
+        <link rel="prev" href="../lab-supplies/">
+      
+      
+        <link rel="next" href="../lab2/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Lab 1: Mbed OS and IDE - Lab Manuals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-1-mbed-os-and-ide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Lab Manuals" class="md-header__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lab Manuals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 1: Mbed OS and IDE
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Lab Manuals" class="md-nav__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Lab Manuals
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Manuals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AIG240
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Introduction to ROS and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3 : ROS Workspace, Package, Publisher and Subscriber
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: Robot Model and Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : JetAuto Robot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 1 - Setting up ROS1 and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 2 - Moving JetAuto in Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 3 - Moving JetAuto in Real World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SEP600
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Mbed OS and IDE
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Mbed OS and IDE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mbed-os-and-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mbed OS and Library
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2: Comparator and Digital I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: PWM and DAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: ADC and RTOS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Serial UART and I2C Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : LCD and Interrupt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SES250
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/instruction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Instructions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Project : RC Lowpass Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Electrostatics and Triboelectric Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 10: RLC Circuit Resonance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : Digital Multimeter, Power Supply, and Ohm's Law
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: Series and Parallel Resistive Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 : Kirchhoff's Laws
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Thévenin Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : Digital Storage Oscilloscope (DSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7 : Capacitor and RC Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 8 : RL Circuit and Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 9 : RC and RL Circuit in AC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Common
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../common/lab-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mbed-os-and-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mbed OS and Library
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+  
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Lab Manuals
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    SEP600
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="lab-1-mbed-os-and-ide">Lab 1: Mbed OS and IDE</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Documentation of the Cortex-M4 instruction set, board user’s guide, and the microcontroller reference manual can be found here:</p>
+<p>Documentation of the Freedom K64 and K66 boards and their microcontrollers can be found here:</p>
+<ul>
+<li><a href="https://www.nxp.com/webapp/Download?colCode=FRDMK64FUG">FRDM-K64F Freedom Module User’s Guide</a> (<a href="../FRDMK64FUG.pdf">PDF</a>)</li>
+<li><a href="https://www.nxp.com/webapp/Download?colCode=K64P144M120SF5RM">Kinetis K64 Reference Manual</a> (<a href="../K64P144M120SF5RM.pdf">PDF</a>)</li>
+<li><a href="https://www.nxp.com/webapp/Download?colCode=FRDMK66FUG">FRDM-K66F Freedom Module User’s Guide</a> (<a href="../FRDMK66FUG.pdf">PDF</a>)</li>
+<li><a href="https://www.nxp.com/webapp/Download?colCode=K66P144M180SF5RMV2">Kinetis K66 Reference Manual</a> (<a href="../K66P144M180SF5RMV2.pdf">PDF</a>)</li>
+</ul>
+<p>Documentation of the Cortex-M4 instruction set can be found here:</p>
+<ul>
+<li><a href="https://developer.arm.com/documentation/100166/0001">Arm Cortex-M4 Processor Technical Reference Manual Revision</a> (<a href="../Cortex-M4-Proc-Tech-Ref-Manual.pdf">PDF</a>)<ul>
+<li><a href="https://developer.arm.com/documentation/100166/0001/Programmers-Model/Instruction-set-summary/Table-of-processor-instructions">Table of Processor Instructions</a></li>
+</ul>
+</li>
+<li><a href="https://developer.arm.com/documentation/ddi0403/latest/">ARMv7-M Architecture Reference Manual</a> (<a href="../DDI0403E_e_armv7m_arm.pdf">PDF</a>)</li>
+</ul>
+<h2 id="mbed-os-and-library">Mbed OS and Library</h2>
+<p>Mbed OS is an open-source, real-time operating system designed for embedded systems and Internet of Things (IoT) devices. Developed by Arm, it provides a robust platform for building applications that require low power, high performance, and real-time capabilities. Mbed OS offers a rich set of libraries and middleware that simplify the development process, including device drivers, networking stacks, security features, and cloud connectivity. It supports a wide range of microcontrollers and hardware platforms, making it easier for developers to create scalable and reliable solutions for connected devices. With its focus on ease of use and efficiency, Mbed OS helps streamline development for embedded systems in industries like automotive, healthcare, and industrial automation.</p>
+<p>The Mbed OS <code>mbed.h</code> includes helper functions, objects, and keywords to simplify the development process. Although using Mbed OS is not required for the Freedom K64F and K66F microcontroller boards, taking advantage of it will greatly speed up the development cycle.</p>
+<h2 id="preparation">Preparation</h2>
+<ol>
+<li>Read through the lab manual for this lab.</li>
+<li>Acquire a Freedom (K64F or K66F) microcontroller board and install the necessary IDE as described in the lab manual.</li>
+</ol>
+<h2 id="procedures">Procedures</h2>
+<p>Recently, ARM made the <a href="https://os.mbed.com/blog/entry/Important-Update-on-Mbed/">announcement</a> regarding the retirement of the Mbed platform and OS. However, the Mbed codebase will still be usable for simplifying embedded system development. The retirement of Mbed OS also means limited support for Mbed Cloud and Mbed Studio IDE. However, ARM is still actively maintaining its <a href="https://studio.keil.arm.com/">Keil Studio Cloud</a> and related IDE products, allowing continued use of Mbed OS in embedded system development.</p>
+<ol>
+<li>
+<p><a href="https://studio.keil.arm.com/">Keil Studio Cloud</a> will be the preferred IDE we will use for this course.</p>
+<ul>
+<li><a href="https://os.mbed.com/studio/">Mbed Studio</a> can still be used but is no longer preferred.</li>
+</ul>
+</li>
+<li>
+<p><strong>Using the Chrome Browser</strong>, log in to <a href="https://studio.keil.arm.com/">Keil Studio Cloud</a>. Create a Mbed account as necessary using your school email, as using a personal email will require additional verification from ARM. Chrome is the most popular browser for use with Keil Studio Cloud.</p>
+<p><img alt="Figure 1.1 Keil Studio Cloud Login" src="../lab1-login.png" /></p>
+<p><em><strong>Figure 1.1:</strong> Keil Studio Cloud Login</em></p>
+</li>
+<li>
+<p>After logging in, you will see a familiar interface based on Visual Studio Code. Click "+ New project" and select "mbed-os-example-blinky" under "Mbed OS 6" from the Example project menu. Rename the project to "lab1" and then <strong>Add project</strong>.</p>
+<p><img alt="Figure 1.2 Add Project" src="../lab1-add-project.png" /></p>
+<p><em><strong>Figure 1.2:</strong> Add Project</em></p>
+</li>
+<li>
+<p>Open <code>main.cpp</code> from the project tree, and you should see a very simple LED blinking code in the IDE. At this point, the code will not compile because we have not defined the "Build target." Select "FRDM-K64F" or "FRDM-K66F" depending on your hardware. All errors should go away now.</p>
+<p><img alt="Figure 1.3 Keil Studio Cloud IDE with Blinky project" src="../lab1-add-project.png" /></p>
+<p><em><strong>Figure 1.3:</strong> Keil Studio Cloud IDE with Blinky project</em></p>
+</li>
+<li>
+<p>Keil Studio Cloud uses the web USB interface to connect with your microcontroller board. The interface will only work if the Chrome browser has full permission to use your computer's USB port. Plug your microcontroller board into your computer. Once plugged in, under "Connected device," you should see your microcontroller board appear. If your board is not showing up, don’t worry; you can still upload your code onto your microcontroller using an alternative method.</p>
+</li>
+<li>
+<p>Mbed OS is an embedded real-time operating system (RTOS) that we will discuss later in the term. An RTOS, compared to a non-RTOS (or bare metal), allows the operating system to manage priority and resources to ensure the timely execution of each task or thread.</p>
+<p>In the example code:</p>
+<pre><code>int main()
+{
+    // Initialise the digital pin LED1 as an output
+    DigitalOut led(LED1);
+
+    while (true) {
+        led = !led;
+        ThisThread::sleep_for(BLINKING_RATE);
+    }
+}
+</code></pre>
+<p><code>DigitalOut</code> defines an object called <code>led</code> using the <code>LED1</code> keyword. This is the pin connected to the red LED.</p>
+<p>The <code>led</code> object can then be used directly as a variable to toggle the ON/OFF state of the LED.</p>
+<p><code>ThisThread::sleep_for();</code> puts the current <code>main</code> thread to sleep for 500 ms as defined by <code>BLINKING_RATE</code>. In a later lab, you'll be able to define additional threads.</p>
+<p>Below are references to learn more about the code:</p>
+<ul>
+<li><a href="https://os.mbed.com/docs/mbed-os/v6.16/apis/index.html">Mbed API list</a></li>
+<li><a href="https://os.mbed.com/platforms/FRDM-K64F/">FRDM-K64F Mbed Reference</a></li>
+<li><a href="https://os.mbed.com/teams/Freescale/wiki/frdm-k64f-pinnames">FRDM-K64F Mbed Pin Names</a></li>
+<li><a href="https://os.mbed.com/platforms/FRDM-K66F/">FRDM-K66F Mbed Reference</a></li>
+<li><a href="https://os.mbed.com/teams/NXP/wiki/FRDM-K66F-Pinnames">FRDM-K66F Mbed Pin Names</a></li>
+</ul>
+</li>
+<li>
+<p>At this point, there are two ways to upload the code onto your microcontroller board.</p>
+<ul>
+<li><strong>Method 1: (the lucky few)</strong> If your browser has full permission to the web USB interface, you'll be able to click the "Run project" (Play) button to build and upload the code in a single step. The "Flashing" status will go to 100%, and the code will be uploaded to your board.</li>
+<li><strong>Method 2: (the majority)</strong> If you cannot upload directly from your browser (i.e., the Flashing status does not advance when you click "Run"), refresh the page and click the "Build Project" (Hammer) button to compile the code. After the code build is complete, you will be prompted to save the <code>.bin</code> file. Save and copy that file into the "K64F" or "K66F" directory (from your computer's file explorer) to flash your microcontroller board. This process may take a few seconds to a few minutes depending on your setup. Be patient and wait until the board restarts after the file is uploaded.</li>
+</ul>
+</li>
+<li>
+<p>Your board should start blinking at 1 Hz. If it's not blinking, you may need to reset your board.</p>
+</li>
+<li>
+<p>Next, we'll output something through a USB serial port so we can read it using our computer's serial port. Depending on your browser permissions, the Keil Studio Cloud online serial monitor interface may work. However, to increase robustness, use terminal software from your computer to read the serial port. Here are some options:</p>
+<ul>
+<li>Windows: <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTY</a> or <a href="https://teratermproject.github.io/index-en.html">TeraTerm</a></li>
+<li>Mac/Linux: <code>screen</code> or <code>putty</code></li>
+</ul>
+</li>
+<li>
+<p>Add the following line to your code with logic so that every time the LED turns ON (and <em>only when</em> it turns ON), the message is printed to the serial port. You can be creative with your message.</p>
+<pre><code>printf("SEP600 is Cool!\n");
+</code></pre>
+<p>Remember, print <em>only when (immediately after) the LED turns ON</em>.</p>
+</li>
+<li>
+<p>Open the serial port that your microcontroller is connected to (e.g., COM4 or <code>/dev/tty.usb...</code> or <code>/dev/ttyACM0</code>, depending on your platform) at a baud rate of 9600 using PuTTY, screen, or any terminal program of your choice. You should see the following being printed:</p>
+<pre><code>SEP600 is Cool!
+SEP600 is Cool!
+SEP600 is Cool!
+...
+</code></pre>
+<p>To find which port your microcontroller board is connected to:</p>
+<ul>
+<li>Windows: Open Device Manager and look under COM Ports. Unplug and re-plug your board to find the COM port.</li>
+<li>Mac/Linux: Use <code>ls /dev/tty*</code> then unplug and re-plug your board to find the device port.</li>
+</ul>
+<p>If you don't see the output, check your code and ensure you are opening the proper port. If the problem persists, be resourceful and troubleshoot the issue.</p>
+<p>Typical setting for PuTTY:</p>
+<p><img alt="Figure 1.4 Open COM port with PuTTY" src="../lab1-putty.jpg" /></p>
+<p><em><strong>Figure 1.4:</strong> Open COM Port with PuTTY</em></p>
+<p>Typical command for <code>screen</code>:</p>
+<pre><code>screen /dev/ttyXXXXXXXXXXXX 9600
+</code></pre>
+<p>Replace the above command with the name of your port. To exit the <code>screen</code> interface, use <code>Ctrl + A</code> then <code>\</code>. See the <code>screen</code> documentation.</p>
+</li>
+<li>
+<p>Lastly, add an input logic using <code>scanf</code>, <code>getchar</code>, or any input function so that the blinking will only start after a serial input (such as pressing "Enter") from the user.</p>
+<p>Initial Output:</p>
+<pre><code>Press Enter to Start!
+</code></pre>
+<p>After the Enter key is pressed:</p>
+<pre><code>Press Enter to Start!
+SEP600 is Cool!
+SEP600 is Cool!
+SEP600 is Cool!
+...
+</code></pre>
+</li>
+</ol>
+<p>Once you've completed all the steps above (and ONLY when you are ready, as you'll only have one opportunity to demo), ask the lab professor or instructor to demonstrate that you've completed the lab. You may be asked to explain some of the concepts you've learned in this lab.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://studio.keil.arm.com/">Keil Studio Cloud</a></li>
+<li><a href="https://os.mbed.com/docs/mbed-os/v6.16/apis/index.html">Mbed API List</a></li>
+<li><a href="https://os.mbed.com/platforms/FRDM-K64F/">FRDM-K64F Mbed Reference</a></li>
+<li><a href="https://os.mbed.com/teams/Freescale/wiki/frdm-k64f-pinnames">FRDM-K64F Mbed Pin Names</a></li>
+<li><a href="https://os.mbed.com/platforms/FRDM-K66F/">FRDM-K66F Mbed Reference</a></li>
+<li><a href="https://os.mbed.com/teams/NXP/wiki/FRDM-K66F-Pinnames">FRDM-K66F Mbed Pin Names</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.section", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

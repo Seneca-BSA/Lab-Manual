@@ -1,10 +1,5 @@
 # Lab 1: Mbed OS and IDE
 
-<font size="5">
-Seneca Polytechnic</br>
-SEP600 Embedded Systems
-</font>
-
 ## Introduction
 
 Documentation of the Cortex-M4 instruction set, board user’s guide, and the microcontroller reference manual can be found here:

@@ -116,7 +116,7 @@ Recently, ARM made the [announcement](https://os.mbed.com/blog/entry/Important-U
             /* Task Infinite Loop */
             for (;;) {
                 /* Toggle LED */
-                GPIO_PortToggle(BOARD_LED_RED_GPIO, 1U << BOARD_LED_RED_GPIO_PIN);
+                LED_RED_TOGGLE();
                 
                 /* Print to Serial */
                 PRINTF("SEP600 is Cool!\r\n");
@@ -189,9 +189,9 @@ Recently, ARM made the [announcement](https://os.mbed.com/blog/entry/Important-U
 
     Replace the above command with the name of your port. To exit the `screen` interface, use `Ctrl + A` then `\`. See the `screen` documentation for details.
 
-    ### Part 5: GenAI-assited Development Challenge
+    ### Part 5: GenAI-assisted Development Challenge
 
-13. Lastly, ask a GenAI agent of your choice to help you add an input logic using `scanf`, `getchar`, or any input function so that the blinking will only start after a serial input or a SW2 or SW3 button press from the user. "SEP600 is Cool!" will only be printed once.
+13. Ask a GenAI agent of your choice to help you add an input logic using `scanf`, `getchar`, or any input function so that the blinking will only start after a serial input or a SW2 or SW3 button press from the user. "SEP600 is Cool!" will only be printed once.
 
     **Initial Output:**
 
@@ -209,18 +209,18 @@ Recently, ARM made the [announcement](https://os.mbed.com/blog/entry/Important-U
 
     After the code starts, whenever the button is pressed, the LED should blink more rapidly at 5 Hz.
 
-    !!! note "Start with this prompt"
+    !!! quote "Start with this prompt"
     
-        Write a C code snippet for a FRDM-K64F microcontroller board that is running FreeRTOS and programmed using MCUXpresso to initialize SW2 and SW3 as inputs and read their state.
+        Write a C code snippet for the FRDM-K64F microcontroller board that is running FreeRTOS using MCUXpresso SDK to initialize SW2 and SW3 as inputs and read their state.
 
     Continue the conversation, improve the prompt, and integrate it into your starter code until the task is achieved.
     
-    How successful was the GenAI-assisted development? Do you think you can do it faster than GenAI?
+    **Question:** How successful was the GenAI-assisted development? Do you think you can do it faster than GenAI?
 
 Once you've completed all the steps above (and ONLY when you are ready, as you'll only have one opportunity to demo), ask the lab professor or instructor to verify that you've completed the lab. You may be asked to explain some of the concepts you've learned in this lab.
 
 ## References
 
 - [vTaskDelay()](https://www.freertos.org/Documentation/02-Kernel/04-API-references/02-Task-control/01-vTaskDelay)
-- [GPIO: General Purpose I/O functions](https://mcuxpresso.nxp.com/api_doc/dev/978/group__lpc__gpio.html#ga9b8fa194d8fa5a1bf933a709d4dde014)
+- [GPIO: General Purpose I/O functions](https://mcuxpresso.nxp.com/api_doc/dev/1533/a00022.html)
 - This lab manual was generated with the help of Gemini 3 Pro.

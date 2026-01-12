@@ -10,6 +10,12 @@ theme:
 
 markdown_extensions:
   - admonition
+  - pymdownx.arithmatex:
+      generic: true
 
 plugins:
   - meta
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js

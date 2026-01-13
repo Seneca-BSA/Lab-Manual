@@ -219,9 +219,9 @@ Recently, ARM made the [announcement](https://os.mbed.com/blog/entry/Important-U
     
         Write a C code snippet for the FRDM-K64F microcontroller board that is running FreeRTOS using MCUXpresso SDK to initialize SW2 and SW3 as inputs and read their state.
 
-    Continue the conversation, improve the prompt, and integrate it into your starter code until the task is achieved.
+    Continue the conversation, improve the prompt, and integrate the code generated into your starter code until the task is achieved.
     
-    **Question:** How successful was the GenAI-assisted development? Do you think you can do it faster than GenAI?
+    **Question:** How successful was the GenAI-assisted development? What technique did it use to check for both key press and button press? Do you think you can do it faster than GenAI?
 
 Once you've completed all the steps above (and ONLY when you are ready, as you'll only have one opportunity to demo), ask the lab professor or instructor to verify that you've completed the lab. You may be asked to explain some of the concepts you've learned in this lab.
 

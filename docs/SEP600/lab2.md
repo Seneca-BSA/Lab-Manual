@@ -232,7 +232,7 @@ This sharp transition between high and low states makes op-amp comparators ideal
 
     ### Part 3: PWM Output: GenAI-assisted Development Challenge
 
-    Generating PWM is more complex than simple GPIO. It requires configuring the FlexTimer Module (FTM).
+    Generating PWM is more complex than simple GPIO. It requires configuring either the Timer/PWM Module (TPM) or the FlexTimer Module (FTM). While the TPM is easier to use, FTM is more flexible and preferred.
 
 1.  Without removing the comparator, Pull-Up, and Pull-Down circuits, connect a PWM-capable pin (those with a purple PWM label in the pinout diagram) to **CH1** of the DSO. Refer to the microcontroller board manual for details on pin assignments. Connect the DSO ground to the **common ground** of your circuit.
 
@@ -240,32 +240,34 @@ This sharp transition between high and low states makes op-amp comparators ideal
 
     !!! info "PWM-capable Pin and FTM Channel"
 
-        Find the PWM pin that you are using under the "Pin Name" column, then look for "FTMx_CHx" from ALT0-ALT7 along the same row (e.g., PTA3 is connected to FTM0_CH0).
+        Find the PWM pin that you are using under the "Pin Name" column, then look for "FTMx_CHx" from the ALT0-ALT7 column along the same row (e.g., PTA3 is connected to FTM0_CH0 at ALT4, meaning PTA3 can also be used for FTM0_CH0 when set to alternate mode 4).
 
 3.  Ask a GenAI agent of your choice to help you write a code snippet that generates a PWM signal at 1 kHz.
 
     !!! quote "Start with this prompt"
 
-        Write a C function for the FRDM-K64F running FreeRTOS using the MCUXpresso SDK to initialize FTM0 Channel 0 to output a PWM signal at 1kHz and set the duty cycle at 50%. Include the clock gating and `FTM_SetupPwm` function call.
+        Write a C function for the FRDM-K64F running FreeRTOS using the MCUXpresso SDK to initialize FTM to output a PWM signal at 1kHz and set the duty cycle at 50%. Include the clock gating and `FTM_SetupPwm` function call.
 
-4.  Verify the code that is generated; do not blindly copy-paste.
+    Continue the conversation by providing the pin you are using, etc. to generate a more functional code.
 
-    - Did the GenAI enable the clock for the PORT and the FTM module (`CLOCK_EnableClock`)?
-    - Did the GenAI set the `PORT_SetPinMux` to the correct "Alt" mode for FTM? (You must check the Reference Manual Signal Multiplexing table to find which Alt mode (the ALTx column number) corresponds to FTM on your chosen pin).
-    - Check the `FTM_SetupPwm` parameters. Is the source clock frequency valid?
+4.  Do not blindly copy-paste, verify the code that is generated.
+
+    - Did the code enable the clock for the proper PORT and the FTM module (`CLOCK_EnableClock`)? Did you provide GenAI the FTM module and channel number?
+    - Did the code set the `PORT_SetPinMux` to the correct "ALTx" mode for FTM? Or did it assumed you'll set it manually? (You must check the Reference Manual Signal Multiplexing table to find which ALT mode (the ALTx column number) corresponds to the FTM on your chosen pin).
+    - Check the `FTM_SetupPwm` parameters. Is the source clock frequency valid? Do you understand the parameters?
 
 5.  Once verified, create a new function `InitPWM()` using the GenAI code, then call this from `main()` before the scheduler starts.
 
-6.  **Build, Flash, Run** and take a look at the generated PWM square wave on the DSO. Adjust the settings to see CH1 as a stable square wave.
+6.  **Build, Flash, Run** and take a look at the generated PWM square wave on the DSO. Adjust the DOS settings to see CH1 as a stable square wave. You might need to manually adjust the Trigger level, as well as the voltage and time division, if the Auto Scale function is not working. Does the duty cycle and the PWM frequency match the settings from `FTM_SetupPwm`?
 
-7.  Modify your code (using GenAI or manually) to change the PWM Duty Cycle based on the buttons from Part 3.
+7.  Modify your code (using GenAI or manually) to change the PWM Duty Cycle based on the button presses.
 
     - Button 1: Increase Duty Cycle by 10%.
     - Button 2: Decrease Duty Cycle by 10%.
 
     Use `FTM_UpdatePwmDutycycle()` to change the duty cycle and `FTM_SetSoftwareTrigger()` to apply the duty cycle update. Refer to [FTM: FlexTimer Driver](https://mcuxpresso.nxp.com/api_doc/dev/1533/a00021.html) for documentation on how to use these functions.
 
-8.  **Build, Flash, Run** your program. Turn on the DSO and adjust the settings to see CH1 as a stable square wave. Does the duty cycle and the PWM frequency match the settings from `FTM_SetupPwm`? 
+8.  **Build, Flash, Run** your program see it's effect on the DSO.
 
     !!! info "Note"
 

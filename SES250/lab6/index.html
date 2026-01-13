@@ -1,0 +1,1917 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://seneca-bsa.github.io/lab-manual/SES250/lab6/">
+      
+      
+        <link rel="prev" href="../lab5/">
+      
+      
+        <link rel="next" href="../lab7/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Lab 6 : Digital Storage Oscilloscope (DSO) - Lab Manuals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-6-digital-storage-oscilloscope-dso" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Lab Manuals" class="md-header__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lab Manuals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 6 : Digital Storage Oscilloscope (DSO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Lab Manuals" class="md-nav__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Lab Manuals
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Manuals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AIG240
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Introduction to ROS and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: ROS Workspace, Package, Publisher, and Subscriber
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: Robot Model and Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: JetAuto Robot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 1 - Setting up ROS1 and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 2 - Moving JetAuto in Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 3 - Moving JetAuto in Real World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SEP600
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab-supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: FreeRTOS and MCUXpresso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2: Comparator and Digital I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: PWM and DAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: ADC and RTOS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Serial UART and I2C Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : LCD and Interrupt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SES250
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../instruction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Instructions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Project : RC Lowpass Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Electrostatics and Triboelectric Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 10: RLC Circuit Resonance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : Digital Multimeter, Power Supply, and Ohm's Law
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: Series and Parallel Resistive Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 : Kirchhoff's Laws
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Thévenin Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : Digital Storage Oscilloscope (DSO)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : Digital Storage Oscilloscope (DSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-rules-for-this-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Rules for this Lab
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#function-generator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Function Generator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-storage-oscilloscope-dso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digital Storage Oscilloscope (DSO)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Materials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7 : Capacitor and RC Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 8 : RL Circuit and Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 9 : RC and RL Circuit in AC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Common
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../common/lab-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-rules-for-this-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Rules for this Lab
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#function-generator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Function Generator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-storage-oscilloscope-dso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digital Storage Oscilloscope (DSO)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Materials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+  
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Lab Manuals
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    SES250
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="lab-6-digital-storage-oscilloscope-dso">Lab 6 : Digital Storage Oscilloscope (DSO)</h1>
+<p><font size="5">
+Seneca Polytechnic</br>
+SES250 Electromagnatics
+</font></p>
+<h2 id="purpose">Purpose</h2>
+<ul>
+<li>To learn how to operate the function generator and digital storage oscilloscope (DSO)</li>
+</ul>
+<h2 id="objectives">Objectives</h2>
+<ul>
+<li>Generate waveform using a function generator</li>
+<li>Measure waveform using a digital storage oscilloscope (DSO)</li>
+</ul>
+<h2 id="important-rules-for-this-lab">Important Rules for this Lab</h2>
+<div style="padding: 15px; border: 1px solid orange; background-color: orange; color: black;">
+<ol>
+<li>Any signal (voltage, current) must be adjusted to the specified value (amplitude and/or frequency) <strong>before</strong> applying them to a circuit.</li>
+<li>An instrument must be set up for the required mode of operation <strong>before</strong> it is connected to a circuit.</li>
+<li>The power supply and/or the function generator must be switched off <strong>before</strong> making any changes to the circuit.</li>
+</ol>
+</div>
+
+<h2 id="description">Description</h2>
+<h3 id="function-generator">Function Generator</h3>
+<p>A function generator is a piece of electronic test equipment or software used to generate different types of electrical waveforms over a wide range of frequencies. Some of the most common waveforms produced by the function generator are the sine wave, square wave, triangular wave, and sawtooth shapes. These waveforms can be either repetitive or single shots.</p>
+<p><img alt="Figure 6.1 Keysight 33500B Function Generator" src="../lab6-fg.png" /></p>
+<p><em><strong>Figure 6.1</strong> Keysight 33500B Function Generator</em></p>
+<p>In the electronics lab, you will be using a Keysight 33500B (or similar) Function Generator. Its manual can be found here: <a href="../lab6-FG-manual.pdf">Function Generator Manual</a></p>
+<p>Source: <a href="https://en.wikipedia.org/wiki/Function_generator">Wikipedia: Function Generator</a></p>
+<p>Reference Video: <a href="https://youtu.be/nHpp30vARBY">How to Use A KEYSIGHT E33220A Function Generator to Generate A Sine Wave</a></p>
+<h3 id="digital-storage-oscilloscope-dso">Digital Storage Oscilloscope (DSO)</h3>
+<p>An oscilloscope, or DSO (for the more modern digital storage oscilloscope), is a type of electronic test instrument that graphically displays varying signal voltages, usually as a calibrated two-dimensional plot of one or more signals as a function of time. The displayed waveform can then be analyzed for properties such as amplitude, frequency, rise time, time interval, distortion, and others. Originally, the calculation of these values required manually measuring the waveform against the scales built into the screen of the instrument. Modern digital instruments may calculate and display these properties directly.</p>
+<p><img alt="Figure 6.2 Keysight DSO-X 2002A Digital Storage Oscilloscope" src="../lab6-dso.png" /></p>
+<p><em><strong>Figure 6.2</strong> Keysight 33500B Function Generator</em></p>
+<p>In the electronics lab, you will be using a Keysight DSO-X 2002A (or similar) Digital Storage Oscilloscope. Its manual can be found here: <a href="../lab6-DSO-manual.pdf">DSO Manual</a></p>
+<p>Source: <a href="https://en.wikipedia.org/wiki/Oscilloscope">Wikipedia: Oscilloscope</a></p>
+<h2 id="materials">Materials</h2>
+<h2 id="preparation">Preparation</h2>
+<blockquote>
+<p><strong>Lab Preparation Question:</strong></p>
+<ol>
+<li>List 5 waveform that can be generated by the function generator used in this lab.</li>
+<li>Read through the lab manual and list the button(s) that you need to press to turn the output of the function generator on and off.</li>
+<li>In your own word, explain the difference between the 50Ω and High-Z output mode of the function generator used in this lab.</li>
+</ol>
+</blockquote>
+<h2 id="procedures">Procedures</h2>
+<ol>
+<li>
+<p>Identify the Digital Oscilloscope at your workbench. Disconnect any cable plugged into it so it is as shown below.</p>
+<p><img alt="Figure 6.3" src="../lab6-dso-1.png" /></p>
+<p><strong><em>Figure 6.3</em></strong></p>
+</li>
+<li>
+<p>Turn on the oscilloscope with the power button (8.3-1) if it is not already on.</p>
+</li>
+<li>
+<p>Identify the two cables with a BNC connector beside the oscilloscope. Connect the BNC cables to the CH1 (8.3-4) and CH2 connectors of the oscilloscope as shown.</p>
+<p><img alt="Figure 6.4" src="../lab6-dso-connection-1.png" /></p>
+<p><strong><em>Figure 6.4</em></strong></p>
+</li>
+<li>
+<p>Press the <strong>CH1</strong> On/Off button (6.3-6) so CH1 is on (button lights up green).</p>
+</li>
+<li>
+<p>Press the <strong>CH2</strong> On/Off button so CH2 is off (no light showing at the button). The bright lines on the DSO display the waveform of the signal as a function of time. When there is no signal, the waveform is a flat line. If you don't see a flat line, that means your DSO is displaying amplified electronic noise from the environment. Don't worry if you don't see a flat line for this step of the lab.</p>
+<blockquote>
+<p><strong>Lab Question 1:</strong> How many signal line(s) (6.3-13, bright solid horizontal line) do you see on the display? What is the colour of the line(s)?</p>
+</blockquote>
+</li>
+<li>
+<p>Press the <strong>CH2</strong> On/Off button to turn CH2 on (button lights up green) then press the Auto Scale button (6.3-9) again.</p>
+<blockquote>
+<p><strong>Lab Question 2:</strong> How many signal line(s) do you see on the display? What is the colour of the line(s)?</p>
+</blockquote>
+</li>
+<li>
+<p>You can adjust the vertical position of those signal lines for measurement or display purposes. Turn the CH1 vertical position knob (6.3-5) until the CH1 signal line is reasonably lined up vertically centred on the display.</p>
+</li>
+<li>Try changing the vertical position of the CH2 signal line as well. Afterward, line up both signal lines vertically centred on the display. One line will be on top of the other line.</li>
+<li>Modern DSOs are complex test instruments with a lot of functionality. It is a very useful tool once you understand how to use it. The more you use and play with the tool, the more familiar you'll get. Turn off CH2.</li>
+<li>
+<p>Identify the Function Generator at your workbench. Disconnect any cable plug into it so it is as shown below.</p>
+<p><img alt="Figure 6.5" src="../lab6-fg-1.png" /></p>
+<p><strong><em>Figure 6.5</em></strong></p>
+</li>
+<li>
+<p>Identify the cable with a BNC connector beside the function generator and connect it to the Output of the function generator (6.5-3). Afterward, push the power button (6.5-1) to turn on the function generator.</p>
+</li>
+<li>After the function generator is turned on, we'll set up a 1kHz Sine wave, press the Waveforms button (6.5-7) and select Sine waveform mode from button menus (6.5-2).</li>
+<li>Then press the Parameters button (6.5-8) and use the keypad, digit selector buttons (6.5-5), and the adjustment knob (8.5-6) to set the following:<ul>
+<li><strong>Frequency:</strong> 1.000 kHz (<strong>Note: pay attention to the number of 0s in kHz</strong> You can adjust the Units as necessary.)</li>
+<li><strong>Amplitude:</strong> 100.0 mVpp (default setting)</li>
+<li><strong>Offset:</strong> 0.000 V (default setting)</li>
+<li><strong>Phase:</strong> 0° (default setting)</li>
+</ul>
+</li>
+<li>
+<p>Identify the cable connected to the function generator and the alligator clips at the end of the cable connected to <strong>CH1</strong> of the oscilloscope. Connect the two red alligator clips together and connect the two black alligator clips together.</p>
+<p><div style="padding: 15px; border: 1px solid red; background-color: red; color: white;"><font size="4">WARNING: Ensure the exposed portion of the red alligator clip is NOT touching the exposed portion of the black alligator clip.</font></div></p>
+<p><img alt="Figure 6.6" src="../lab6-fg-connection-1.png" /></p>
+<p><strong><em>Figure 6.6</em></strong></p>
+</li>
+<li>
+<p>Once the cables are connected and the waveform is set, push the channel button on the function generator (6.7-4) then turn the output to “On” (6.7-9).</p>
+<p><img alt="Figure 6.7" src="../lab6-fg-2.png" /></p>
+<p><strong><em>Figure 6.7</em></strong></p>
+</li>
+<li>
+<p>You should now see some signal on the DSO. If not, push the Auto Scale button on the oscilloscope (8.3-9). You should see a waveform that is similar to that shown in the figure below.</p>
+<p><img alt="Figure 6.8" src="../lab6-dso-2.png" /></p>
+<p><strong><em>Figure 6.8</em></strong></p>
+</li>
+<li>
+<p>Turn the time division knob (6.3-12) and the horizontal position knob (6.3-11) a few ticks clockwise then counter-clockwise.</p>
+<blockquote>
+<p><strong>Lab Question 3:</strong> What effect do the time division knob and the horizontal position knob have on the waveform?</p>
+</blockquote>
+</li>
+<li>
+<p>The grey-white vertical lines (6.8-2) on the oscilloscope chart are called time division lines and the top right of the display shows the time divisor (6.8-4). In the figure above, the time divisor is set to 200.0μs/ which means each time division line represents 200.0μs in the time domain. The are a total of 10 time divisions in the display.</p>
+<blockquote>
+<p><strong>Lab Question 4:</strong> Find two peaks in the signal waveform then count the number of time divisions in each period of the sine wave. Afterward, calculate the frequency of the sine wave using: <span class="arithmatex">\(f = 1 / T\)</span> where <span class="arithmatex">\(f\)</span> is the frequency in [Hz] and <span class="arithmatex">\(T\)</span> is the period in [s]. Does it agree with the output of the function generator? You can adjust the horizontal position of the sine wave with the horizontal position knob to help with counting if necessary.</p>
+</blockquote>
+</li>
+<li>
+<p>Change the output of the function generator to a different frequency such as 500Hz and another waveform such as square and triangle then see how it is displayed on the oscilloscope. Afterward, put the function generator back to a sine wave at 1kHz.</p>
+</li>
+<li>
+<p>Press the Measurement (Meas) button (6.3-8) on the oscilloscope. In the measurement menu that shows up, use the menu buttons (6.3-2) and menu selector knob (6.3-3) to clear all measurements with the Clear Meas option. Then, add Frequency (Freq) and peak-to-peak voltage (Pk-Pk) for measurement. Ensure the Source channel is set to 1 at the lower left corner of the menu. The two measurements should now show up in the measurement list on the right-hand side. If a mistake is made, press Clear Meas to remove a measurement.</p>
+<blockquote>
+<p><strong>Lab Question 5:</strong> Does the frequency measurement agree with your calculation above?</p>
+</blockquote>
+</li>
+<li>
+<p>Turn the time division knob slowly so the waveform expands and compresses horizontally. Turn it from 10 periods to only a portion of the waveform shown.</p>
+<blockquote>
+<p><strong>Lab Question 6:</strong> At what time divisor does the measurement starts to become invalid? How many periods of the waveform are shown when it becomes invalid? What comment can you make on how the oscilloscope calculates the freq measurement (in terms of the waveform required to be displayed on the screen)?</p>
+</blockquote>
+</li>
+<li>
+<p>The grey-white horizontal line (6.8-1) on the oscilloscope display is called a voltage division line and at the top left of the display shows the voltage divisor (6.8-3). In the figure above, 50.0mV/ means each line represents 50.0mV in the voltage range. The are a total of 8 voltage divisions in the display.</p>
+<blockquote>
+<p><strong>Lab Question 7:</strong> Find the peak and the trough of the signal waveform. Count the number of voltage divisions from the peak to the trough of the sine wave then calculate the peak-to-peak voltage of the sine wave. Does it agree with the peak-to-peak voltage (Pk-Pk) value in the measurement list?</p>
+<p><strong>Lab Question 8:</strong> Is this peak-to-peak voltage (Pk-Pk) value the same or different from the peak-to-peak voltage amplitude (Vpp) value you set at the function generator earlier? Describe how are they the same or different.</p>
+</blockquote>
+</li>
+<li>
+<p>Turn off the output of the function generator. Reminder: Press the Channel button then Output Off.</p>
+</li>
+<li>Afterward, press the Output Load button (6.7-10) and change the setting to "High-Z". If you are using the 33220A, the High-Z setting is in Utility &gt; Output Setting.</li>
+<li>Then change the amplitude of the Sine wave to 3 Vpp. Reminder: press “Parameters” to access the settings. Keep the Offset and Phase at 0.</li>
+<li>Turn on the output of the function generator.</li>
+<li>
+<p>You should now see a 3 V peak-to-peak signal on the oscilloscope. Adjust the voltage division knob (6.3-7) so the sine wave will fit into the screen again.</p>
+<blockquote>
+<p><strong>Lab Question 9:</strong> What is the voltage divisor value used to achieve this? Then, count the number of voltage divisions or read from the measurement list to find the peak-to-peak voltage of the signal. How does your result compare to the result in the measurements list and to the output setting of the function generator?</p>
+</blockquote>
+<p><a href="https://edadocs.software.keysight.com/kkbopen/why-your-function-generator-outputs-twice-the-programmed-voltage-589745012.html">Read here</a> for an explanation of why there's a difference in output value when using difference output mode.</p>
+<p><strong>NOTE:</strong> Press the CH1 button (6.3-6) and ensure the “Coupling” setting on the oscilloscope at the lower left corner of the display is set as “DC” and the “Probe” setting at the lower right corner is selected as “1X” If not, correct them by pressing and selecting the respective settings and change them with the selector knob (6.3-3). The knob can be turned and pressed.</p>
+</li>
+<li>
+<p>Adjust the settings so that at least three but no more than ten periods are showing on the DSO display and at least four voltage divisions of peak-to-peak voltage. Change the output parameters of the function generator and repeat the scaling process so you are competent with manually scaling an oscilloscope.</p>
+<blockquote>
+<p><strong>Lab Question 10: (During-Lab)</strong> Demostrate to the lab professor or instructor that you are competent in generating a wave signal from the function generator and manually scaling (non-using auto scale) the display of an oscilloscope to view such signal.</p>
+</blockquote>
+</li>
+<li>
+<p>Turn off the function generator and disconnect the alligator clips.</p>
+</li>
+</ol>
+<p>Once you've completed all the above steps, ask the lab professor or instructor over and demostrate you've completed the lab and written down all your observation. You might be asked to explain some of the concepts you've learned in this lab.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.section", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

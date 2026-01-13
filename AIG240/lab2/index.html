@@ -1,0 +1,2236 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://seneca-bsa.github.io/lab-manual/AIG240/lab2/">
+      
+      
+        <link rel="prev" href="../lab1/">
+      
+      
+        <link rel="next" href="../lab3/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions - Lab Manuals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-2-ros-nodes-topics-services-parameters-actions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Lab Manuals" class="md-header__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lab Manuals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Lab Manuals" class="md-nav__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Lab Manuals
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Manuals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AIG240
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Introduction to ROS and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nodes-in-ros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nodes in ROS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#topics-in-ros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Topics in ROS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-in-ros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service in ROS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-in-ros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter in ROS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-ros-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding ROS Nodes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-ros-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding ROS Topics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-ros-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding ROS Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-ros-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding ROS Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: ROS Workspace, Package, Publisher, and Subscriber
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: Robot Model and Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: JetAuto Robot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 1 - Setting up ROS1 and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 2 - Moving JetAuto in Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 3 - Moving JetAuto in Real World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SEP600
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab-supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: FreeRTOS and MCUXpresso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2: Comparator and Digital I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: PWM and DAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: ADC and RTOS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Serial UART and I2C Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : LCD and Interrupt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SES250
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/instruction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Instructions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Project : RC Lowpass Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Electrostatics and Triboelectric Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 10: RLC Circuit Resonance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : Digital Multimeter, Power Supply, and Ohm's Law
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: Series and Parallel Resistive Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 : Kirchhoff's Laws
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Thévenin Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : Digital Storage Oscilloscope (DSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7 : Capacitor and RC Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 8 : RL Circuit and Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 9 : RC and RL Circuit in AC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Common
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../common/lab-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nodes-in-ros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nodes in ROS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#topics-in-ros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Topics in ROS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-in-ros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service in ROS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-in-ros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter in ROS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-ros-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding ROS Nodes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-ros-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding ROS Topics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-ros-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding ROS Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-ros-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding ROS Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+  
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Lab Manuals
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    AIG240
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="lab-2-ros-nodes-topics-services-parameters-actions">Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions</h1>
+<h2 id="introduction">Introduction</h2>
+<p>An overview of some computation graph concepts:</p>
+<ul>
+<li><strong>Node:</strong> an executable representing an individual ROS software process</li>
+<li><strong>Topic:</strong> nodes can publish messages to a topic and/or subscribe to a topic to receive messages</li>
+<li><strong>Message:</strong> a ROS datatype used to exchange data between nodes</li>
+</ul>
+<h3 id="nodes-in-ros">Nodes in ROS</h3>
+<p>Each node in ROS should be responsible for a single, modular purpose, i.e., controlling the wheel motors or publishing the sensor data from a laser range-finder. Each node can send and receive data from other nodes via topics, services, actions, or parameters. A full robotic system is composed of many nodes working in concert.</p>
+<p><img alt="Figure 2.1 ROS Nodes Graph" src="../lab2-nodes-graph.gif" /></p>
+<p><em><strong>Figure 2.1</strong> ROS Nodes Graph</em></p>
+<h3 id="topics-in-ros">Topics in ROS</h3>
+<p>ROS breaks complex systems down into many modular nodes. Topics are a vital element of the ROS graph that act as a bus for nodes to exchange messages.</p>
+<p><img alt="Figure 2.2 ROS Topic Graph" src="../lab2-topics-graph-1.gif" /></p>
+<p><em><strong>Figure 2.2</strong> ROS Topic Graph</em></p>
+<p>A node may publish data to any number of topics and simultaneously have subscriptions to any number of topics.</p>
+<p><img alt="Figure 2.3 ROS Topic Graph (One-to-Many)" src="../lab2-topics-graph-2.gif" /></p>
+<p><em><strong>Figure 2.3</strong> ROS Topic Graph (One-to-Many)</em></p>
+<p>Topics are one of the main ways in which data is moved between nodes and therefore between different parts of the system.</p>
+<h3 id="service-in-ros">Service in ROS</h3>
+<p>Services are another method of communication for nodes in the ROS graph. Services are based on a call-and-response model versus the publisher-subscriber model of topics. While topics allow nodes to subscribe to data streams and get continual updates, services only provide data when they are specifically called by a client.</p>
+<p><img alt="Figure 2.4 ROS Service Single Node" src="../lab2-service-1.gif" /></p>
+<p><em><strong>Figure 2.4</strong> ROS Service Single Node</em></p>
+<p><img alt="Figure 2.5 ROS Service Multiple Node" src="../lab2-service-2.gif" /></p>
+<p><em><strong>Figure 2.5</strong> ROS Service Multiple Node</em></p>
+<h3 id="parameter-in-ros">Parameter in ROS</h3>
+<p>A parameter is a configuration value of a node. You can think of parameters as node settings. A node can store parameters as integers, floats, booleans, strings, and lists. In ROS, each node maintains its own parameters.</p>
+<h2 id="procedures">Procedures</h2>
+<h3 id="understanding-ros-nodes">Understanding ROS Nodes</h3>
+<ol>
+<li>
+<p>Open a terminal to run ROS using <code>roscore</code> and <strong>another terminal</strong> to run turtlesim. The command <code>rosrun [package_name] [node_name]</code> launches an executable from a package. In our case, the package name is <code>turtlesim</code> and the executable name is <code>turtlesim_node</code>.</p>
+<p>First terminal:</p>
+<pre><code>roscore
+</code></pre>
+<p>Then, in a <strong>new terminal</strong>:</p>
+<pre><code>rosrun turtlesim turtlesim_node
+</code></pre>
+</li>
+<li>
+<p>To find the node names, the <code>rosnode list</code> command can be used. <code>rosnode list</code> will show you the names of all running nodes. This is especially useful when you want to interact with a node, or when you have a system running many nodes and need to keep track of them.</p>
+<p>Open a <strong>new terminal</strong> while <code>/rosout</code> and <code>/turtlesim</code> are still running and enter the following command:</p>
+<pre><code>rosnode list
+</code></pre>
+<p>The terminal will return the node name:</p>
+<pre><code>/rosout
+/turtlesim
+</code></pre>
+</li>
+<li>
+<p>Open another <strong>new terminal</strong> and start the <code>/turtle_teleop_key</code> node with the command:</p>
+<pre><code>rosrun turtlesim turtle_teleop_key
+</code></pre>
+</li>
+<li>
+<p>Return to the terminal where you ran <code>rosnode list</code> and run it again. You will now see the names of three active nodes:</p>
+<pre><code>/rosout
+/turtlesim
+/teleop_turtle
+</code></pre>
+</li>
+<li>
+<p><a href="https://wiki.ros.org/Remapping%20Arguments">Remapping</a> allows you to reassign default node properties, like node name, topic names, service names, etc., to custom values. Let’s open another <code>/turtlesim</code> node and reassign its name to <code>/my_turtle</code>. In a <strong>new terminal</strong>, run the following command:</p>
+<pre><code>rosrun turtlesim turtlesim_node __name:=my_turtle
+</code></pre>
+</li>
+<li>
+<p>Return to the terminal where you ran <code>rosnode list</code> and run it again. You will now see four nodes:</p>
+<pre><code>/my_turtle
+/rosout
+/turtlesim
+/teleop_turtle
+</code></pre>
+</li>
+<li>
+<p>To access more information about a node, use the <code>rosnode info [node_name]</code> command. To examine your latest node, <code>my_turtle</code>, run the following:</p>
+<pre><code>rosnode info /my_turtle
+</code></pre>
+<p><code>rosnode info</code> returns a list of subscribers, publishers, services, and actions (i.e., the ROS graph connections that interact with that node). The output should look like this:</p>
+<pre><code>--------------------------------------------------------------------------------
+Node [/my_turtle]
+Publications:
+ * /rosout [rosgraph_msgs/Log]
+ * /turtle1/color_sensor [turtlesim/Color]
+ * /turtle1/pose [turtlesim/Pose]
+
+Subscriptions:
+ * /turtle1/cmd_vel [geometry_msgs/Twist]
+
+Services:
+ * /clear
+ * /kill
+ * /my_turtle/get_loggers
+ * /my_turtle/set_logger_level
+ * /reset
+ * /spawn
+ * /turtle1/set_pen
+ * /turtle1/teleport_absolute
+ * /turtle1/teleport_relative
+</code></pre>
+</li>
+<li>
+<p>Run the same command on the <code>/teleop_turtle</code> node and see the difference.</p>
+<h3 id="understanding-ros-topics">Understanding ROS Topics</h3>
+</li>
+<li>
+<p>Close the <code>/my_turtle</code> terminal so only the <code>/roscore</code>, <code>/turtlesim</code>, and <code>/teleop_turtle</code> are open.</p>
+</li>
+<li>
+<p>We will use <code>rqt_graph</code> to visualize the changing nodes and topics, as well as the connections between them.</p>
+<p>Open a <strong>new terminal</strong> and enter the command:</p>
+<pre><code>rqt_graph
+</code></pre>
+<p>You can also open rqt_graph by opening <code>rqt</code> and selecting <strong>Plugins &gt; Introspection &gt; Node Graph</strong>.</p>
+<p><img alt="Figure 2.6 ROS rqt_graph" src="../lab2-rqt_graph.png" /></p>
+<p><em><strong>Figure 2.6</strong> ROS rqt_graph</em></p>
+<p>You should see the above nodes and topics, as well as two actions around the periphery of the graph (let’s ignore those for now). If you don't see the nodes and topics, click the refresh button.</p>
+<p>The graph shows how the <code>/turtlesim</code> node and the <code>/teleop_turtle</code> node are communicating with each other over a topic. The <code>/teleop_turtle</code> node is publishing data (the keystrokes you enter to move the turtle around) to the <code>/turtle1/cmd_vel</code> topic, and the <code>/turtlesim</code> node is subscribed to that topic to receive the data.</p>
+<p>The highlighting feature of <code>rqt_graph</code> is very helpful when examining more complex systems with many nodes and topics connected in many different ways. Click on one of the nodes or topics to try it out.</p>
+<p>While <code>rqt_graph</code> is a useful graphical introspection tool, we’ll look at some other command line tools for introspecting topics.</p>
+</li>
+<li>
+<p>Open <strong>another terminal</strong> and run the <code>rostopic list</code> command to return a list of all the topics currently active in the system:</p>
+<pre><code>/rosout
+/rosout_agg
+/statistics
+/turtle1/cmd_vel
+/turtle1/color_sensor
+/turtle1/pose
+</code></pre>
+</li>
+<li>
+<p>Running the command with the additional argument <code>rostopic list -v</code> will return more details on the topics with the topic type appended in brackets:</p>
+<pre><code>Published topics:
+ * /turtle1/color_sensor [turtlesim/Color] 2 publishers
+ * /turtle1/cmd_vel [geometry_msgs/Twist] 1 publisher
+ * /rosout [rosgraph_msgs/Log] 4 publishers
+ * /rosout_agg [rosgraph_msgs/Log] 1 publisher
+ * /turtle1/pose [turtlesim/Pose] 2 publishers
+
+Subscribed topics:
+ * /turtle1/cmd_vel [geometry_msgs/Twist] 2 subscribers
+ * /rosout [rosgraph_msgs/Log] 1 subscriber
+ * /statistics [rosgraph_msgs/TopicStatistics] 1 subscriber
+</code></pre>
+<p>These attributes, particularly the type, are how nodes know they’re talking about the same information as it moves over topics.</p>
+<p>If you’re wondering where all these topics are in <code>rqt_graph</code>, you can uncheck all the boxes under <strong>Hide</strong>:</p>
+<p><img alt="Figure 2.7 ROS rqt_graph with everything unhidden" src="../lab2-rqt_graph-unhide.png" /></p>
+<p><em><strong>Figure 2.7</strong> ROS rqt_graph with everything unhidden</em></p>
+</li>
+<li>
+<p>To see the data being published on a topic, use the command: <code>rostopic echo [topic]</code>.</p>
+<p>Since we know that <code>/teleop_turtle</code> publishes data to <code>/turtlesim</code> over the <code>/turtle1/cmd_vel</code> topic, let’s use <code>echo</code> to introspect that topic:</p>
+<pre><code>rostopic echo /turtle1/cmd_vel
+</code></pre>
+<p>Return to the terminal where <code>turtle_teleop_key</code> is running and use the arrow keys to move the turtle around. Watch the terminal where your <code>echo</code> is running at the same time, and you’ll see position data being published for every movement you make:</p>
+<pre><code>linear:
+  x: 2.0
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+</code></pre>
+</li>
+<li>
+<p>Return to <code>rqt_graph</code> and unhide the <strong>Debug</strong> box, hide everything else, then refresh.</p>
+<p><img alt="Figure 2.8 ROS rqt_graph with debug" src="../lab2-rqt_graph-debug.png" /></p>
+<p><em><strong>Figure 2.8</strong> ROS rqt_graph with debug node</em></p>
+<p>A new node <code>/rostopic_XXXXX</code> is created by the <code>echo</code> command we just ran (the number might be different). Now you can see that the publisher is publishing data over the <code>cmd_vel</code> topic, and two subscribers are subscribed to it (the two arrows with <code>/turtle1/cmd_vel</code>).</p>
+</li>
+<li>
+<p>Nodes send data over topics using messages. Publishers and subscribers must send and receive the same type of message to communicate. The topic types we saw earlier after running <code>rostopic list -v</code> let us know what message type is used on each topic. Recall that the <code>cmd_vel</code> topic has the type <code>geometry_msgs/Twist</code>. This means that in the package <code>geometry_msgs</code> there is a type called <code>Twist</code>. Alternatively, we can run <code>rostopic type [topic]</code> to see the topic type. We can also run <code>rosmsg show [msg type]</code> on the type to learn its details (specifically, what structure of data the message expects).</p>
+<p>Let's verify the topic type for <code>/turtle1/cmd_vel</code>:</p>
+<pre><code>rostopic type /turtle1/cmd_vel
+</code></pre>
+<p>You should get:</p>
+<pre><code>geometry_msgs/Twist
+</code></pre>
+<p>Look at the details of the message using <code>rosmsg</code>:</p>
+<pre><code>rosmsg show geometry_msgs/Twist
+</code></pre>
+<p>For the message type from above, you should see:</p>
+<pre><code>geometry_msgs/Vector3 linear
+  float64 x
+  float64 y
+  float64 z
+geometry_msgs/Vector3 angular
+  float64 x
+  float64 y
+  float64 z
+</code></pre>
+<p>This tells you that the <code>/turtlesim</code> node is expecting a message with two vectors, <code>linear</code> and <code>angular</code>, of three elements each. This is the data we saw <code>/teleop_turtle</code> passing to <code>/turtlesim</code> with the echo command earlier.</p>
+</li>
+<li>
+<p>Now that you have the message structure, you can publish data to a topic directly from the command line using: <code>rostopic pub [topic] [msg_type] [args]</code>. The <code>[args]</code> argument is the actual data you’ll pass to the topic, in the structure you just discovered in the previous section.</p>
+<p>It’s important to note that this argument needs to be input in YAML syntax. Input the full command like so:</p>
+<pre><code>rostopic pub -1 /turtle1/cmd_vel geometry_msgs/Twist -- '[2.0, 0.0, 0.0]' '[0.0, 0.0, 1.8]'
+</code></pre>
+<p>You will see your turtle move like so:</p>
+<p><img alt="Figure 2.9 The turtle starts moving in a circle" src="../lab2-turtle-circle.png" /></p>
+<p><em><strong>Figure 2.9</strong> The turtle starts moving in a circle</em></p>
+<p>This might seem like a pretty complicated example but it's actually not, so let's look at each argument in detail.</p>
+<ul>
+<li>
+<p>This command will publish messages to a given topic:</p>
+<pre><code>rostopic pub
+</code></pre>
+</li>
+<li>
+<p>This option (dash-one) causes <code>rostopic</code> to only publish one message then exit:</p>
+<pre><code>-1
+</code></pre>
+</li>
+<li>
+<p>This is the name of the topic to publish to:</p>
+<pre><code>/turtle1/cmd_vel
+</code></pre>
+</li>
+<li>
+<p>This is the message type to use when publishing to the topic:</p>
+<pre><code>geometry_msgs/Twist
+</code></pre>
+</li>
+<li>
+<p>This option (double-dash) tells the option parser that none of the following arguments is an option. This is required in cases where your arguments have a leading dash <code>-</code>, like negative numbers.</p>
+<pre><code>--
+</code></pre>
+</li>
+<li>
+<p>As noted before, a <code>geometry_msgs/Twist</code> msg has two vectors of three floating point elements each: <code>linear</code> and <code>angular</code>. In this case, <code>'[2.0, 0.0, 0.0]'</code> becomes the linear value with <code>x=2.0</code>, <code>y=0.0</code>, and <code>z=0.0</code>, and <code>'[0.0, 0.0, 1.8]'</code> is the angular value with <code>x=0.0</code>, <code>y=0.0</code>, and <code>z=1.8</code>. These arguments are actually in YAML syntax, which is described more in the <a href="https://wiki.ros.org/ROS/YAMLCommandLine">YAML command line documentation</a>.</p>
+<pre><code>'[2.0, 0.0, 0.0]' '[0.0, 0.0, 1.8]'
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>Continuously operating the turtle (and commonly a real robot which it is meant to emulate) requires a steady stream of commands. So, to get the turtle to keep moving, you can run:</p>
+<pre><code>rostopic pub /turtle1/cmd_vel geometry_msgs/Twist -r 1 -- '[2.0, 0.0, 0.0]' '[0.0, 0.0, -1.8]'
+</code></pre>
+<p>The difference here is the removal of the <code>-1</code> (for <code>--once</code>) option and the addition of the <code>-r 1</code> (for <code>--rate 1</code>) option, which tells <code>rostopic pub</code> to publish the command in a steady stream at 1 Hz.</p>
+<p><img alt="Figure 2.10 The turtle moving in a circle" src="../lab2-turtle-circle-full.png" /></p>
+<p><em><strong>Figure 2.10</strong> The turtle moving in a circle</em></p>
+</li>
+<li>
+<p>Refresh <code>rqt_graph</code> to see what’s happening graphically. You will see a new <code>rostopic pub ...</code> node (<code>/rostopic_3330</code> in the figure) is publishing over the <code>/turtle1/cmd_vel</code> topic, which is being received by both the <code>rostopic echo ...</code> node (<code>/rostopic_3663</code> in the figure) and the <code>/turtlesim</code> node now.</p>
+<p><img alt="Figure 2.11 ROS rqt_graph of turtle moving in a circle" src="../lab2-turtle-circle-graph.png" /></p>
+<p><em><strong>Figure 2.11</strong> ROS rqt_graph of turtle moving in a circle</em></p>
+</li>
+<li>
+<p>Next, in a new terminal, run <code>echo</code> on the <code>pose</code> topic and recheck <code>rqt_graph</code>:</p>
+<pre><code>rostopic echo /turtle1/pose
+</code></pre>
+<p><img alt="Figure 2.12 ROS rqt_graph of turtle moving in a circle with pose" src="../lab2-turtle-circle-graph-pose.png" /></p>
+<p><em><strong>Figure 2.12</strong> ROS rqt_graph of turtle moving in a circle with pose</em></p>
+<p>You can see that the <code>/turtlesim</code> node is also publishing to the <code>pose</code> topic, which the new echo node has subscribed to.</p>
+</li>
+</ol>
+<h3 id="understanding-ros-services">Understanding ROS Services</h3>
+<ol>
+<li>
+<p>Leave the <code>roscore</code>, <code>rosrun turtlesim turtlesim_node</code> and <code>rosrun turtlesim turtle_teleop_key</code> terminals open and close all the other terminals.</p>
+</li>
+<li>
+<p>Open a <strong>new terminal</strong> and run the <code>rosservice list</code> command to return a list of all the services currently active in the system:</p>
+<pre><code>/clear
+/kill
+/reset
+/rosout/get_loggers
+/rosout/set_logger_level
+/spawn
+/teleop_turtle/get_loggers
+/teleop_turtle/set_logger_level
+/turtle1/set_pen
+/turtle1/teleport_absolute
+/turtle1/teleport_relative
+/turtlesim/get_loggers
+/turtlesim/set_logger_level
+</code></pre>
+<p>Let's look more closely at the turtlesim-specific services: <code>/clear</code>, <code>/kill</code>, <code>/reset</code>, <code>/spawn</code>, <code>/turtle1/set_pen</code>, <code>/turtle1/teleport_absolute</code>, and <code>/turtle1/teleport_relative</code>. You may recall interacting with some of these services using rqt.</p>
+</li>
+<li>
+<p>Services have types that describe how the request and response data of a service is structured. Service types are defined similarly to topic types, except service types have two parts: one message for the request and another for the response. To find out the type of a service, use the command: <code>rosservice type [service]</code>.</p>
+<p>Let’s take a look at turtlesim’s <code>/clear</code> service. In a new terminal, enter the command:</p>
+<pre><code>rosservice type /clear
+</code></pre>
+<p>Which should return:</p>
+<pre><code>std_srvs/Empty
+</code></pre>
+<p>The <code>std_srvs/Empty</code> type means the service call sends no data when making a request and receives no data when receiving a response.</p>
+</li>
+<li>
+<p>If you want to find all the services of a specific type, you can use the command: <code>rosservice find [type_name]</code>. For example, you can find all the <code>Empty</code> typed services like this:</p>
+<pre><code>rosservice find std_srvs/Empty
+</code></pre>
+<p>Which will return:</p>
+<pre><code>/clear
+/reset
+</code></pre>
+</li>
+<li>
+<p>You can call services from the command line, but first you need to know the structure of the input arguments by using <code>rossrv show [type_name]</code>. Try this on the <code>/clear</code> service’s type, <code>std_srvs/Empty</code>:</p>
+<pre><code>rossrv show std_srvs/Empty
+</code></pre>
+<p>Which will return:</p>
+<pre><code>---
+</code></pre>
+<p>The <code>---</code> separates the request structure (above) from the response structure (below). But, as you learned earlier, the <code>std_srvs/Empty</code> type doesn’t send or receive any data. So, naturally, its structure is blank.</p>
+</li>
+<li>
+<p>Let’s introspect a service with a type that sends and receives data, like <code>/spawn</code>. From the results of <code>rosservice type /spawn</code>, we know <code>/spawn</code>’s type is <code>turtlesim/Spawn</code>.</p>
+<p>To see the request and response arguments of the <code>/spawn</code> service, we can pass the return value of the <code>rosservice</code> command to the <code>rossrv</code> command by running the command:</p>
+<pre><code>rosservice type /spawn | rossrv show
+</code></pre>
+<p>Which will return:</p>
+<pre><code>float32 x
+float32 y
+float32 theta
+string name
+---
+string name
+</code></pre>
+<p>The information above the <code>---</code> line tells us the arguments needed to call <code>/spawn</code>. <code>x</code>, <code>y</code> and <code>theta</code> determine the 2D pose of the spawned turtle, and <code>name</code> is optional.</p>
+<p>The information below the <code>---</code> line isn’t something you need to know in this case, but it can help you understand the data type of the response you get from the call.</p>
+</li>
+<li>
+<p>Now that you know what a service type is, how to find a service’s type, and how to find the structure of that type’s arguments, you can call a service using: <code>rosservice call [service_name] [service_type] [arguments]</code>. The <code>[arguments]</code> part is optional. For example, you know that <code>Empty</code> typed services don’t have any arguments:</p>
+<pre><code>rosservice call /clear
+</code></pre>
+<p>This command will clear the turtlesim window of any lines your turtle has drawn.</p>
+<p><img alt="Figure 2.13 Turtlesim with line" src="../lab2-turtlesim-with-line.png" /></p>
+<p><em><strong>Figure 2.13</strong> Turtlesim with line</em></p>
+<p><img alt="Figure 2.14 Turtlesim cleared" src="../lab2-turtlesim-cleared.png" /></p>
+<p><em><strong>Figure 2.14</strong> Turtlesim cleared</em></p>
+</li>
+<li>
+<p>Now, let’s spawn a new turtle by calling <code>/spawn</code> and setting the arguments. All input <code>[arguments]</code> in a service call from the command-line need to be in <a href="https://en.wikipedia.org/wiki/YAML">YAML</a> syntax. Enter the command:</p>
+<pre><code>rosservice call /spawn 2 2 0.2 ""
+</code></pre>
+<p>You will get this service response:</p>
+<pre><code>name: turtle2
+</code></pre>
+<p>Your turtlesim window will update with the newly spawned turtle right away:</p>
+<p><img alt="Figure 2.15 Turtlesim Spawn" src="../lab2-turtlesim-spawn.png" /></p>
+<p><em><strong>Figure 2.15</strong> Turtlesim Spawn</em></p>
+</li>
+</ol>
+<h3 id="understanding-ros-parameters">Understanding ROS Parameters</h3>
+<ol>
+<li>
+<p><code>rosparam</code> allows you to store and manipulate data on the ROS <a href="https://wiki.ros.org/Parameter%20Server">Parameter Server</a>. The Parameter Server can store integers, floats, booleans, dictionaries, and lists. rosparam uses the YAML markup language for syntax. In simple cases, YAML looks very natural: 1 is an integer, 1.0 is a float, one is a string, true is a boolean, [1, 2, 3] is a list of integers, and {a: b, c: d} is a dictionary. <code>rosparam</code> has many commands that can be used on parameters, as shown below:</p>
+<p>Usage:</p>
+<pre><code>rosparam set            - set parameter
+rosparam get            - get parameter
+rosparam load           - load parameters from file
+rosparam dump           - dump parameters to file
+rosparam delete         - delete parameter
+rosparam list           - list parameter names
+</code></pre>
+</li>
+<li>
+<p>To see the parameters belonging to your nodes, enter the command:</p>
+<pre><code>rosparam list
+</code></pre>
+<p>You will see the node namespaces, <code>/teleop_turtle</code> and <code>/turtlesim</code>, followed by each node’s parameters:</p>
+<pre><code>/rosdistro
+/roslaunch/uris/host_ubuntu_18__37467
+/rosversion
+/run_id
+/turtlesim/background_b
+/turtlesim/background_g
+/turtlesim/background_r
+</code></pre>
+<p>Based on their names, it looks like <code>/turtlesim</code>’s parameters determine the background color of the turtlesim window using RGB color values.</p>
+</li>
+<li>
+<p>To display the type and current value of a parameter, use the command: <code>rosparam get [param_name]</code>. Let’s find out the current value of <code>/turtlesim</code>’s parameter <code>background_g</code>:</p>
+<pre><code>rosparam get /turtlesim/background_g
+</code></pre>
+<p>Which will return the value:</p>
+<pre><code>86
+</code></pre>
+<p>Now you know <code>background_g</code> holds an integer value. If you run the same command on <code>background_r</code> and <code>background_b</code>, you will get the values <code>69</code> and <code>255</code>, respectively.</p>
+</li>
+<li>
+<p>To change a parameter’s value at runtime, use the command: <code>rosparam set [param_name]</code>. Let’s change <code>/turtlesim</code>’s background color:</p>
+<pre><code>rosparam set /turtlesim/background_r 150
+</code></pre>
+<p>This changed the parameter value, but we have to call the <code>/clear</code> service for the parameter change to take effect:</p>
+<pre><code>rosservice call /clear
+</code></pre>
+<p>The background of your turtlesim window should change its color.</p>
+<p><img alt="Figure 2.16 Turtlesim Purple" src="../lab2-turtlesim-purple.png" /></p>
+<p><em><strong>Figure 2.16</strong> Turtlesim Purple</em></p>
+</li>
+</ol>
+<h2 id="lab-exercise">Lab Exercise</h2>
+<ol>
+<li>Use the command line to change the background of <code>turtlesim</code> to orange or cyan.</li>
+<li>Use the command line to spawn another turtle into <code>turtlesim</code>.</li>
+<li>Use the command line (not <code>teleop_key</code>) to control the first turtle to move in a large circle in the clockwise direction continuously.</li>
+<li>
+<p>While the first turtle is moving, use the command line (not <code>teleop_key</code>) to control the second turtle to move in a smaller circle in the counter-clockwise direction for only about a full circle.</p>
+<p><strong>Hint:</strong> you can use ubuntu's <code>timeout</code> command.</p>
+</li>
+</ol>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://wiki.ros.org/ROS/Tutorials">ROS Tutorials</a></li>
+<li>EECS 106A Labs</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.section", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

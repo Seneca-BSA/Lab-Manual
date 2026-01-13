@@ -1,0 +1,1908 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://seneca-bsa.github.io/lab-manual/AIG240/lab5/">
+      
+      
+        <link rel="prev" href="../lab4/">
+      
+      
+        <link rel="next" href="../project1/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Lab 5: JetAuto Robot - Lab Manuals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-5-jetauto-robot" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Lab Manuals" class="md-header__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lab Manuals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 5: JetAuto Robot
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Lab Manuals" class="md-nav__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Lab Manuals
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Manuals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AIG240
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Introduction to ROS and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: ROS Workspace, Package, Publisher, and Subscriber
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: Robot Model and Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: JetAuto Robot
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: JetAuto Robot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jetauto-robot-inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetAuto Robot Inspection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh-into-the-jetauto-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSH into the JetAuto Robot
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SSH into the JetAuto Robot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-2-usb-connection-with-the-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 2: USB connection with the robot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remote-desktop-into-the-jetauto-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote Desktop into the JetAuto Robot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jetauto-robot-movement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetAuto Robot Movement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-question" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Question
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 1 - Setting up ROS1 and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 2 - Moving JetAuto in Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 3 - Moving JetAuto in Real World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SEP600
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab-supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: FreeRTOS and MCUXpresso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2: Comparator and Digital I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: PWM and DAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: ADC and RTOS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Serial UART and I2C Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : LCD and Interrupt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SES250
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/instruction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Instructions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Project : RC Lowpass Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Electrostatics and Triboelectric Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 10: RLC Circuit Resonance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : Digital Multimeter, Power Supply, and Ohm's Law
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: Series and Parallel Resistive Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 : Kirchhoff's Laws
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Thévenin Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : Digital Storage Oscilloscope (DSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7 : Capacitor and RC Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 8 : RL Circuit and Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 9 : RC and RL Circuit in AC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Common
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../common/lab-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jetauto-robot-inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetAuto Robot Inspection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh-into-the-jetauto-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSH into the JetAuto Robot
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SSH into the JetAuto Robot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-2-usb-connection-with-the-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 2: USB connection with the robot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remote-desktop-into-the-jetauto-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote Desktop into the JetAuto Robot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jetauto-robot-movement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetAuto Robot Movement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-question" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Question
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+  
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Lab Manuals
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    AIG240
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="lab-5-jetauto-robot">Lab 5: JetAuto Robot</h1>
+<h2 id="procedures">Procedures</h2>
+<h3 id="jetauto-robot-inspection">JetAuto Robot Inspection</h3>
+<p>The robot we are using for this course is the JetAuto Pro, assembled in the configuration below:</p>
+<p><img alt="Figure 5.2 JetAuto Pro" src="../lab5-jetauto-pro.png" /></p>
+<p><em><strong>Figure 4.2</strong> JetAuto Pro</em></p>
+<ol>
+<li>
+<p>Before using the JetAuto robot, read the following and inspect your robot according to the:</p>
+<ul>
+<li><a href="../JetAuto-User-Manual.pdf">JetAuto User Manual</a><ul>
+<li>Page 01: Guide to Battery Safety</li>
+<li>Page 03: JetAuto Pro Standard Kit Packing List</li>
+<li>Page 04-09: Installation Instructions (except for 1.4 LCD)<ul>
+<li>Check all nuts and bolts to confirm installation and security</li>
+</ul>
+</li>
+<li>Page 10-11: Charging and Starting the Robot</li>
+</ul>
+</li>
+</ul>
+<p>We will NOT be using the smartphone app for controlling the robot.</p>
+<p><strong>NOTE:</strong> All the cables, nuts, and bolts are already installed. You are to <strong>validate</strong> that they are not missing or loose.</p>
+<h3 id="ssh-into-the-jetauto-robot">SSH into the JetAuto Robot</h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Copy these lab instructions somewhere on your computer, as you'll lose connection to the internet once connected to the robot!</p>
+</div>
+</li>
+<li>
+<p>By default, the JetAuto is configured to be in Wi-Fi AP mode. Power on the robot and connect to the robot's Wi-Fi (starting with "HW-"). If you are unsure of which Wi-Fi SSID your robot is broadcasting, open the "Tool" application on the robot and look for the AP name in the settings. Do NOT change any of the default settings.</p>
+<div class="admonition note">
+<p class="admonition-title">Wi-Fi Password</p>
+<p>The password for the Wi-Fi connection is: <strong>hiwonder</strong></p>
+</div>
+<p>Remember, the Wi-Fi AP from the JetAuto has no access to the internet, so it is normal to see "No Internet" or a similar warning when connecting to it.</p>
+</li>
+<li>
+<p>If your robot is making a high-pitched beeping sound, that means the battery voltage is low. Plugging the robot into its charger should solve the problem. However, if the battery hasn't been charged for a while, you might need to leave the robot off and charge it for 10-15 minutes before powering it on.</p>
+</li>
+<li>
+<p>Once connected, use the terminal (or PuTTY) to SSH into the robot at "192.168.149.1".</p>
+<pre><code>ssh jetauto@192.168.149.1
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">JetAuto User and Password</p>
+<ul>
+<li>User is: <strong>jetauto</strong></li>
+<li>Password is: <strong>hiwonder</strong></li>
+</ul>
+</div>
+<h4 id="option-2-usb-connection-with-the-robot">Option 2: USB connection with the robot</h4>
+<ol>
+<li>
+<p>It is also possible to connect to the robot via USB using the Jetson Nano's micro-B USB port if you do not want to lose your internet connection. However, you will only be able to use the command line interface with this method.</p>
+</li>
+<li>
+<p>Use <code>screen</code> or a similar serial terminal application to connect with the robot.</p>
+<pre><code>sudo apt-get install -y screen
+sudo screen /dev/ttyACM0 115200
+</code></pre>
+<p><strong>NOTE:</strong> The port name may vary depending on your USB connection.</p>
+</li>
+</ol>
+<h3 id="remote-desktop-into-the-jetauto-robot">Remote Desktop into the JetAuto Robot</h3>
+</li>
+<li>
+<p>Disconnect your computer from the JetAuto robot and re-connect to the internet to <a href="https://downloads.nomachine.com/everybody/">Download and Install NoMachine</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Only install NoMachine within your virtual machine</p>
+<p>NoMachine is a tool that allows for remote desktop and access. It is a powerful tool that is pre-installed on the JetAuto image, but use it with caution as it will also automatically create and start a remote access server after installation and open up your machine for remote connection.</p>
+<p>For security reasons, do <strong>NOT</strong> install NoMachine on your host computer, and stop the NoMachine server after your installation.</p>
+</div>
+</li>
+<li>
+<p>After installing NoMachine, reconnect to JetAuto's Wi-Fi AP, and you should be able to search for the JetAuto robot from NoMachine.</p>
+<p>Once you are connected to the robot, the credentials are the same as the SSH login above.</p>
+</li>
+<li>
+<p>Now that you have two methods for connecting to the JetAuto robot, you may use either one to control the robot. Keep in mind that the SSH method runs off your virtual machine and connects to JetAuto using the command line, whereas NoMachine connects to the JetAuto robot's actual desktop (remote desktop). The NoMachine GUI requires more connection bandwidth, but tools such as RViz will not work on the command line interface.</p>
+</li>
+<li>
+<p>To conserve battery life, once you've connected to your robot, you may unplug the LCD screen. However, remember that the LCD screen must be plugged in during power ON in order for the robot to detect it and display the desktop.</p>
+<div class="admonition info">
+<p class="admonition-title">The LCD screen must be plugged in during power ON in order for the robot to detect it for displaying the desktop!</p>
+</div>
+<h3 id="jetauto-robot-movement">JetAuto Robot Movement</h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<ol>
+<li>Ensure the battery charging cable is UNPLUGGED and all cables on the robot are secure.</li>
+<li>Ensure all structures, nuts, and bolts on the robot are tightly fastened.</li>
+<li>Ensure the robot is on the ground and away from any obstacles.</li>
+</ol>
+</div>
+</li>
+<li>
+<p>In a terminal that's connected to the JetAuto robot using SSH, or in JetAuto's terminal using remote desktop, stop the app service and then start the <code>jetauto_controller</code> service:</p>
+<p>Stop the app service for Android or iOS connection:</p>
+<pre><code>sudo systemctl stop start_app_node.service
+</code></pre>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>You must stop this service every time you want to control the robot using your own script through ROS because the JetAuto robot automatically starts an App service to allow for control using an Android or iOS application.</p>
+</div>
+<p>Launch the robot controller for controlling the robot's hardware.</p>
+<pre><code>roslaunch jetauto_controller jetauto_controller.launch
+</code></pre>
+</li>
+<li>
+<p>After the controller service has started, we can start publishing move commands as Twist messages to the motion controller (similar to what we did in Lab 4).</p>
+<div class="admonition danger">
+<p class="admonition-title">Place the robot on the ground</p>
+<p>Place the robot on the ground to prevent damage and injury.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">You must issue a stop command for the robot to stop</p>
+<p>Before publishing a command to the robot, remember you must issue a stop command for the robot to stop.</p>
+</div>
+<p>Let's issue the stop command first so you can recall it faster.</p>
+<pre><code>rostopic pub -1 /jetauto_controller/cmd_vel geometry_msgs/Twist '{linear: {x: 0.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}'
+</code></pre>
+<p>Your robot should not do anything. Issue the stop command again by pressing the up arrow key to view the previous command, then hit Enter.</p>
+</li>
+<li>
+<p>Place the robot on the ground and be ready to issue the stop command immediately after issuing the move command that moves the robot in the x-direction (forward) at 0.3 m/s, <code>x: 0.3</code>:</p>
+<pre><code>rostopic pub -1 /jetauto_controller/cmd_vel geometry_msgs/Twist '{linear: {x: 0.1, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}'
+</code></pre>
+<p>Your robot should now start moving. Stop the robot by issuing (or pressing the up arrow twice):</p>
+<pre><code>rostopic pub -1 /jetauto_controller/cmd_vel geometry_msgs/Twist '{linear: {x: 0.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}'
+</code></pre>
+<div class="admonition danger">
+<p class="admonition-title">DO NOT set the linear movement value above 0.7 and angular movement value above 3.5</p>
+<p>DO NOT set the movement value above 0.7 m/s and angular movement value above 1.0 rad/s to keep the robot within its control limit.</p>
+</div>
+<p>The linear values refer to the translation speed of the robot. Positive X is forward and positive Y is left. There is no Z-direction for this robot. Do not exceed 0.7 m/s.</p>
+<p>The angular values refer to the rotation speed of the robot. Only Z-rotation is considered, with positive values as counter-clockwise. Do not exceed 1.0 rad/s.</p>
+</li>
+<li>
+<p>Next, try using the controller you created in Lab 4 to control the robot by copying your Lab 4 workspace (<code>lab4_jetauto_control</code>) over to the home directory on the JetAuto robot. You do NOT need to copy the <code>jetauto_ws</code> workspace as it's already on the JetAuto robot. You may use SSH, SFTP, WinSCP, or any file transfer method.</p>
+</li>
+<li>
+<p>Once your new workspace is on the JetAuto robot, source it the same way as you've done in Lab 3 and Lab 4. Afterward, you'll be able to run the script just like you ran it on Gazebo.</p>
+</li>
+</ol>
+<h2 id="lab-question">Lab Question</h2>
+<ol>
+<li>Using the code from Project 2, modify it so the JetAuto robot will move in a real-world roughly 1-meter square pattern as shown below. Remember, you'll be implementing it on the physical JetAuto robot, so the dynamics will not be the same (i.e., your robot will under- or overshoot the movement).</li>
+</ol>
+<p><img alt="Figure 1 Square Movement Pattern" src="../lab4-task.png" /></p>
+<p><em><strong>Figure 1</strong> Square Movement Pattern</em></p>
+<p>Start:</p>
+<ol>
+<li>Move forward from (0, 0, 0°) to (1, 0, 0°) facing the direction of travel; then</li>
+<li>Move sideways to the left from (1, 0, 0°) to (1, 1, 0°) without turning, so the robot is facing the outside of the square; then</li>
+<li>Turn clockwise from (1, 1, 0°) to (1, 1, -90°) to face into the square; then</li>
+<li>Move sideways to the right from (1, 1, -90°) to (0, 1, -90°) facing the inside of the square; then</li>
+<li>Move forward and turn from (0, 1, -90°) to (0, 0, 0°) by rotating the robot while traveling.<ol>
+<li>(Easy option, max grade 80%) Move the robot forward, then turn once it reaches the start point.</li>
+</ol>
+</li>
+</ol>
+<p>Repeat this twice after a start command (such as a keyboard input) is given.</p>
+<p>For example: when you run <code>rosrun lab4_jetauto_control jetauto_control</code>, it should ask for an input before performing the above action.</p>
+<p><strong>Hint:</strong> You can follow the same approach as Lab 3 by creating a new package called <code>lab4_jetauto_control</code> in your <code>ros_ws</code>.</p>
+<pre><code>catkin_create_pkg lab4_jetauto_control rospy geometry_msgs
+</code></pre>
+<p>Refer to the <code>teleop_key_control.py</code> controller you used in <a href="../lab4/">Lab 4</a> for instructions on how to publish to the JetAuto nodes.</p>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://wiki.ros.org/ROS/Tutorials">ROS Tutorials</a></li>
+<li><a href="../JetAuto-User-Manual.pdf">JetAuto User Manual</a></li>
+<li>EECS 106A Labs</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.section", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

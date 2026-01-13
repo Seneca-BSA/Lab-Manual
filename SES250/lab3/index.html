@@ -1,0 +1,2175 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://seneca-bsa.github.io/lab-manual/SES250/lab3/">
+      
+      
+        <link rel="prev" href="../lab2/">
+      
+      
+        <link rel="next" href="../lab4/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Lab 3: Series and Parallel Resistive Circuit - Lab Manuals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-3-series-and-parallel-resistive-circuit" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Lab Manuals" class="md-header__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lab Manuals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 3: Series and Parallel Resistive Circuit
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Lab Manuals" class="md-nav__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Lab Manuals
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Manuals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AIG240
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Introduction to ROS and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: ROS Workspace, Package, Publisher, and Subscriber
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: Robot Model and Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: JetAuto Robot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 1 - Setting up ROS1 and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 2 - Moving JetAuto in Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 3 - Moving JetAuto in Real World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SEP600
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab-supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: FreeRTOS and MCUXpresso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2: Comparator and Digital I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: PWM and DAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: ADC and RTOS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Serial UART and I2C Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : LCD and Interrupt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SES250
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../instruction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Instructions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Project : RC Lowpass Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Electrostatics and Triboelectric Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 10: RLC Circuit Resonance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : Digital Multimeter, Power Supply, and Ohm's Law
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: Series and Parallel Resistive Circuit
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: Series and Parallel Resistive Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purposes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purposes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-rules-for-this-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Rules for this Lab
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#voltage-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voltage Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#current-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resistance-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resistance Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tinkercad-breadboard-simulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TinkerCAD Breadboard Simulator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Materials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-1-resistance-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1: Resistance Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-2-voltage-and-current-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2: Voltage and Current Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-3-series-and-parallel-resistive-circuit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 3: Series and Parallel Resistive Circuit
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 : Kirchhoff's Laws
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Thévenin Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : Digital Storage Oscilloscope (DSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7 : Capacitor and RC Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 8 : RL Circuit and Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 9 : RC and RL Circuit in AC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Common
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../common/lab-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purposes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purposes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-rules-for-this-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Rules for this Lab
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#voltage-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voltage Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#current-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resistance-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resistance Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tinkercad-breadboard-simulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TinkerCAD Breadboard Simulator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Materials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-1-resistance-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1: Resistance Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-2-voltage-and-current-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2: Voltage and Current Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-3-series-and-parallel-resistive-circuit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 3: Series and Parallel Resistive Circuit
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+  
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Lab Manuals
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    SES250
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="lab-3-series-and-parallel-resistive-circuit">Lab 3: Series and Parallel Resistive Circuit</h1>
+<p><font size="5">
+Seneca Polytechnic</br>
+SES250 Electromagnetics
+</font></p>
+<h2 id="purposes">Purposes</h2>
+<ul>
+<li>To become familiar with measurement techniques for direct current (DC)</li>
+<li>To study the relationship between voltage, resistance, and current</li>
+<li>To verify Ohm's Law</li>
+</ul>
+<h2 id="objectives">Objectives</h2>
+<ul>
+<li>Assemble electronic components onto a breadboard</li>
+<li>Measure voltage and current from a breadboard using a digital multimeter (DMM)</li>
+</ul>
+<h2 id="important-rules-for-this-lab">Important Rules for this Lab</h2>
+<div style="padding: 15px; border: 1px solid orange; background-color: orange; color: black;">
+<ol>
+<li>Any signal (voltage, current) must be adjusted to the specified value (amplitude and/or frequency) <strong>before</strong> applying them to a circuit.</li>
+<li>An instrument must be set up for the required mode of operation <strong>before</strong> it is connected to a circuit.</li>
+<li>The power supply must be switched off <strong>before</strong> making any changes to the circuit.</li>
+</ol>
+</div>
+
+<h2 id="description">Description</h2>
+<p>If you don't remember how to operate the DMM and read the resistor color band, refer to the description section of <a href="../lab2/">Lab 2</a>.</p>
+<h3 id="voltage-measurement">Voltage Measurement</h3>
+<p>In Lab 2, we used the DMM as a voltmeter to measure voltage (or the potential difference) across two nodes in a circuit. When measuring voltage, the DMM is connected in <strong><em>parallel</em></strong> with the circuit, as shown in Figure 2.14a from <a href="../lab2/">Lab 2</a>. An ideal voltmeter has infinite resistance, so energy will not be dissipated by the test equipment. In practice, the internal resistance of a voltmeter is in the MΩ range.</p>
+<p>Reference Video: <a href="https://youtu.be/z1FmB-j7_MA">How to Use A KEYSIGHT E34461A DMM to Measure Voltage</a></p>
+<h3 id="current-measurement">Current Measurement</h3>
+<p>Most modern DMMs are capable of being used as an ammeter for measuring current through a circuit. Differing from voltage measurement, current measurement is made by connecting the DMM in <strong><em>series</em></strong> with the circuit, as shown in Figure 3.1. An ideal ammeter has zero resistance, so energy will not be dissipated by the test equipment. In practice, the internal resistance of a voltmeter is in the Ω range.</p>
+<p><img alt="Figure 3.1" src="../lab3-current-circuit.png" /></p>
+<p><strong><em>Figure 3.1</em> Current Measuring Circuit</strong></p>
+<p>Reference Video: <a href="https://youtu.be/VoejUrgtZMo">How to Use A KEYSIGHT E34461A DMM to Measure Current</a></p>
+<h3 id="resistance-measurement">Resistance Measurement</h3>
+<p>Most modern DMMs are also capable of measuring the resistance through a circuit. This feature, however, is most often used to measure the resistance of a single resistor. To measure resistance, put the DMM in resistance measuring mode, then connect the DMM in <strong><em>parallel</em></strong> with the circuit.</p>
+<p>Reference Video: <a href="https://youtu.be/CGlQ2-TJ5EY">How to Use A KEYSIGHT E34461A DMM to Measure Resistance</a></p>
+<h3 id="tinkercad-breadboard-simulator">TinkerCAD Breadboard Simulator</h3>
+<p>There are many breadboard simulators available online. In particular, <a href="https://www.tinkercad.com/">TinkerCAD Circuit</a> is a nice tool that you can use to practice assembling a circuit with a virtual breadboard. See the diagram below as an example. Use this tool to help you prepare for this and future labs.</p>
+<p><img alt="Figure 3.2" src="../lab3-tinkercad-1.png" /></p>
+<p><strong><em>Figure 3.2</em> TinkerCAD Circuit Simulation Tool</strong></p>
+<h2 id="materials">Materials</h2>
+<ul>
+<li>Safety glasses (PPE)</li>
+<li><a href="../supplies/">Lab Supplies</a><ul>
+<li>Breadboard</li>
+<li>Jumper Wires</li>
+<li>1kΩ Resistor (brown-black-red)</li>
+<li>10kΩ Resistor (brown-black-orange)</li>
+</ul>
+</li>
+</ul>
+<h2 id="preparation">Preparation</h2>
+<blockquote>
+<p><strong>Lab Preparation Question:</strong></p>
+<ol>
+<li>Read and summarize the lab as necessary.</li>
+<li>
+<p>Copy two (2x) of the following Table 1 into your notebook for this lab:</p>
+<blockquote>
+<p><strong>Table 1:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Resistor #</th>
+<th>First Band</th>
+<th>Second Band</th>
+<th>Multiplier</th>
+<th>Nominal Ω</th>
+<th>Measured Ω</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Colour</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Total</td>
+<td></td>
+</tr>
+<tr>
+<td>Value</td>
+<td></td>
+<td></td>
+<td>x 10 ^</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+<li>
+<p>Sketch the breadboard layout below in your notebook and then draw how the components (voltage source, resistor, voltmeter, and ammeter) will be connected on the breadboard according to the circuit in Figures 3.5, 3.6, and 3.7 (Three breadboard diagram in total). Clearly show which tie points the wire, resistor, DMM, and power supply should be attached to. Use <a href="https://www.tinkercad.com/">TinkerCAD Circuit</a> to help with your understanding of breadboard and component wiring. You may also simulate all the steps as preparation for the lab. Refer to <a href="../lab2/">Lab 2</a> Figure 2.13 for a breadboard diagram example.</p>
+<blockquote>
+<p><img alt="Breadboard Sketch" src="../lab2-breadboard-sketch.png" /></p>
+</blockquote>
+</li>
+<li>
+<p>Copy the table in Lab Questions 3, 4, and 5 into your notebook.</p>
+</li>
+<li>Calculate the theoretical reading of the voltmeter and ammeter for the circuit in Figures 3.6 and 3.7 at supply voltages of 1V, 2V, 5V, and 10V. </li>
+</ol>
+</blockquote>
+<h2 id="procedures">Procedures</h2>
+<h3 id="part-1-resistance-measurement">Part 1: Resistance Measurement</h3>
+<ol>
+<li>
+<p>Take out a 1kΩ resistor and a 10kΩ resistor from your lab kit.</p>
+<blockquote>
+<p><strong>Lab Question 1:</strong> Write down the color code of each resistor then determine their resistance value using the resistor color chart in <a href="../lab2/">Lab 2</a>. Use the table below to help you determine the resistance value of each resistor. Leave the "Measured Ω" blank.</p>
+<p><strong>Example:</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>1st Band</th>
+<th>2nd Band</th>
+<th>Multiplier</th>
+<th>Nominal Ω</th>
+<th>Measured Ω</th>
+<th>% Error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Colour</td>
+<td>Brown</td>
+<td>Black</td>
+<td>Red</td>
+<td>Total</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Value</td>
+<td>1</td>
+<td>0</td>
+<td>x 10 ^ 2</td>
+<td>1 kΩ</td>
+<td>1.013 kΩ</td>
+<td>1.3%</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+<li>
+<p>Turn on one of the DMMs at your workbench and set it to the “Ω 2W” (1) resistance measurement mode. Ensure the banana plugs are connected to the resistance input terminals as shown in Figure 3.3 (2)(3).</p>
+<p><img alt="Figure 3.3 DMM Resistance Mode" src="../lab3-dmm-resistance.png" /></p>
+<p><strong><em>Figure 3.3</em> DMM Resistance Mode</strong></p>
+</li>
+<li>
+<p>Connect the red alligator clip of the DMM to one lead of a resistor and the black alligator clip to the other lead of the resistor.</p>
+<blockquote>
+<p><strong>Lab Question 2:</strong> Write down the measured resistance (at least 3 significant figures) in the "Measured Ω" column of the table you created in the pre-lab. Does this value agree with the nominal resistor value according to the color band? What is the % error? Is the error within the tolerance of the resistor (indicated by the tolerance band)?</p>
+</blockquote>
+</li>
+<li>
+<p>Repeat step 3 for the second resistor, then disconnect the DMM from the resistor.</p>
+</li>
+</ol>
+<h3 id="part-2-voltage-and-current-measurement">Part 2: Voltage and Current Measurement</h3>
+<ol>
+<li>
+<p>Ensure the DC power supply is OFF. Locate its red and black cables, then attach jumper wires to the alligator clips as shown in Figure 2.12 from <a href="../lab2/">Lab 2</a>.</p>
+</li>
+<li>
+<p>Set up one of the DMMs to voltage mode (refer to <a href="../lab2/">Lab 2</a> if you don't remember the procedure) and ensure the banana cables are connected properly to the DMM for voltage measurement. Connect jumper wires to each of the alligator clips.</p>
+</li>
+<li>
+<p>Set up the other DMM at your workbench to the current mode (DCI) by holding the "SHIFT" button (1) and the "DCV" button (2). Afterward, ensure the banana cable is connected properly to the DMM for voltage measurement by connecting the black banana cable to the "LO" input (3) and the red banana cable to the "3A" input (4) as shown in Figure 3.4. Then connect jumper wires to each of the alligator clips.</p>
+<p><img alt="Figure 3.4" src="../lab3-dmm-current.png" /></p>
+<p><strong><em>Figure 3.4</em></strong></p>
+</li>
+<li>
+<p>Next, insert one of the resistors onto a breadboard the same way as shown in Figure 2.9 from <a href="../lab2/">Lab 2</a>, then connect the jumper wires from the DMMs and the power supply to form the following circuit. Notice the voltmeter (DMM in DC voltage mode (DCV)) is connected in parallel with the resistor and the ammeter (DMM in DC current mode (DCI)) is connected in series with the circuit. A small example of some of the connections is shown.</p>
+<p><img alt="Figure 3.5a" src="../lab3-voltage-current-circuit.png" /></p>
+<p><img alt="Figure 3.5b" src="../lab3-connection-1.png" /></p>
+<p><strong><em>Figure 3.5</em></strong></p>
+</li>
+<li>
+<p>Double-check that the circuit is assembled properly and that there is no short circuit. <strong>Tips:</strong> Follow the flow of the current in your physical circuit from the positive (+) terminal of the power supply to the resistor, then to the ammeter, then to the negative terminal of the power supply to verify proper connections.</p>
+</li>
+<li>
+<p>Turn on the DC power supply and set the output to 5V, then turn on the output. Verify the voltage reading on the DMM agrees with the output of the DC power supply, then <strong>turn it off</strong>. If you are not seeing 5VDC at the DMM, verify your wiring and that you are using the correct output channel of the power supply. </p>
+<blockquote>
+<p><strong>Lab Question 3:</strong> Adjust the power supply output to 1V, 2V, 5V, and 10V to complete the table below. Do the measurements agree with Ohm's Law?</p>
+<table>
+<thead>
+<tr>
+<th>Power Supply Voltage [V]</th>
+<th>1V</th>
+<th>2V</th>
+<th>5V</th>
+<th>10V</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current Using 1kΩ Resistor [A]</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Current Using 10kΩ Resistor [A]</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+<li>
+<p>Turn off the DC power supply output.</p>
+</li>
+</ol>
+<h3 id="part-3-series-and-parallel-resistive-circuit">Part 3: Series and Parallel Resistive Circuit</h3>
+<ol>
+<li>
+<p>Next, we’ll assemble the following series resistive circuit using the 1kΩ and 10kΩ resistors on a breadboard. The power supply will act as the DC voltage source. </p>
+<p><img alt="Figure 3.6" src="../lab3-series-circuit.png" /></p>
+<p><strong><em>Figure 3.6</em></strong></p>
+</li>
+<li>
+<p>Set the DC power supply to 1V output, then turn on the output. Verify the voltage reading on the DMM agrees with the output of the DC power supply, then <strong>turn it off</strong>. If you are not seeing 0.09VDC at the DMM, verify your wiring and that you are using the correct output channel of the power supply. </p>
+<blockquote>
+<p><strong>Lab Question 4:</strong> Adjust the power supply output to 1V, 2V, 5V, and 10V to complete the table below. Do the measurements agree with the estimate you made in the pre-lab?</p>
+<table>
+<thead>
+<tr>
+<th>Power Supply Voltage [V]</th>
+<th>1V</th>
+<th>2V</th>
+<th>5V</th>
+<th>10V</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Voltmeter Reading [V]</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Ammeter Reading [A]</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+<li>
+<p>Lastly, we’ll assemble the following parallel resistive circuit using the 1kΩ and 10kΩ resistors on a breadboard. The power supply will act as the DC voltage source.</p>
+<p><img alt="Figure 3.7" src="../lab3-parallel-circuit.png" /></p>
+<p><strong><em>Figure 3.7</em></strong></p>
+</li>
+<li>
+<p>Set the DC power supply to 1V output, then turn on the output. Verify the voltage reading on the DMM agrees with the output of the DC power supply, then <strong>turn it off</strong>. If you are not seeing 1VDC at the DMM, verify your wiring and that you are using the correct output channel of the power supply. </p>
+<blockquote>
+<p><strong>Lab Question 5:</strong> Adjust the power supply output to 1V, 2V, 5V, and 10V to complete the table below. Do the measurements agree with the estimate you made in the pre-lab?</p>
+<table>
+<thead>
+<tr>
+<th>Power Supply Voltage [V]</th>
+<th>1V</th>
+<th>2V</th>
+<th>5V</th>
+<th>10V</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Voltmeter Reading [V]</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Ammeter Reading [A]</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+<li>
+<p>DO NOT DISASSEMBLE YOUR CIRCUIT UNTIL YOUR LAB HAS BEEN MARKED BY THE INSTRUCTOR.</p>
+</li>
+<li>
+<p>Turn off the DC power supply output.</p>
+</li>
+</ol>
+<p>Once you've completed all the above steps, ask the lab professor or instructor to demonstrate that you've completed the lab and written down all your observations. You might be asked to explain some of the concepts you've learned in this lab.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.section", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

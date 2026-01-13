@@ -1,0 +1,2681 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://seneca-bsa.github.io/lab-manual/AIG240/lab3/">
+      
+      
+        <link rel="prev" href="../lab2/">
+      
+      
+        <link rel="next" href="../lab4/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Lab 3: ROS Workspace, Package, Publisher, and Subscriber - Lab Manuals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-3-ros-workspace-package-publisher-and-subscriber" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Lab Manuals" class="md-header__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lab Manuals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 3: ROS Workspace, Package, Publisher, and Subscriber
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Lab Manuals" class="md-nav__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Lab Manuals
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Manuals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AIG240
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Introduction to ROS and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: ROS Workspace, Package, Publisher, and Subscriber
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: ROS Workspace, Package, Publisher, and Subscriber
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ros-workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROS Workspace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ros-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROS Package
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-workspace-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a Workspace directory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-c-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a C++ Package
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Create a C++ Package">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#write-the-publisher-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Write the publisher node
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-code-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Code Explained
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write-the-subscriber-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Write the subscriber node
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-code-explained_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Code Explained
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-and-run-c-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build and Run C++ Package
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-python-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a Python Package
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Create a Python Package">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#write-the-publisher-node_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Write the publisher node
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-code-explained_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Code Explained
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write-the-subscriber-node_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Write the subscriber node
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-code-explained_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Code Explained
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-and-run-python-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build and run Python Package
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-part-of-project-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Exercise (part of Project 1)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: Robot Model and Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: JetAuto Robot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 1 - Setting up ROS1 and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 2 - Moving JetAuto in Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 3 - Moving JetAuto in Real World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SEP600
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab-supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: FreeRTOS and MCUXpresso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2: Comparator and Digital I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: PWM and DAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: ADC and RTOS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Serial UART and I2C Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : LCD and Interrupt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SES250
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/instruction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Instructions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Project : RC Lowpass Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Electrostatics and Triboelectric Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 10: RLC Circuit Resonance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : Digital Multimeter, Power Supply, and Ohm's Law
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: Series and Parallel Resistive Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 : Kirchhoff's Laws
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Thévenin Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : Digital Storage Oscilloscope (DSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7 : Capacitor and RC Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 8 : RL Circuit and Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 9 : RC and RL Circuit in AC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Common
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../common/lab-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ros-workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROS Workspace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ros-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROS Package
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-workspace-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a Workspace directory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-c-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a C++ Package
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Create a C++ Package">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#write-the-publisher-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Write the publisher node
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-code-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Code Explained
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write-the-subscriber-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Write the subscriber node
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-code-explained_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Code Explained
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-and-run-c-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build and Run C++ Package
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-python-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a Python Package
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Create a Python Package">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#write-the-publisher-node_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Write the publisher node
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-code-explained_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Code Explained
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write-the-subscriber-node_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Write the subscriber node
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-code-explained_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Code Explained
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-and-run-python-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build and run Python Package
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise-part-of-project-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Exercise (part of Project 1)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+  
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Lab Manuals
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    AIG240
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="lab-3-ros-workspace-package-publisher-and-subscriber">Lab 3: ROS Workspace, Package, Publisher, and Subscriber</h1>
+<h2 id="introduction">Introduction</h2>
+<h3 id="ros-workspace">ROS Workspace</h3>
+<p>A workspace is a directory containing ROS packages. Before using ROS, it’s necessary to source your ROS installation workspace in the terminal you plan to work in. This makes ROS packages available for you to use in that terminal.</p>
+<h3 id="ros-package">ROS Package</h3>
+<p>A package is an organizational unit for your ROS code. If you want to be able to install your code or share it with others, then you’ll need to organize it in a package. With packages, you can release your ROS work and allow others to build and use it easily.</p>
+<p>For a package to be considered a catkin package, it must meet a few requirements:</p>
+<ul>
+<li>The package must contain a catkin-compliant <code>package.xml</code> file.<ul>
+<li>That <code>package.xml</code> file provides meta-information about the package.</li>
+</ul>
+</li>
+<li>The package must contain a <code>CMakeLists.txt</code> file which uses catkin.<ul>
+<li>If it is a catkin metapackage, it must have the relevant boilerplate <code>CMakeLists.txt</code> file.</li>
+</ul>
+</li>
+<li>Each package must have its own directory.<ul>
+<li>This means neither nested packages nor multiple packages sharing the same directory.</li>
+</ul>
+</li>
+</ul>
+<p>The simplest possible package may have a file structure that looks like this:</p>
+<pre><code>my_package/
+    CMakeLists.txt
+    package.xml
+</code></pre>
+<p>A single workspace can contain as many packages as you want, each in its own directory. You can also have packages of different build types in one workspace (CMake, Python, etc.). You cannot have nested packages.</p>
+<p>The best practice is to have a <code>src</code> directory within your workspace and to create your packages in there. This keeps the top level of the workspace “clean”.</p>
+<p>A trivial workspace might look like this:</p>
+<pre><code>workspace_directory/            -- WORKSPACE
+└─ src/                         -- SOURCE SPACE
+   └─ CMakeLists.txt            -- 'Toplevel' CMake file, provided by catkin
+      ├─ package_1/
+      |  ├─ CMakeLists.txt      -- CMakeLists.txt file for package_1
+      |  └─ package.xml         -- Package manifest for package_1
+      ├─ ...
+      └─ package_n/
+         ├─ CMakeLists.txt      -- CMakeLists.txt file for package_n
+         └─ package.xml         -- Package manifest for package_n
+</code></pre>
+<h2 id="procedures">Procedures</h2>
+<h3 id="create-a-workspace-directory">Create a Workspace directory</h3>
+<ol>
+<li>
+<p>The best practice is to create a new directory for every new workspace. The name doesn’t matter, but it is helpful to have it indicate the purpose of the workspace. Let’s choose the directory name <code>ros_ws</code> for our development workspace. Open a new terminal and run:</p>
+<pre><code>mkdir -p ~/ros_ws/src
+cd ~/ros_ws/
+catkin_make
+</code></pre>
+<p>The <code>catkin_make</code> command is a convenience tool for working with catkin workspaces. When running it for the first time in your workspace, it will create a <code>CMakeLists.txt</code> link in your <code>src</code> directory.</p>
+<p>Another best practice is to put any packages in your workspace into the <code>src</code> directory. The above code creates a <code>src</code> directory inside <code>ros_ws</code>.</p>
+</li>
+<li>
+<p>Additionally, if you look in your current directory, you should now have a <code>build</code> and <code>devel</code> directory. Inside the <code>devel</code> directory, you can see that there are now several setup files. Sourcing any of these files will overlay this workspace on top of your environment. Before continuing, source your new setup.bash file:</p>
+<pre><code>source devel/setup.bash
+</code></pre>
+</li>
+<li>
+<p>To make sure your workspace is properly overlaid by the setup script, make sure the <code>ROS_PACKAGE_PATH</code> environment variable includes the directory you're in.</p>
+<p>Run:</p>
+<pre><code>echo $ROS_PACKAGE_PATH
+</code></pre>
+<p>You should see:</p>
+<pre><code>/home/jetauto/ros_ws/src:/opt/ros/melodic/share
+</code></pre>
+<p>And other path(s) if you have them added to your source.</p>
+</li>
+</ol>
+<h3 id="create-a-c-package">Create a C++ Package</h3>
+<ol>
+<li>
+<p>Navigate into <code>ros_ws/src</code>, and run the package creation command to create a simple C++ publisher and subscriber:</p>
+<pre><code>cd ~/ros_ws/src
+catkin_create_pkg cpp_pubsub std_msgs roscpp
+</code></pre>
+<p>Your terminal will return a message confirming the creation of your package <code>cpp_pubsub</code> and all its necessary files and directories.</p>
+<p><code>catkin_create_pkg</code> requires that you give it a <code>package_name</code> and optionally a list of dependencies: <code>catkin_create_pkg &lt;package_name&gt; [depend1] [depend2] [depend3]</code></p>
+<p>More details on package creation can be found <a href="https://wiki.ros.org/ROS/Tutorials/CreatingPackage">here</a>.</p>
+<h4 id="write-the-publisher-node">Write the publisher node</h4>
+</li>
+<li>
+<p>Navigate into <code>ros_ws/src/cpp_pubsub/src</code>. This is the directory in any CMake package where the source files containing executables belong.</p>
+<pre><code>cd ~/ros_ws/src/cpp_pubsub/src
+</code></pre>
+</li>
+<li>
+<p>Download the example talker code by entering the following command:</p>
+<pre><code>wget -O talker.cpp https://raw.githubusercontent.com/ros/ros_tutorials/kinetic-devel/roscpp_tutorials/talker/talker.cpp
+</code></pre>
+</li>
+<li>
+<p>Now, there will be a new file named <code>talker.cpp</code> in the <code>src</code> directory. Open the file using your preferred text editor. Alternatively, create a <code>.cpp</code> file with the following:</p>
+<pre><code>#include "ros/ros.h"
+#include "std_msgs/String.h"
+
+#include &lt;sstream&gt;
+
+/**
+ * This tutorial demonstrates simple sending of messages over the ROS system.
+ */
+int main(int argc, char **argv)
+{
+    /**
+     * The ros::init() function needs to see argc and argv so that it can perform
+     * any ROS arguments and name remapping that were provided at the command line.
+     * For programmatic remappings you can use a different version of init() which takes
+     * remappings directly, but for most command-line programs, passing argc and argv is
+     * the easiest way to do it.  The third argument to init() is the name of the node.
+     *
+     * You must call one of the versions of ros::init() before using any other
+     * part of the ROS system.
+     */
+    ros::init(argc, argv, "talker");
+
+    /**
+     * NodeHandle is the main access point to communications with the ROS system.
+     * The first NodeHandle constructed will fully initialize this node, and the last
+     * NodeHandle destructed will close down the node.
+     */
+    ros::NodeHandle n;
+
+    /**
+     * The advertise() function is how you tell ROS that you want to
+     * publish on a given topic name. This invokes a call to the ROS
+     * master node, which keeps a registry of who is publishing and who
+     * is subscribing. After this advertise() call is made, the master
+     * node will notify anyone who is trying to subscribe to this topic name,
+     * and they will in turn negotiate a peer-to-peer connection with this
+     * node.  advertise() returns a Publisher object which allows you to
+     * publish messages on that topic through a call to publish().  Once
+     * all copies of the returned Publisher object are destroyed, the topic
+     * will be automatically unadvertised.
+     *
+     * The second parameter to advertise() is the size of the message queue
+     * used for publishing messages.  If messages are published more quickly
+     * than we can send them, the number here specifies how many messages to
+     * buffer up before throwing some away.
+     */
+    ros::Publisher chatter_pub = n.advertise&lt;std_msgs::String&gt;("chatter", 1000);
+
+    ros::Rate loop_rate(10);
+
+    /**
+     * A count of how many messages we have sent. This is used to create
+     * a unique string for each message.
+     */
+    int count = 0;
+    while (ros::ok())
+    {
+        /**
+         * This is a message object. You stuff it with data, and then publish it.
+         */
+        std_msgs::String msg;
+
+        std::stringstream ss;
+        ss &lt;&lt; "hello world " &lt;&lt; count;
+        msg.data = ss.str();
+
+        ROS_INFO("%s", msg.data.c_str());
+
+        /**
+         * The publish() function is how you send messages. The parameter
+         * is the message object. The type of this object must agree with the type
+         * given as a template parameter to the advertise&lt;&gt;() call, as was done
+         * in the constructor above.
+         */
+        chatter_pub.publish(msg);
+
+        ros::spinOnce();
+
+        loop_rate.sleep();
+        ++count;
+    }
+
+    return 0;
+}
+</code></pre>
+<h4 id="the-code-explained">The Code Explained</h4>
+<p>Now, let's break the code down.</p>
+<pre><code>#include "ros/ros.h"
+</code></pre>
+<p><code>ros/ros.h</code> is a convenience include that includes all the headers necessary to use the most common public pieces of the ROS system.</p>
+<pre><code>#include "std_msgs/String.h"
+</code></pre>
+<p>This includes the <code>std_msgs/String</code> message, which resides in the <code>std_msgs</code> package. This is a header generated automatically from the <code>String.msg</code> file in that package. For more information on message definitions, see the <a href="https://wiki.ros.org/msg">msg</a> page.</p>
+<pre><code>ros::init(argc, argv, "talker");
+</code></pre>
+<p>Initialize ROS. This allows ROS to do name remapping through the command line -- not important for now. This is also where we specify the name of our node. Node names must be unique in a running system.</p>
+<p>The name used here must be a base name, i.e., it cannot have a <code>/</code> in it.</p>
+<pre><code>ros::NodeHandle n;
+</code></pre>
+<p>Create a handle to this process' node. The first <code>NodeHandle</code> created will actually do the initialization of the node, and the last one destructed will cleanup any resources the node was using.</p>
+<pre><code>ros::Publisher chatter_pub = n.advertise&lt;std_msgs::String&gt;("chatter", 1000);
+</code></pre>
+<p>Tell the master that we are going to be publishing a message of type <code>std_msgs/String</code> on the topic <code>chatter</code>. This lets the master tell any nodes listening on <code>chatter</code> that we are going to publish data on that topic. The second argument is the size of our publishing queue. In this case, if we are publishing too quickly, it will buffer up a maximum of 1000 messages before beginning to throw away old ones.</p>
+<p><code>NodeHandle::advertise()</code> returns a <code>ros::Publisher</code> object, which serves two purposes: 1) it contains a <code>publish()</code> method that lets you publish messages onto the topic it was created with, and 2) when it goes out of scope, it will automatically unadvertise.</p>
+<pre><code>ros::Rate loop_rate(10);
+</code></pre>
+<p>A <code>ros::Rate</code> object allows you to specify a frequency that you would like to loop at. It will keep track of how long it has been since the last call to <code>Rate::sleep()</code>, and sleep for the correct amount of time.</p>
+<p>In this case, we tell it we want to run at 10Hz.</p>
+<pre><code>int count = 0;
+while (ros::ok())
+{
+</code></pre>
+<p>By default, roscpp will install a SIGINT handler which provides Ctrl-C handling which will cause <code>ros::ok()</code> to return false if that happens.</p>
+<p><code>ros::ok()</code> will return false if:</p>
+<ul>
+<li>a SIGINT is received (Ctrl-C)</li>
+<li>we have been kicked off the network by another node with the same name</li>
+<li><code>ros::shutdown()</code> has been called by another part of the application.</li>
+<li>all <code>ros::NodeHandles</code> have been destroyed</li>
+</ul>
+<p>Once <code>ros::ok()</code> returns false, all ROS calls will fail.</p>
+<pre><code>std_msgs::String msg;
+
+std::stringstream ss;
+ss &lt;&lt; "hello world " &lt;&lt; count;
+msg.data = ss.str();
+</code></pre>
+<p>We broadcast a message on ROS using a message-adapted class, generally generated from a msg file. More complicated datatypes are possible, but for now, we're going to use the standard <code>String</code> message, which has one member: "data".</p>
+<pre><code>chatter_pub.publish(msg);
+</code></pre>
+<p>Now we actually broadcast the message to anyone who is connected.</p>
+<pre><code>ROS_INFO("%s", msg.data.c_str());
+</code></pre>
+<p><code>ROS_INFO</code> and friends are our replacement for <code>printf/cout</code>. See the <a href="https://wiki.ros.org/rosconsole">rosconsole documentation</a> for more information.</p>
+<pre><code>ros::spinOnce();
+</code></pre>
+<p>Calling <code>ros::spinOnce()</code> here is not necessary for this simple program, because we are not receiving any callbacks. However, if you were to add a subscription into this application and did not have <code>ros::spinOnce()</code> here, your callbacks would never get called. So, add it for good measure.</p>
+<pre><code>loop_rate.sleep();
+</code></pre>
+<p>Now we use the <code>ros::Rate</code> object to sleep for the time remaining to let us hit our 10Hz publish rate.</p>
+<p>Here's the condensed version of what's going on:</p>
+<ul>
+<li>Initialize the ROS system</li>
+<li>Advertise to the master that we are going to be publishing std_msgs/String messages on the chatter topic</li>
+<li>Loop while publishing messages to chatter 10 times a second</li>
+</ul>
+<h4 id="write-the-subscriber-node">Write the subscriber node</h4>
+<p>Now we need to write a node to receive the messages.</p>
+</li>
+<li>
+<p>Return to <code>ros_ws/src/cpp_pubsub/src</code> to create the next node. Enter the following code in your terminal to download the subscriber:</p>
+<pre><code>wget -O listener.cpp https://raw.github.com/ros/ros_tutorials/kinetic-devel/roscpp_tutorials/listener/listener.cpp
+</code></pre>
+<p>Check to ensure that these files exist inside the <code>ros_ws/src/cpp_pubsub/src</code> folder:</p>
+<pre><code>talker.cpp  listener.cpp
+</code></pre>
+</li>
+<li>
+<p>Open <code>listener.cpp</code> with your text editor. Alternatively, create a <code>.cpp</code> file with the following:</p>
+<pre><code>#include "ros/ros.h"
+#include "std_msgs/String.h"
+
+/**
+ * This tutorial demonstrates simple receipt of messages over the ROS system.
+ */
+void chatterCallback(const std_msgs::String::ConstPtr&amp; msg)
+{
+    ROS_INFO("I heard: [%s]", msg-&gt;data.c_str());
+}
+
+int main(int argc, char **argv)
+{
+    /**
+     * The ros::init() function needs to see argc and argv so that it can perform
+     * any ROS arguments and name remapping that were provided at the command line.
+     * For programmatic remappings you can use a different version of init() which takes
+     * remappings directly, but for most command-line programs, passing argc and argv is
+     * the easiest way to do it.  The third argument to init() is the name of the node.
+     *
+     * You must call one of the versions of ros::init() before using any other
+     * part of the ROS system.
+     */
+    ros::init(argc, argv, "listener");
+
+    /**
+     * NodeHandle is the main access point to communications with the ROS system.
+     * The first NodeHandle constructed will fully initialize this node, and the last
+     * NodeHandle destructed will close down the node.
+     */
+    ros::NodeHandle n;
+
+    /**
+     * The subscribe() call is how you tell ROS that you want to receive messages
+     * on a given topic.  This invokes a call to the ROS
+     * master node, which keeps a registry of who is publishing and who
+     * is subscribing.  Messages are passed to a callback function, here
+     * called chatterCallback.  subscribe() returns a Subscriber object that you
+     * must hold on to until you want to unsubscribe.  When all copies of the Subscriber
+     * object go out of scope, this callback will automatically be unsubscribed from
+     * this topic.
+     *
+     * The second parameter to the subscribe() function is the size of the message
+     * queue.  If messages are arriving faster than they are being processed, this
+     * is the number of messages that will be buffered up before beginning to throw
+     * away the oldest ones.
+     */
+    ros::Subscriber sub = n.subscribe("chatter", 1000, chatterCallback);
+
+    /**
+     * ros::spin() will enter a loop, pumping callbacks.  With this version, all
+     * callbacks will be called from within this thread (the main one).  ros::spin()
+     * will exit when Ctrl-C is pressed, or the node is shutdown by the master.
+     */
+    ros::spin();
+
+    return 0;
+}
+</code></pre>
+<h4 id="the-code-explained_1">The Code Explained</h4>
+<p>Now, let's break it down piece by piece, ignoring some pieces that have already been explained above.</p>
+<pre><code>void chatterCallback(const std_msgs::String::ConstPtr&amp; msg)
+{
+    ROS_INFO("I heard: [%s]", msg-&gt;data.c_str());
+}
+</code></pre>
+<p>This is the callback function that will get called when a new message has arrived on the <code>chatter</code> topic. The message is passed in a <code>boost shared_ptr</code>, which means you can store it off if you want, without worrying about it getting deleted underneath you, and without copying the underlying data.</p>
+<pre><code>ros::Subscriber sub = n.subscribe("chatter", 1000, chatterCallback);
+</code></pre>
+<p>Subscribe to the <code>chatter</code> topic with the master. ROS will call the <code>chatterCallback()</code> function whenever a new message arrives. The 2nd argument is the queue size, in case we are not able to process messages fast enough. In this case, if the queue reaches 1000 messages, we will start throwing away old messages as new ones arrive.</p>
+<p><code>NodeHandle::subscribe()</code> returns a <code>ros::Subscriber</code> object that you must hold on to until you want to unsubscribe. When the Subscriber object is destructed, it will automatically unsubscribe from the <code>chatter</code> topic.</p>
+<p>There are versions of the <code>NodeHandle::subscribe()</code> function which allow you to specify a class member function, or even anything callable by a <code>Boost.Function</code> object. The <a href="https://wiki.ros.org/roscpp/Overview">roscpp</a> overview contains more information.</p>
+<pre><code>ros::spin();
+</code></pre>
+<p><code>ros::spin()</code> enters a loop, calling message callbacks as fast as possible. Don't worry though, if there's nothing for it to do, it won't use much CPU. <code>ros::spin()</code> will exit once <code>ros::ok()</code> returns false, which means <code>ros::shutdown()</code> has been called, either by the default Ctrl-C handler, the master telling us to shutdown, or it being called manually.</p>
+<p>Again, here's a condensed version of what's going on:</p>
+<ul>
+<li>Initialize the ROS system</li>
+<li>Subscribe to the chatter topic</li>
+<li>Spin, waiting for messages to arrive</li>
+<li>When a message arrives, the chatterCallback() function is called</li>
+</ul>
+</li>
+</ol>
+<h3 id="build-and-run-c-package">Build and Run C++ Package</h3>
+<ol>
+<li>
+<p>Now, go back to the <code>cpp_pubsub</code> package and open up <code>ros_ws/src/cpp_pubsub/CMakeLists.txt</code> and ensure the following lines are in there and not commented out. <strong>Note:</strong> Some of the functions are currently commented out and some are missing.</p>
+<p>If the folder <code>cpp_pubsub</code> does not exist, that means you have not created the C++ package. Go back to the previous section to create the package.</p>
+<pre><code>cmake_minimum_required(VERSION 3.0.2)
+project(cpp_pubsub)
+
+## Find catkin and any catkin packages
+find_package(catkin REQUIRED COMPONENTS roscpp std_msgs genmsg)
+
+## Generate added messages and services
+generate_messages(DEPENDENCIES std_msgs)
+
+## Declare a catkin package
+catkin_package()
+
+## Build talker and listener
+include_directories(
+    include ${catkin_INCLUDE_DIRS}
+)
+
+add_executable(talker src/talker.cpp)
+target_link_libraries(talker ${catkin_LIBRARIES})
+add_dependencies(talker cpp_pubsub_generate_messages_cpp)
+
+add_executable(listener src/listener.cpp)
+target_link_libraries(listener ${catkin_LIBRARIES})
+add_dependencies(listener cpp_pubsub_generate_messages_cpp)
+</code></pre>
+<p>This will create two executables, <code>talker</code> and <code>listener</code>, which by default will go into the package directory of your <code>devel</code> space, located by default at <code>~/ros_ws/devel/lib/&lt;package name&gt;</code>.</p>
+<p>Note that you have to add dependencies for the executable targets to the message generation targets:</p>
+<pre><code>add_dependencies(talker cpp_pubsub_generate_messages_cpp)
+</code></pre>
+<p>This makes sure message headers of this package are generated before being used. If you use messages from other packages inside your catkin workspace, you need to add dependencies to their respective generation targets as well, because catkin builds all projects in parallel. The following variable allows you to depend on all necessary targets:</p>
+<pre><code>target_link_libraries(talker ${catkin_LIBRARIES})
+</code></pre>
+<p>You can invoke executables directly or you can use <code>rosrun</code> to invoke them. They are not placed in <code>&lt;prefix&gt;/bin</code> because that would pollute the PATH when installing your package to the system. If you wish for your executable to be on the PATH at installation time, you can setup an install target, see: <a href="https://wiki.ros.org/catkin/CMakeLists.txt">catkin/CMakeLists.txt</a></p>
+</li>
+<li>
+<p>Before building the package, it's always a good idea to check and see if all dependencies are met.</p>
+<pre><code>cd ~/ros_ws
+rosdep install -i --from-path src --rosdistro melodic -y
+</code></pre>
+<p>You should get a success return:</p>
+<pre><code>#All required rosdeps installed successfully
+</code></pre>
+</li>
+<li>
+<p>Now run <code>catkin_make</code> in your catkin workspace:</p>
+<pre><code>cd ~/ros_ws
+catkin_make
+</code></pre>
+<p>Note: If you're adding a new pkg, you may need to tell catkin to force making using the <code>--force-cmake</code> option.</p>
+<p>Now you have written a simple publisher and subscriber.</p>
+</li>
+<li>
+<p>Run ROS master.</p>
+<pre><code>roscore
+</code></pre>
+</li>
+<li>
+<p>In a new terminal, source the setup files:</p>
+<pre><code>cd ~/ros_ws
+source ./devel/setup.bash
+</code></pre>
+</li>
+<li>
+<p>Now run the talker node from <code>ros_ws</code>:</p>
+<pre><code>rosrun cpp_pubsub talker
+</code></pre>
+<p>The terminal should start publishing info messages every 0.5 seconds, like so:</p>
+<pre><code>[ INFO] [1727906572.247429209]: hello world 0
+[ INFO] [1727906572.347872260]: hello world 1
+[ INFO] [1727906572.448580826]: hello world 2
+[ INFO] [1727906572.548227290]: hello world 3
+[ INFO] [1727906572.650658485]: hello world 4
+</code></pre>
+</li>
+<li>
+<p>Open another terminal, source the setup files from inside <code>ros_ws</code> again, and then start the listener node:</p>
+<pre><code>cd ~/ros_ws
+. devel/setup.bash
+rosrun cpp_pubsub listener
+</code></pre>
+<p>The listener will start printing messages to the console, starting at whatever message count the publisher is on at that time, like so:</p>
+<pre><code>[ INFO] [1727906765.424901599]: I heard: [hello world 10]
+[ INFO] [1727906765.525323426]: I heard: [hello world 11]
+[ INFO] [1727906765.625240241]: I heard: [hello world 12]
+[ INFO] [1727906765.728040103]: I heard: [hello world 13]
+[ INFO] [1727906765.824066051]: I heard: [hello world 14]
+</code></pre>
+</li>
+<li>
+<p>Enter Ctrl+C in each terminal to stop the nodes from spinning.</p>
+</li>
+</ol>
+<h3 id="create-a-python-package">Create a Python Package</h3>
+<p>Next, we'll use Python to create a ROS package to compare the difference between C++ and Python.</p>
+<ol>
+<li>
+<p>Navigate into <code>ros_ws/src</code>, and run the package creation command to create a simple Python publisher and subscriber:</p>
+<pre><code>cd ~/ros_ws/src
+catkin_create_pkg py_pubsub std_msgs rospy
+</code></pre>
+<p>Your terminal will return a message verifying the creation of your package <code>py_pubsub</code> and all its necessary files and directories.</p>
+<h4 id="write-the-publisher-node_1">Write the publisher node</h4>
+</li>
+<li>
+<p>Navigate to your package <code>ros_ws/src/py_pubsub</code> and let's first create a <code>scripts</code> directory to store our Python scripts in and navigate into it:</p>
+<pre><code>cd ~/ros_ws/src/py_pubsub
+</code></pre>
+<p>Create a <code>scripts</code> directory.</p>
+<pre><code>mkdir scripts
+cd scripts
+</code></pre>
+</li>
+<li>
+<p>Download the example talker code and make it executable by entering the following command:</p>
+<pre><code>wget https://raw.github.com/ros/ros_tutorials/kinetic-devel/rospy_tutorials/001_talker_listener/talker.py
+chmod +x talker.py
+</code></pre>
+</li>
+<li>
+<p>Now there will be a new file named <code>talker.py</code>. Open the file using your preferred text editor. Alternatively, create a .py file with the following:</p>
+<pre><code>#!/usr/bin/env python
+# license removed for brevity
+import rospy
+from std_msgs.msg import String
+
+def talker():
+    pub = rospy.Publisher('chatter', String, queue_size=10)
+    rospy.init_node('talker', anonymous=True)
+    rate = rospy.Rate(10) # 10hz
+    while not rospy.is_shutdown():
+        hello_str = "hello world %s" % rospy.get_time()
+        rospy.loginfo(hello_str)
+        pub.publish(hello_str)
+        rate.sleep()
+
+if __name__ == '__main__':
+    try:
+        talker()
+    except rospy.ROSInterruptException:
+        pass
+</code></pre>
+<h4 id="the-code-explained_2">The Code Explained</h4>
+<p>Now, let's break the code down.</p>
+<pre><code>#!/usr/bin/env python
+</code></pre>
+<p>Every Python ROS Node will have this declaration at the top. The first line makes sure your script is executed as a Python script.</p>
+<pre><code>import rospy
+from std_msgs.msg import String
+</code></pre>
+<p>You need to import <code>rospy</code> if you are writing a ROS Node. The <code>std_msgs.msg</code> import is so that we can reuse the <code>std_msgs/String</code> message type (a simple string container) for publishing.</p>
+<pre><code>pub = rospy.Publisher('chatter', String, queue_size=10)
+rospy.init_node('talker', anonymous=True)
+</code></pre>
+<p>This section of code defines the talker's interface to the rest of ROS.</p>
+<p><code>pub = rospy.Publisher("chatter", String, queue_size=10)</code> declares that your node is publishing to the <code>chatter</code> topic using the message type <code>String</code>. <code>String</code> here is actually the class <code>std_msgs.msg.String</code>. The <code>queue_size</code> argument limits the amount of queued messages if any subscriber is not receiving them fast enough.</p>
+<p>The next line, <code>rospy.init_node(NAME, ...)</code>, is very important as it tells <code>rospy</code> the name of your node -- until <code>rospy</code> has this information, it cannot start communicating with the ROS Master. In this case, your node will take on the name <code>talker</code>. NOTE: the name must be a base name, i.e. it cannot contain any slashes "/".</p>
+<p><code>anonymous = True</code> ensures that your node has a unique name by adding random numbers to the end of NAME. Refer to <a href="https://wiki.ros.org/rospy/Overview/Initialization%20and%20Shutdown#Initializing_your_ROS_Node">Initialization and Shutdown - Initializing your ROS Node</a> in the <code>rospy</code> documentation for more information about node initialization options.</p>
+<pre><code>rate = rospy.Rate(10) # 10hz
+</code></pre>
+<p>This line creates a <code>Rate</code> object <code>rate</code>. With the help of its method <code>sleep()</code>, it offers a convenient way for looping at the desired <code>rate</code>. With its argument of <code>10</code>, we should expect to go through the loop 10 times per second (as long as our processing time does not exceed 1/10th of a second!)</p>
+<pre><code>while not rospy.is_shutdown():
+    hello_str = "hello world %s" % rospy.get_time()
+    rospy.loginfo(hello_str)
+    pub.publish(hello_str)
+    rate.sleep()
+</code></pre>
+<p>This loop is a fairly standard <code>rospy</code> construct: checking the <code>rospy.is_shutdown()</code> flag and then doing work. You have to check <code>is_shutdown()</code> to check if your program should exit (e.g. if there is a Ctrl-C or otherwise). In this case, the "work" is a call to <code>pub.publish(hello_str)</code> that publishes a string to our <code>chatter</code> topic. The loop calls <code>rate.sleep()</code>, which sleeps just long enough to maintain the desired rate through the loop.</p>
+<p>(You may also run across <code>rospy.sleep()</code> which is similar to <code>time.sleep()</code> except that it works with simulated time as well (see <a href="https://wiki.ros.org/Clock">Clock</a>).)</p>
+<p>This loop also calls <code>rospy.loginfo(str)</code>, which performs triple-duty: the messages get printed to screen, it gets written to the Node's log file, and it gets written to <code>rosout</code>. <code>rosout</code> is a handy tool for debugging: you can pull up messages using <code>rqt_console</code> instead of having to find the console window with your Node's output.</p>
+<p><code>std_msgs.msg.String</code> is a very simple message type, so you may be wondering what it looks like to publish more complicated types. The general rule of thumb is that <em>constructor args are in the same order as in the .msg file</em>. You can also pass in no arguments and initialize the fields directly, e.g.</p>
+<pre><code>msg = String()
+msg.data = str
+</code></pre>
+<p>or you can initialize some of the fields and leave the rest with default values:</p>
+<pre><code>String(data=str)
+</code></pre>
+<p>You may be wondering about the last little bit:</p>
+<pre><code>try:
+    talker()
+except rospy.ROSInterruptException:
+    pass
+</code></pre>
+<p>In addition to the standard Python <code>__main__</code> check, this catches a <code>rospy.ROSInterruptException</code> exception, which can be thrown by <code>rospy.sleep()</code> and <code>rospy.Rate.sleep()</code> methods when Ctrl-C is pressed or your Node is otherwise shutdown. The reason this exception is raised is so that you don't accidentally continue executing code after the <code>sleep()</code>.</p>
+<h4 id="write-the-subscriber-node_1">Write the subscriber node</h4>
+<p>Now we need to write a node to receive the messages.</p>
+</li>
+<li>
+<p>Return to <code>ros_ws/src/py_pubsub/scripts</code> to create the next node. Enter the following code in your terminal:</p>
+<pre><code>wget https://raw.github.com/ros/ros_tutorials/kinetic-devel/rospy_tutorials/001_talker_listener/listener.py
+chmod +x listener.py
+</code></pre>
+<p>Now the directory should have these files:</p>
+<pre><code>listener.py  talker.py
+</code></pre>
+</li>
+<li>
+<p>Open <code>listener.py</code> with your text editor. Alternatively, create a .py file with the following:</p>
+<pre><code>#!/usr/bin/env python
+import rospy
+from std_msgs.msg import String
+
+def callback(data):
+    rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
+
+def listener():
+
+    # In ROS, nodes are uniquely named. If two nodes with the same
+    # name are launched, the previous one is kicked off. The
+    # anonymous=True flag means that rospy will choose a unique
+    # name for our 'listener' node so that multiple listeners can
+    # run simultaneously.
+    rospy.init_node('listener', anonymous=True)
+
+    rospy.Subscriber("chatter", String, callback)
+
+    # spin() simply keeps python from exiting until this node is stopped
+    rospy.spin()
+
+if __name__ == '__main__':
+    listener()
+</code></pre>
+</li>
+<li>
+<p>Add the following to your <code>ros_ws/src/py_pubsub/CMakeLists.txt</code> in the <code>py_pubsub</code> package. This makes sure the python scripts get installed properly and uses the right python interpreter. You may just add this to the end of the <code>CMakeLists.txt</code>.</p>
+<pre><code>catkin_install_python(PROGRAMS scripts/talker.py scripts/listener.py
+    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+</code></pre>
+<h4 id="the-code-explained_3">The Code Explained</h4>
+<p>The code for <code>listener.py</code> is similar to <code>talker.py</code>, except we've introduced a new callback-based mechanism for subscribing to messages.</p>
+<pre><code>rospy.init_node('listener', anonymous=True)
+
+rospy.Subscriber("chatter", String, callback)
+
+# spin() simply keeps python from exiting until this node is stopped
+rospy.spin()
+</code></pre>
+<p>This declares that your node subscribes to the <code>chatter</code> topic which is of type <code>std_msgs.msgs.String</code>. When new messages are received, <code>callback</code> is invoked with the message as the first argument.</p>
+<p>We also changed up the call to <code>rospy.init_node()</code> somewhat. We've added the <code>anonymous=True</code> keyword argument. ROS requires that each node have a unique name. If a node with the same name comes up, it bumps the previous one. This is so that malfunctioning nodes can easily be kicked off the network. The <code>anonymous=True</code> flag tells <code>rospy</code> to generate a unique name for the node so that you can have multiple <code>listener.py</code> nodes run easily.</p>
+<p>The final addition, <code>rospy.spin()</code>, simply keeps your node from exiting until the node has been shutdown. Unlike <code>roscpp</code>, <code>rospy.spin()</code> does not affect the subscriber callback functions, as those have their own threads.</p>
+</li>
+</ol>
+<h3 id="build-and-run-python-package">Build and run Python Package</h3>
+<p>We use CMake as our build system and, yes, you have to use it even for Python nodes. This is to make sure that the autogenerated Python code for messages and services is created.</p>
+<ol>
+<li>
+<p>Before building the package, it's always a good idea to check and see if all dependencies are met.</p>
+<pre><code>cd ~/ros_ws
+rosdep install -i --from-path src --rosdistro melodic -y
+</code></pre>
+<p>You should get a success return:</p>
+<pre><code>#All required rosdeps installed successfully
+</code></pre>
+</li>
+<li>
+<p>Go to your catkin workspace and run <code>catkin_make</code>:</p>
+<pre><code>cd ~/ros_ws
+catkin_make
+</code></pre>
+</li>
+<li>
+<p>Run ROS master.</p>
+<pre><code>roscore
+</code></pre>
+</li>
+<li>
+<p>Open a new terminal, navigate to <code>ros_ws</code>, and source the setup files:</p>
+<pre><code>cd ~/ros_ws
+source ./devel/setup.bash
+</code></pre>
+</li>
+<li>
+<p>Now run the talker node:</p>
+<pre><code>rosrun py_pubsub talker.py
+</code></pre>
+<p>The terminal should start publishing info messages every 0.5 seconds, like so:</p>
+<pre><code>[INFO] [1727910097.196673]: hello world 1727910097.2
+[INFO] [1727910097.293260]: hello world 1727910097.29
+[INFO] [1727910097.394363]: hello world 1727910097.39
+[INFO] [1727910097.493223]: hello world 1727910097.49
+[INFO] [1727910097.592866]: hello world 1727910097.59
+</code></pre>
+</li>
+<li>
+<p>Open another terminal, source the setup files from inside <code>ros_ws</code> again, and then start the listener node:</p>
+<pre><code>cd ~/ros_ws
+. devel/setup.bash
+rosrun py_pubsub listener.py
+</code></pre>
+<p>The listener will start printing messages to the console, starting at whatever message count the publisher is on at that time, like so:</p>
+<pre><code>[INFO] [1727910166.665430]: /listener_5173_1727910161732I heard hello world 1727910166.66
+[INFO] [1727910166.761804]: /listener_5173_1727910161732I heard hello world 1727910166.76
+[INFO] [1727910166.870095]: /listener_5173_1727910161732I heard hello world 1727910166.87
+[INFO] [1727910166.963474]: /listener_5173_1727910161732I heard hello world 1727910166.96
+[INFO] [1727910167.071514]: /listener_5173_1727910161732I heard hello world 1727910167.07
+</code></pre>
+</li>
+<li>
+<p>Stop the listener and try to run the C++ listener from earlier:</p>
+<pre><code>rosrun cpp_pubsub listener
+</code></pre>
+<p>You should see a similar output.</p>
+</li>
+<li>
+<p>Press <code>Ctrl+C</code> in each terminal to stop the nodes from spinning.</p>
+</li>
+</ol>
+<h2 id="lab-exercise-part-of-project-1">Lab Exercise (part of <a href="../project1/">Project 1</a>)</h2>
+<ol>
+<li>
+<p>Write a new controller (Python or C++) for turtlesim that replaces <code>turtle_teleop_key</code>. Since the turtlesim node is the subscriber in this example, you’ll only need to write a single publisher node.</p>
+<p>Create a new package called <code>lab3_turtlesim</code>. You can create a new workspace called <code>lab3_ws</code> or use your existing workspace.</p>
+<p>The commands to create the packages are given below depending on your preferred programming language. You'll need the <code>geometry_msgs</code> dependency to use the <code>twist</code> object.</p>
+<p>Python (Easy) project:</p>
+<pre><code>catkin_create_pkg lab3_turtlesim rospy geometry_msgs
+</code></pre>
+<p>or C++ (Hard) project:</p>
+<pre><code>catkin_create_pkg lab3_turtlesim roscpp geometry_msgs
+</code></pre>
+<p>Your node should do the following:</p>
+<ul>
+<li>Accept a command line argument specifying the name of the turtle it should control.<ul>
+<li>i.e., running <code>rosrun lab3_turtlesim turtle_controller turtle1</code> will start a controller node that controls <code>turtle1</code>.</li>
+</ul>
+</li>
+<li>Use <code>w</code>, <code>a</code>, <code>s</code>, <code>d</code> (and <code>q</code>, <code>e</code>, <code>c</code>, and <code>z</code>) to control the turtle by publishing velocity control messages on the appropriate topic whenever the user presses those keys on the keyboard, as in the original <code>turtle_teleop_key</code>. <strong>The turtle should ONLY move when a key is pressed. When the key is released, the turtle should STOP moving.</strong><ul>
+<li>Option 1 (Easy) Single keypress: In addition to just forward/backward and turns, the turtle should move forward and turn left in a circular path if <code>q</code> is pressed and similar for <code>e</code>, <code>c</code>, and <code>z</code> in their corresponding directions.</li>
+<li>Option 2 (Hard) Multiple keypress: If you want to challenge your Python skills, make the controller so it listens to multiple keys. i.e., if <code>w + a</code> are pressed, the turtle should move forward and turn left in a circular path. If the keys pressed are contradicting, there should be no movement. You'll need to install an additional Python package to achieve this.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Hint:</strong> You'll need to use the <code>Twist</code> message type in the <code>geometry_msgs</code> package.</p>
+<p><strong>Hint:</strong> You can use <a href="https://docs.ros.org/en/kinetic/api/turtlesim/html/teleop__turtle__key_8cpp_source.html">teleop_turtle_key.cpp</a> as a reference for cpp.</p>
+<p>To test, spawn multiple turtles and open multiple instances of your new turtle controller node, each linked to a different turtle.</p>
+</li>
+</ol>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://wiki.ros.org/ROS/Tutorials">ROS Tutorials</a></li>
+<li>EECS 106A Labs</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.section", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

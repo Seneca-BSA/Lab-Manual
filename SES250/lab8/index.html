@@ -1,0 +1,2116 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://seneca-bsa.github.io/lab-manual/SES250/lab8/">
+      
+      
+        <link rel="prev" href="../lab7/">
+      
+      
+        <link rel="next" href="../lab9/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Lab 8 : RL Circuit and Filters - Lab Manuals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-8-rl-circuit-and-filters" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Lab Manuals" class="md-header__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lab Manuals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 8 : RL Circuit and Filters
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Lab Manuals" class="md-nav__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Lab Manuals
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Manuals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AIG240
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Introduction to ROS and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: ROS Workspace, Package, Publisher, and Subscriber
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: Robot Model and Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: JetAuto Robot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 1 - Setting up ROS1 and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 2 - Moving JetAuto in Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 3 - Moving JetAuto in Real World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SEP600
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab-supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: FreeRTOS and MCUXpresso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2: Comparator and Digital I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: PWM and DAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: ADC and RTOS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Serial UART and I2C Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : LCD and Interrupt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SES250
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../instruction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Instructions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Project : RC Lowpass Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Electrostatics and Triboelectric Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 10: RLC Circuit Resonance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : Digital Multimeter, Power Supply, and Ohm's Law
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: Series and Parallel Resistive Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 : Kirchhoff's Laws
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Thévenin Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : Digital Storage Oscilloscope (DSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7 : Capacitor and RC Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 8 : RL Circuit and Filters
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 8 : RL Circuit and Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purposes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purposes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-rules-for-this-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Rules for this Lab
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inductor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inductor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rl-circuit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RL Circuit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#low-pass-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Low-pass Filters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#potentiometer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Potentiometer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Materials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-1-rl-circuit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1: RL Circuit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-2-rl-low-pass-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2: RL Low-pass Filters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-3-rl-low-pass-filters-using-potentiometer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 3: RL Low-pass Filters using Potentiometer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 9 : RC and RL Circuit in AC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Common
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../common/lab-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purposes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purposes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-rules-for-this-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Rules for this Lab
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inductor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inductor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rl-circuit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RL Circuit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#low-pass-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Low-pass Filters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#potentiometer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Potentiometer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Materials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-1-rl-circuit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1: RL Circuit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-2-rl-low-pass-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2: RL Low-pass Filters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-3-rl-low-pass-filters-using-potentiometer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 3: RL Low-pass Filters using Potentiometer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+  
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Lab Manuals
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    SES250
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="lab-8-rl-circuit-and-filters">Lab 8 : RL Circuit and Filters</h1>
+<p><font size="5">
+Seneca Polytechnic<br>
+SES250 Electromagnatics
+</font></p>
+<h2 id="purposes">Purposes</h2>
+<ul>
+<li>To understand the relationship between the voltage and inductance of an inductor</li>
+<li>To understand the de-energize and energize of an inductor</li>
+</ul>
+<h2 id="objectives">Objectives</h2>
+<ul>
+<li>Assemble electronic components onto a breadboard</li>
+<li>Measure the response of an RL circuit using a Digital Storage Oscilloscope (DSO)</li>
+<li>Estimate the inductance of an inductor using its RL transient response</li>
+</ul>
+<h2 id="important-rules-for-this-lab">Important Rules for this Lab</h2>
+<div style="padding: 15px; border: 1px solid orange; background-color: orange; color: black;">
+<ol>
+<li>Any signal (voltage, current) must be adjusted to the specified value (amplitude and/or frequency) <strong>before</strong> applying them to a circuit.</li>
+<li>An instrument must be set up for the required mode of operation <strong>before</strong> it is connected to a circuit.</li>
+<li>The power supply must be switched off <strong>before</strong> making any changes to the circuit.</li>
+</ol>
+</div>
+
+<h2 id="description">Description</h2>
+<h3 id="inductor">Inductor</h3>
+<p>An inductor, also called a coil, choke, or reactor, is a passive two-terminal electrical component that stores energy in a magnetic field when electric current flows through it. An inductor typically consists of an insulated wire wound into a coil.</p>
+<p>When the current flowing through the coil changes, the time-varying magnetic field induces an electromotive force (emf) (voltage) in the conductor, described by Faraday's law of induction. According to Lenz's law, the induced voltage has a polarity (direction) which opposes the change in current that created it. As a result, inductors oppose any changes in current through them.</p>
+<p><img alt="Figure 8.1" src="../lab8-inductor.jpg" /></p>
+<p><strong><em>Figure 8.1 Inductors</em></strong></p>
+<p>Source: <a href="https://en.wikipedia.org/wiki/Inductor">Wikipedia: Inductor</a></p>
+<p>The inductance of a coil-type inductor can be calculated using:</p>
+<div class="arithmatex">\[ L = {{\mu_0 \pi N^2 R^2} \over {l}} \]</div>
+<p>where:</p>
+<ul>
+<li><span class="arithmatex">\(\mu_0\)</span> is the permeability in vacuum and have a value of <span class="arithmatex">\(\mu_0 = {4 \pi \times 10^{-7} {H \over m}}\)</span></li>
+<li><span class="arithmatex">\(N\)</span> is the number of loops in the coil</li>
+<li><span class="arithmatex">\(R\)</span> is the radius of the coil</li>
+<li><span class="arithmatex">\(l\)</span> is the length of the coil (not the length of the wire)</li>
+</ul>
+<p>Similar to capacitors, the vast majority of inductors use written markings to indicate values, working current, and tolerance. The most usual method of marking ferrite-cored inductors involves quoting the value (in mH or μH), the tolerance (often either 5% or 10%), and the maximum working current (where appropriate). The marking scheme follows a similar convention to that used with small capacitors:</p>
+<ul>
+<li>First line: Inductance (in mH or μH) and tolerance (J=5%, K=10%, M=20%).</li>
+<li>Second line: rated d.c. current (where specified).</li>
+</ul>
+<p>A three-digit code is often used to mark small inductors. The first two digits correspond to the first two digits of the value whilst the third digit is a multiplier which gives the number of zeros to be added to give the value in μH.</p>
+<p><img alt="Figure 8.2" src="../lab8-inductor-marking.png" /></p>
+<p><strong><em>Figure 8.2 Various Inductor Markings</em></strong></p>
+<p>Source: <a href="https://www.matrixtsl.com/courses/ecc/index.php?n=Inductors.InductorMarkings">Inductor Markings</a></p>
+<h3 id="rl-circuit">RL Circuit</h3>
+<p>A resistor–inductor circuit (RL circuit), RL filter or RL network, is an electric circuit composed of resistors and inductors driven by a voltage or current source. A first-order RL circuit is composed of one resistor and one inductor, either in series driven by a voltage source or in parallel driven by a current source. It is one of the simplest analogue infinite impulse response electronic filters.</p>
+<p><img alt="Figure 8.3" src="../lab8-rl-circuit.png" /></p>
+<p><strong><em>Figure 8.3 Series RL circuit</em></strong></p>
+<p>A series RL circuit with an inductor that is initially energized to <span class="arithmatex">\(I_0 = {V_in \over R}\)</span> and then allowed to de-energized through a resistor <span class="arithmatex">\(R\)</span> will exhibit the following relationship for the current through the inductor over some time:</p>
+<div class="arithmatex">\[ I_L(t) = I_0 e^{(-{R \over L} t)} \]</div>
+<p>where <span class="arithmatex">\(I_0\)</span> is the inductor current at <span class="arithmatex">\(t = 0\)</span></p>
+<p>The time required for the current to fall to <span class="arithmatex">\(I_0 e^{-1}\)</span> or about 37% (roughly 1/3 of <span class="arithmatex">\(I_0\)</span>) is called the RL time constant and is given by:</p>
+<div class="arithmatex">\[ \tau = {L \over R} \]</div>
+<p>where <span class="arithmatex">\(\tau\)</span> is measured in seconds, <span class="arithmatex">\(R\)</span> in ohms and <span class="arithmatex">\(L\)</span> in henry.</p>
+<p>Since the current through an inductor is often difficult to measure directly, voltage measurements are often used to study the transient response of an RL circuit by using the following relationship:</p>
+<div class="arithmatex">\[ V_in(t) = V_L(t) + V_R(t) \]</div>
+<p>where:</p>
+<div class="arithmatex">\[ V_L(t) = V_0 e^{(-{R \over L} t)} $$
+$$ V_R(t) = V_0 ( 1 - e^{(-{R \over L} t)} ) \]</div>
+<p>The chart below shows a typical curve of the voltage across the inductor and resistor during energizing in an RL circuit.</p>
+<p><img alt="Figure 8.4" src="../lab8-rl-response-inductor-voltage.png" /></p>
+<p><strong><em>Figure 8.4 Voltage curve of an inductor during energizing in an RL circuit</em></strong></p>
+<p><img alt="Figure 8.5" src="../lab8-rl-response-resistor-voltage.png" /></p>
+<p><strong><em>Figure 8.5 Voltage curve of a resistor during energizing in an RL circuit</em></strong></p>
+<p>Source: <a href="https://en.wikipedia.org/wiki/RL_circuit">Wikipedia: RL Circuit</a></p>
+<h3 id="low-pass-filters">Low-pass Filters</h3>
+<p>A low-pass filter is a circuit offering easy passage to low-frequency signals and difficult passage to high-frequency signals. There are two basic kinds of circuits capable of accomplishing this objective, and many variations of each one: The inductive low-pass filter in (Figure 8.6 Left) and the capacitive low-pass filter in (Figure 8.6 Right).</p>
+<p><img alt="Figure 8.6" src="../lab8-low-pass-filter.png" /></p>
+<p><strong><em>Figure 8.6 (Left) Inductive Low-Pass Filter, (Right) Capacitive Low-Pass Filter</em></strong></p>
+<p>In an inductive low-pass filter, the inductor’s impedance increases with increasing frequency. This high impedance in series tends to block high-frequency signals from getting to the load.</p>
+<p>In a capacitive low-pass filter, the capacitor’s impedance decreases with increasing frequency. This low impedance tends to short out high-frequency signals, dropping most of the voltage across series resistor R.</p>
+<p>All low-pass filters are rated at a certain cutoff frequency. That is the frequency above which the output voltage falls below 70.7% of the input voltage.</p>
+<p>The cutoff frequency [Hz] for an inductive low-pass filter is:</p>
+<div class="arithmatex">\[ f_c = {R \over {2 \pi L}} \]</div>
+<p>The cutoff frequency [Hz] for a capacitive low-pass filter is:</p>
+<div class="arithmatex">\[ f_c = {1 \over {2 \pi R C}} \]</div>
+<p>Source: <a href="https://www.allaboutcircuits.com/textbook/alternating-current/chpt-8/low-pass-filters/">All About Circuits: Low-pass Filters</a></p>
+<h2 id="potentiometer">Potentiometer</h2>
+<p>A potentiometer is a three-terminal resistor with a sliding or rotating contact that forms an adjustable voltage divider.[1] If only two terminals are used, one end and the wiper, it acts as a variable resistor or rheostat. The measuring instrument called a potentiometer is essentially a voltage divider used for measuring electric potential (voltage); the component is an implementation of the same principle, hence its name.</p>
+<p><img alt="Figure 8.7a" src="../lab8-pot.png" /> <img alt="Figure 8.7b" src="../lab8-pot-symbol.png" /></p>
+<p><strong><em>Figure 8.7 (Left) Potentiometer with leg indication, (Right) Potentiometer Electronics Symbol</em></strong></p>
+<p>Source: <a href="https://en.wikipedia.org/wiki/Potentiometer">Wikipedia: Potentiometer</a></p>
+<h2 id="materials">Materials</h2>
+<ul>
+<li>Safety glasses (PPE)</li>
+<li><a href="../supplies/">Lab Supplies</a><ul>
+<li>Breadboard</li>
+<li>Jumper Wires</li>
+<li>(1x) 100Ω Resistor (brown-black-brown)</li>
+<li>(1x) 330Ω Resistor (orange-orange-brown)</li>
+<li>(1x) 1kΩ Resistor (brown-black-red)</li>
+<li>(1x) 4.7kΩ resistor (yellow-violet-red)</li>
+<li>(1x) 10kΩ resistor (brown-black-orange)</li>
+<li>(1x) 100μH drum inductor</li>
+<li>(1x) 10kΩ Potentiometer (Blue Trimpot)</li>
+</ul>
+</li>
+</ul>
+<h2 id="preparation">Preparation</h2>
+<blockquote>
+<p><strong>Lab Preparation Question:</strong></p>
+<ol>
+<li>Read and summarize the lab as necessary.</li>
+<li>Copy observation tables 1, and 2 of this lab into your notebook.</li>
+<li>Sketch three breadboard diagram, one for each of Figure 8.8, Figure 8.10 and Figure 8.12 onto your notebook.</li>
+<li>Derive a formula to find the inductance of an inductor from the RL response formula.</li>
+<li>If we need to reduce a 200kHz noise to at least 70.7% of it's original value with an RL low-pass filter. Which resistor from our lab material should we if you are using the 100μH inductor?</li>
+</ol>
+</blockquote>
+<h2 id="procedures">Procedures</h2>
+<h3 id="part-1-rl-circuit">Part 1: RL Circuit</h3>
+<p>In this part of the lab, we will be exploring the transient response (de-energizing and energizing) of an RL circuit. A function generator set to square wave output will act as the closing and opening of the circuit.</p>
+<p><img alt="Figure 8.8" src="../lab8-rl-circuit-1.png" /></p>
+<p><strong><em>Figure 8.8</em></strong></p>
+<ol>
+<li>
+<p>Obtain a 100μH inductor. The inductance of an inductor cannot be easily measured using the DMM we have in the lab. As a result, in addition to observing the RL response, you'll also be estimating the inductance of the inductor.</p>
+</li>
+<li>
+<p>Select a resistor value that will give you an RL time constant, <span class="arithmatex">\(\tau = {L \over R}\)</span>, of about 1μs. You'll also need a breadboard and a few jumper wires.</p>
+<blockquote>
+<p><strong>Lab Question 1:</strong> Measure the resistance value of your resistor and record it in Table 1. Refer to <a href="../lab2/">Lab 2</a> if you don't remember how to measure resistance.</p>
+<p><strong>Table 1</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Measured Resistance (R) [Ω]</td>
+<td></td>
+</tr>
+<tr>
+<td>Marked Inductance (L) [H]</td>
+<td></td>
+</tr>
+<tr>
+<td>Theoretical RL Constant (<span class="arithmatex">\(\tau = {L \over R}\)</span>) [s]</td>
+<td></td>
+</tr>
+<tr>
+<td>Measured τ [s]</td>
+<td></td>
+</tr>
+<tr>
+<td>Estimated Inductance [H]</td>
+<td></td>
+</tr>
+<tr>
+<td>% Error Inductance</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Lab Question 2:</strong> Calculate the theoretical RL time constant using the measured resistance value and the marked inductance value.</p>
+</blockquote>
+</li>
+<li>
+<p>Set up your circuit as per Figure 8.8 with CH1 of the DSO measuring the voltage across the inductor. The transient current through the inductor can only be estimated using the voltage across.</p>
+</li>
+<li>
+<p>Turn on the function generator and set the output to a 3Vpp square wave at 100kHz <strong>with a 3V DC Offset at High-Z output mode</strong>. Leave all other settings as default. Refer to <a href="../lab6/">Lab 6</a> if you don't remember how to use a function generator.</p>
+</li>
+<li>
+<p>Turn on the DSO and adjust the settings so you'll see a single period of the RL waveform similar to Figure 8.4. Remember, the function generator is simulating the closing and opening of the circuit at 100kHz. You should see something similar to Figure 8.8 below if you setup your circuit properly. If not, verify your connection. Refer to <a href="../lab6/">Lab 6</a> if you don't remember how to use a function generator.</p>
+<p><img alt="Figure 8.9" src="../lab8-rl-curve.png" /></p>
+<p><strong><em>Figure 8.9 Series RL Circuit Voltage Curve: (Red) Voltage Source, (Black) Voltage Across Inductor</em></strong></p>
+<blockquote>
+<p><strong>Lab Question 3:</strong> Using the grid line or the measurement tool, find the time it takes for the voltage to drop 67% from the maximum and record it as the measured RL time constant.</p>
+<p><strong>Lab Question 4:</strong> Estimate the inductance of the inductor using the equation you derived during the pre-lab. What is the # error between your estimated inductance and the marked inductance by the manufacturer?</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="part-2-rl-low-pass-filters">Part 2: RL Low-pass Filters</h3>
+<p>In this part of the lab, we'll explore a simple filter circuit using a resistor and an inductor called an inductive low-pass filter. You'll be exploring another simple filter circuit called the capacitive low-pass filter as part of the course project. A triangular (saw) wave from a signal generator will be used to simulate noise.</p>
+<p><img alt="Figure 8.10" src="../lab8-rl-filter.png" /></p>
+<p><strong><em>Figure 8.10</em></strong></p>
+<ol>
+<li>
+<p>Using the 100μH inductor from Part 1, calculate the cutoff frequency for an inductive low-pass filter for the various resistor values in Table 2.</p>
+<blockquote>
+<p><strong>Lab Question 5:</strong> Calculate the cutoff frequency for an inductive low-pass filter for various resistor values and record it in Table 2.</p>
+<p><strong>Table 2</strong></p>
+<table>
+<thead>
+<tr>
+<th>Resistor Value</th>
+<th>Cutoff Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>33Ω</td>
+<td></td>
+</tr>
+<tr>
+<td>50Ω</td>
+<td></td>
+</tr>
+<tr>
+<td>100Ω</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+<li>
+<p>Set up your circuit as per Figure 8.10 with CH1 of the DSO measuring the voltage between the inductor and the resistor (the output of the RL low-pass filter) and CH2 connected to the output of the function generator (raw signal). Use a combination of series and parallel resistors from your kit to product the above resistor. Start from the largest resistor.</p>
+</li>
+<li>
+<p>Turn on the function generator and set the output to a 3Vpp triangular (saw with 50% symmetry) wave at 200kHz <strong>with a 3V DC Offset at High-Z output mode</strong>. Leave all other settings as default. Refer to <a href="../lab6/">Lab 6</a> if you don't remember how to use a function generator. This will simulate a signal at 3V with noise at 200kHz.</p>
+</li>
+<li>
+<p>Turn on the output of the function generator and observe the difference between the raw signal (3VDC 200kHz signal) and the filtered signal. You should see something (but not exactly) in Figure 8.11 with the centre at 3V instead of 0V.</p>
+<p><img alt="Figure 8.11" src="../lab8-filter-curve.png" /></p>
+<p><strong><em>Figure 8.11 (Blue Line) Raw signal, (Orange Line) Filtered signal</em></strong></p>
+</li>
+<li>
+<p>Take a photo or make a sketch of your observation then repeat for all the resistor values.</p>
+<blockquote>
+<p><strong>Lab Question 6:</strong> At which resistor value do you start to see significant improvement in filtering out (smoothing off) the 200kHz noise? What is the cutoff frequency?</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="part-3-rl-low-pass-filters-using-potentiometer">Part 3: RL Low-pass Filters using Potentiometer</h3>
+<p>Lastly, we are going to using a potentiometer so we can fine adjust the RL filter parameter.</p>
+<ol>
+<li>
+<p>Set up your circuit using a 1kΩ resistor, a 10kΩ Potentiometer as per Figure 8.12 with CH1 and CH2 of the DSO measuring the voltage between the inductor and the resistor (the output of the RL low-pass filter) and CH2 connected to the output of the function generator (raw signal).</p>
+<p><img alt="Figure 8.12" src="../lab8-rl-filter-pot.png" /></p>
+<p><strong><em>Figure 8.12</em></strong></p>
+</li>
+<li>
+<p>Turn the potentiometer to see the filtering effect at various resistance value.</p>
+</li>
+<li>
+<p>DO NOT DISASSEMBLE YOUR CIRCUIT UNTIL YOUR LAB HAS BENN MARKED BY THE INSTRUCTOR.</p>
+</li>
+</ol>
+<p>Once you've completed all the above steps, ask the lab professor or instructor over and demostrate that you've completed the lab and written down all your observations. You might be asked to explain some of the concepts you've learned in this lab.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.section", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

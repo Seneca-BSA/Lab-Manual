@@ -1,0 +1,2222 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://seneca-bsa.github.io/lab-manual/SEP600/lab6/">
+      
+      
+        <link rel="prev" href="../lab5/">
+      
+      
+        <link rel="next" href="../lab7/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Lab 6 : LCD and Interrupt - Lab Manuals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-6-lcd-and-interrupt" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Lab Manuals" class="md-header__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lab Manuals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 6 : LCD and Interrupt
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Lab Manuals" class="md-nav__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Lab Manuals
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Manuals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AIG240
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Introduction to ROS and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: ROS Workspace, Package, Publisher, and Subscriber
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: Robot Model and Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: JetAuto Robot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 1 - Setting up ROS1 and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 2 - Moving JetAuto in Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 3 - Moving JetAuto in Real World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SEP600
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: FreeRTOS and MCUXpresso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2: Comparator and Digital I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: PWM and DAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: ADC and RTOS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Serial UART and I2C Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : LCD and Interrupt
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : LCD and Interrupt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#162-or-other-size-lcd-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16×2 (or other size) LCD Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Materials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lab-preparation-question" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Preparation Question
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-1-lcd-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1: LCD Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-2-interrupt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2: Interrupt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SES250
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/instruction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Instructions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Project : RC Lowpass Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Electrostatics and Triboelectric Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 10: RLC Circuit Resonance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : Digital Multimeter, Power Supply, and Ohm's Law
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: Series and Parallel Resistive Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 : Kirchhoff's Laws
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Thévenin Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : Digital Storage Oscilloscope (DSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7 : Capacitor and RC Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 8 : RL Circuit and Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 9 : RC and RL Circuit in AC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Common
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../common/lab-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#162-or-other-size-lcd-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16×2 (or other size) LCD Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Materials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lab-preparation-question" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Preparation Question
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-1-lcd-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1: LCD Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-2-interrupt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2: Interrupt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+  
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Lab Manuals
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    SEP600
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="lab-6-lcd-and-interrupt">Lab 6 : LCD and Interrupt</h1>
+<p><font size="5">
+Seneca Polytechnic</br>
+SEP600 Embedded Systems
+</font></p>
+<h2 id="introduction">Introduction</h2>
+<p>Documentation for the Cortex-M4 instruction set, the board user's guide, and the microcontroller reference manual can be found here:</p>
+<p>Documentation for the Freedom K64 and K66 boards and their microcontrollers can be found here:</p>
+<ul>
+<li><a href="https://www.nxp.com/webapp/Download?colCode=FRDMK64FUG">FRDM-K64F Freedom Module User’s Guide</a> (<a href="../FRDMK64FUG.pdf">PDF</a>)</li>
+<li><a href="https://www.nxp.com/webapp/Download?colCode=K64P144M120SF5RM">Kinetis K64 Reference Manual</a> (<a href="../K64P144M120SF5RM.pdf">PDF</a>)</li>
+<li><a href="https://os.mbed.com/platforms/FRDM-K64F/">FRDM-K64F Mbed Reference</a></li>
+<li><a href="https://os.mbed.com/teams/Freescale/wiki/frdm-k64f-pinnames">FRDM-K64F Mbed Pin Names</a></li>
+<li><a href="https://www.nxp.com/webapp/Download?colCode=FRDMK66FUG">FRDM-K66F Freedom Module User’s Guide</a> (<a href="../FRDMK66FUG.pdf">PDF</a>)</li>
+<li><a href="https://www.nxp.com/webapp/Download?colCode=K66P144M180SF5RMV2">Kinetis K66 Reference Manual</a> (<a href="../K66P144M180SF5RMV2.pdf">PDF</a>)</li>
+<li><a href="https://os.mbed.com/platforms/FRDM-K66F/">FRDM-K66F Mbed Reference</a></li>
+<li><a href="https://os.mbed.com/teams/NXP/wiki/FRDM-K66F-Pinnames">FRDM-K66F Mbed Pin Names</a></li>
+</ul>
+<p>Documentation for the Cortex-M4 instruction set can be found here:</p>
+<ul>
+<li><a href="https://developer.arm.com/documentation/100166/0001">Arm Cortex-M4 Processor Technical Reference Manual Revision</a> (<a href="../Cortex-M4-Proc-Tech-Ref-Manual.pdf">PDF</a>)<ul>
+<li><a href="https://developer.arm.com/documentation/100166/0001/Programmers-Model/Instruction-set-summary/Table-of-processor-instructions">Table of Processor Instructions</a></li>
+</ul>
+</li>
+<li><a href="https://developer.arm.com/documentation/ddi0403/latest/">ARMv7-M Architecture Reference Manual</a> (<a href="../DDI0403E_e_armv7m_arm.pdf">PDF</a>)</li>
+</ul>
+<h3 id="162-or-other-size-lcd-module">16×2 (or other size) LCD Module</h3>
+<p>A 16×2 Liquid Crystal Display module has 16 columns and 2 rows of characters. Most 16×2 (as well as 8×1, 20×2, and 20×4) LCD modules use a Hitachi HD44780 (or compatible) LCD controller. Each character space can display a single alphanumeric character, symbol, or custom character. The display operates by selectively controlling the liquid crystal pixels, making them opaque or transparent to create characters or graphics. The LCD controller works in 2 main modes: </p>
+<ul>
+<li><strong>4-bit Mode:</strong> Data is sent to the LCD module in two consecutive nibbles. The higher nibble, consisting of data lines D4 to D7, is sent first, followed by the lower nibble with data lines D0 to D3. This configuration allows us to send 8-bit data using only four data lines, conserving valuable I/O pins on the microcontroller.</li>
+<li><strong>8-bit Mode:</strong> The LCD can directly receive 8-bit data in a single transmission, using all eight data lines (D0 to D7). As a result, this mode offers faster and more efficient data transfer compared to the 4-bit mode. However, it requires more I/O pins on the microcontroller, potentially limiting its application in projects with limited resources.</li>
+</ul>
+<p>When using the LCD module in 4-bit mode, only 4 wires are required for parallel data transfer, plus 2 wires for enable. However, with the help of an I2C parallel port expander (I2C backpack), only 2 wires through I2C are required to work with the LCD module.</p>
+<p><img alt="Figure 6.1" src="../lab6-lcd.png" /></p>
+<p><em><strong>Figure 6.1</strong> 16x2 LCD</em></p>
+<p>Some common commands are:</p>
+<table>
+<thead>
+<tr>
+<th>Command Name</th>
+<th>HEX Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Clear Display</td>
+<td>0x01</td>
+<td>This command clears the entire display, resetting the cursor position to the home position (0, 0).</td>
+</tr>
+<tr>
+<td>Return Home</td>
+<td>0x02</td>
+<td>Sending this command moves the cursor to the home position (0, 0) without clearing the display.</td>
+</tr>
+<tr>
+<td>Entry Mode Set</td>
+<td>0x04</td>
+<td>This command determines the cursor movement direction and whether the display should shift.</td>
+</tr>
+<tr>
+<td>Display On/Off Control</td>
+<td>0x08</td>
+<td>This command controls the display, cursor, and cursor blinking options.</td>
+</tr>
+<tr>
+<td>Cursor or Display Shift</td>
+<td>0x10</td>
+<td>Used to shift the cursor or the entire display left or right without changing the display data.</td>
+</tr>
+<tr>
+<td>Function Set</td>
+<td>0x20</td>
+<td>This command sets the LCD data length (4-bit or 8-bit), number of display lines, and font size.</td>
+</tr>
+<tr>
+<td>Set CGRAM Address</td>
+<td>0x40</td>
+<td>This command sets the address of the Character Generator RAM (CGRAM) for custom character creation.</td>
+</tr>
+<tr>
+<td>Set DDRAM Address</td>
+<td>0x80</td>
+<td>This command sets the address of the Display Data RAM (DDRAM), allowing data to be written to a specific location on the LCD.</td>
+</tr>
+</tbody>
+</table>
+<p>Reference: <a href="https://en.wikipedia.org/wiki/Hitachi_HD44780_LCD_controller">HD44780 LCD Controller</a></p>
+<h2 id="materials">Materials</h2>
+<ul>
+<li>Safety glasses (PPE)</li>
+<li>Freedom K64F or K66F Board</li>
+<li>Breadboard</li>
+<li>Jumper Wires</li>
+<li>LCD Display (Parallel or I2C)</li>
+<li>Various 1kΩ–10kΩ resistors</li>
+<li>Button</li>
+</ul>
+<p><strong>If you are using an I2C LCD, connect the LCD to the I2C pins and use the I2C library instead of the parallel LCD library.</strong></p>
+<h2 id="preparation">Preparation</h2>
+<blockquote>
+<h3 id="lab-preparation-question">Lab Preparation Question</h3>
+<ol>
+<li>Read over the lab and understand the procedures.</li>
+</ol>
+</blockquote>
+<h2 id="procedures">Procedures</h2>
+<h3 id="part-1-lcd-module">Part 1: LCD Module</h3>
+<ol>
+<li>
+<p>Acquire an LCD and a resistor, then connect them to the Freedom K64F/K66F board as per the connection table and the diagram below. If you are using an I2C LCD, connect the LCD to the I2C pins.</p>
+<p><img alt="Figure 6.2" src="../lab6-lcd-connection.png" /></p>
+<p><em><strong>Figure 6.2</strong> LCD connection with Freedom board</em></p>
+<p>The typical pinout and connection for a parallel 16x2 LCD are given below. Please keep in mind that depending on the manufacturer, some labels and configurations may vary.</p>
+<table>
+<thead>
+<tr>
+<th>LCD Pin #</th>
+<th>LCD Label</th>
+<th>K64F/K66F Pin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>GND / VSS</td>
+<td>GND / 0V</td>
+</tr>
+<tr>
+<td>2</td>
+<td>VDD / VCC</td>
+<td>5V</td>
+</tr>
+<tr>
+<td>3</td>
+<td>VO</td>
+<td>1kΩ to GND / 0V</td>
+</tr>
+<tr>
+<td>4</td>
+<td>RS</td>
+<td>D9</td>
+</tr>
+<tr>
+<td>5</td>
+<td>R/W</td>
+<td>GND / 0V</td>
+</tr>
+<tr>
+<td>6</td>
+<td>E</td>
+<td>D8</td>
+</tr>
+<tr>
+<td>7</td>
+<td>DB0</td>
+<td>N/C</td>
+</tr>
+<tr>
+<td>8</td>
+<td>DB1</td>
+<td>N/C</td>
+</tr>
+<tr>
+<td>9</td>
+<td>DB2</td>
+<td>N/C</td>
+</tr>
+<tr>
+<td>10</td>
+<td>DB3</td>
+<td>N/C</td>
+</tr>
+<tr>
+<td>11</td>
+<td>DB4</td>
+<td>D4</td>
+</tr>
+<tr>
+<td>12</td>
+<td>DB5</td>
+<td>D5</td>
+</tr>
+<tr>
+<td>13</td>
+<td>DB6</td>
+<td>D6</td>
+</tr>
+<tr>
+<td>14</td>
+<td>DB7</td>
+<td>D7</td>
+</tr>
+<tr>
+<td>15</td>
+<td>LED+</td>
+<td>1kΩ to 5V</td>
+</tr>
+<tr>
+<td>16</td>
+<td>LED-</td>
+<td>N/C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Some models work with 3.3V instead of 5V.</li>
+<li>VO pin configuration varies depending on the manufacturer. A potentiometer can be used instead of a 1kΩ resistor for adjustable contrast.</li>
+</ul>
+<p>You may change the pins used on the K64F/K66F board depending on your application and pin availability.</p>
+</li>
+<li>
+<p>Open Keil Studio and install the following library to your project depending on whether you are using the Parallel or I2C version of the LCD.</p>
+<ul>
+<li>Parallel LCD: <a href="https://os.mbed.com/users/sstaub/code/mbedLCD/">https://os.mbed.com/users/sstaub/code/mbedLCD/</a></li>
+<li>I2C LCD: <a href="https://os.mbed.com/users/sstaub/code/mbedLCDi2c/">https://os.mbed.com/users/sstaub/code/mbedLCDi2c/</a></li>
+</ul>
+</li>
+<li>
+<p>Use the following code to output a message on the display. Uncomment the necessary lines for the LCD screen you are using:</p>
+<pre><code>#include "mbed.h"
+// #include "LCD.h" // for parallel LCD
+// #include "LCDi2c.h" // for I2C LCD
+
+// LCD lcd(D9, D8, D4, D5, D6, D7, LCD16x2); // for parallel LCD: RS, EN, D4-D7, Type
+// LCDi2c lcd(I2C_SDA, I2C_SCL, LCD16x2); // for I2C LCD: SDA, SCL
+
+int main() {
+
+    lcd.cls(); // clear display
+    lcd.locate(0, 0); // set cursor location
+    lcd.printf("SEP600\n"); // display text
+    ThisThread::sleep_for(2s);
+    lcd.cls(); // clear display
+    lcd.locate(0, 0); // set cursor location
+    lcd.printf("Hello World!\n"); // display text
+
+}
+</code></pre>
+<p>When the LCD is operating in 4-bit mode, command and data are sent to the LCD 4-bit at a time throught D4-D7. When the RS pin on the LCD is low (0), the LCD treat the parallel input as command. When the RS pin on the LCD is high (1), the LCD treat the parallel input as data to be displayed.</p>
+<p>Here's the sequence for printing "SEP":</p>
+<table>
+<thead>
+<tr>
+<th>Command/Data</th>
+<th>RS Pin</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x80</td>
+<td>LOW</td>
+<td>Display the next charater at Row 0, Col 0</td>
+</tr>
+<tr>
+<td>0x53</td>
+<td>HIGH</td>
+<td>ASCII of captial "S" in HEX</td>
+</tr>
+<tr>
+<td>0x81</td>
+<td>LOW</td>
+<td>Display the next charater at Row 0, Col 0</td>
+</tr>
+<tr>
+<td>0x45</td>
+<td>HIGH</td>
+<td>ASCII of captial "E" in HEX</td>
+</tr>
+<tr>
+<td>0x82</td>
+<td>LOW</td>
+<td>Display the next charater at Row 0, Col 0</td>
+</tr>
+<tr>
+<td>0x50</td>
+<td>HIGH</td>
+<td>ASCII of captial "P" in HEX</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>After uploading your code, the LCD should show "SEP600" for 2 seconds, then "Hello World!".</p>
+</li>
+<li>
+<p>If you are using a parallel LCD, you may skip this steps as tools for sniffing the four data line will be required to read the signals. If you are using an I2C LCD module, use the oscilloscope to take a look at the I2C data frame. You should be able to see the command and data that you are sending to the module.</p>
+<p>The I2C I/O expander is attached to the LCD as follow:</p>
+<table>
+<thead>
+<tr>
+<th>Bit-7 (MSB)</th>
+<th>Bit-6</th>
+<th>Bit-5</th>
+<th>Bit-4</th>
+<th>Bit-3</th>
+<th>Bit-2</th>
+<th>Bit-1</th>
+<th>Bit-0 (LSB)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DB7</td>
+<td>DB6</td>
+<td>DB5</td>
+<td>DB4</td>
+<td>BL</td>
+<td>E</td>
+<td>RW</td>
+<td>RS</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>BL (Backlight) is LED+. Set this to high to turn on the backlight.</li>
+<li>E is Enable. Transistion of this pin from HIGH to LOW trigger reading of the command/data.</li>
+<li>RW is Read/Write. Set this to LOW when writing to the LCD.</li>
+<li>RS is Register Select. Set this to LOW when writing command, set this to HIGH when writing data.</li>
+</ul>
+<p>Since only 4-bit will be sent at a time, each command and data is divided into high and low nibbles for data transmission in bits 4-7 along with settings in bits 0-3.</p>
+<p>As a result, the I2C transmission you'll see is:</p>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x27 &lt;&lt; 1</td>
+<td>7-bit address + Write</td>
+</tr>
+<tr>
+<td>0x8X</td>
+<td>High nibble of first command "0x80" + X settings depending on your code</td>
+</tr>
+<tr>
+<td>0x27 &lt;&lt; 1</td>
+<td>7-bit address + Write</td>
+</tr>
+<tr>
+<td>0x0X</td>
+<td>Low nibble of first command "0x80" + X settings depending on your code</td>
+</tr>
+<tr>
+<td>0x27 &lt;&lt; 1</td>
+<td>7-bit address + Write</td>
+</tr>
+<tr>
+<td>0x5X</td>
+<td>High nibble of first data "S" + X settings depending on your code</td>
+</tr>
+<tr>
+<td>0x27 &lt;&lt; 1</td>
+<td>7-bit address + Write</td>
+</tr>
+<tr>
+<td>0x3X</td>
+<td>High nibble of first data "S" + X settings depending on your code</td>
+</tr>
+<tr>
+<td>0x27 &lt;&lt; 1</td>
+<td>7-bit address + Write</td>
+</tr>
+<tr>
+<td>0x8X</td>
+<td>High nibble of second command "0x81" + X settings depending on your code</td>
+</tr>
+<tr>
+<td>0x27 &lt;&lt; 1</td>
+<td>7-bit address + Write</td>
+</tr>
+<tr>
+<td>0x1X</td>
+<td>Low nibble of second command "0x81" + X settings depending on your code</td>
+</tr>
+<tr>
+<td>0x27 &lt;&lt; 1</td>
+<td>7-bit address + Write</td>
+</tr>
+<tr>
+<td>0x4X</td>
+<td>High nibble of second data "E" + X settings depending on your code</td>
+</tr>
+<tr>
+<td>0x27 &lt;&lt; 1</td>
+<td>7-bit address + Write</td>
+</tr>
+<tr>
+<td>0x5X</td>
+<td>High nibble of second data "E" + X settings depending on your code</td>
+</tr>
+<tr>
+<td></td>
+<td>Same pattern for the remaining command and data</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Lab Question:</strong> Based on your message, compare the I2C signal and see if you can find the "Hel" from "Hello World!".</p>
+</blockquote>
+<p>(Optional) If you want to take a screenshot of your oscilloscope for analysis, an easy way to do this is to connect to its web interface using the computer at your workstation. Press Utility &gt; I/O &gt; LAN on the oscilloscope to find it's IP address then navigate to this IP address using a browser on the workstation computer.</p>
+</li>
+<li>
+<p>Let's display some longer message.</p>
+<blockquote>
+<p><strong>Lab Question:</strong> Modify your code to display your name and student number on row 1, and your lab partner's name and student number on row 2 (or be creative, like "SEP600 Embedded Systems is Awesome"). Since the message will be too wide for the LCD, display the text as a horizontal scrolling message at a reasonable rate.</p>
+<p><strong>Hint:</strong> There are many ways to do this. Refer to the library documentation on how to move the print cursor.</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="part-2-interrupt">Part 2: Interrupt</h3>
+<p>An interrupt is a way for the microcontroller to listen for events without continuously polling the input. Most of the GPIO pins on the Freedom K64F or K66F board can be attached to an interrupt.</p>
+<ol>
+<li>
+<p>Connect a pull-up or pull-down button to any digital pin of your choosing.</p>
+</li>
+<li>
+<p>Add the following code before <code>main()</code> to create an interrupt object.</p>
+<pre><code>InterruptIn button(PTXX);
+</code></pre>
+</li>
+<li>
+<p>Add the following interrupt routine before <code>main()</code> and include the appropriate code for displaying a message on the LCD when the interrupt is triggered. Display the message for a few seconds, then return to displaying the previous message.</p>
+<pre><code>void button_isr(){
+    // Display an interrupt message on the LCD
+    // Use wait_us for delay
+    // Do NOT use ThisThread::sleep_for
+}
+</code></pre>
+<blockquote>
+<p><strong>Hint:</strong> You can try triggering a flag in the interrupt and then display the message in the <code>main()</code> loop or in a separate thread.</p>
+</blockquote>
+</li>
+<li>
+<p>Within <code>main()</code>, attach the interrupt routine to the button and adjust for the rising or falling edge, depending on your circuit configuration.</p>
+<pre><code>button.rise(&amp;button_isr);
+</code></pre>
+</li>
+<li>
+<p>Upload and test your interrupt.</p>
+<blockquote>
+<p><strong>Lab Question:</strong> What will happen if you put a wait() function in the interrupt?</p>
+</blockquote>
+</li>
+</ol>
+<p>Once you've completed all the steps above (and ONLY when you are ready, as you'll only have one opportunity to demo), ask the lab professor or instructor to come over and demonstrate that you've completed the lab. You may be asked to explain some of the concepts you've learned in this lab.</p>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://os.mbed.com/docs/mbed-os/v6.16/apis/interruptin.html">InterruptIn</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.section", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

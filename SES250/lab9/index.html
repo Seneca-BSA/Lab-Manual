@@ -1,0 +1,2147 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://seneca-bsa.github.io/lab-manual/SES250/lab9/">
+      
+      
+        <link rel="prev" href="../lab8/">
+      
+      
+        <link rel="next" href="../supplies/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Lab 9 : RC and RL Circuit in AC - Lab Manuals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-9-rc-and-rl-circuit-in-ac" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Lab Manuals" class="md-header__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lab Manuals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 9 : RC and RL Circuit in AC
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Lab Manuals" class="md-nav__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Lab Manuals
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Manuals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AIG240
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Introduction to ROS and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: ROS Workspace, Package, Publisher, and Subscriber
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: Robot Model and Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: JetAuto Robot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 1 - Setting up ROS1 and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 2 - Moving JetAuto in Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 3 - Moving JetAuto in Real World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SEP600
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab-supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: FreeRTOS and MCUXpresso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2: Comparator and Digital I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: PWM and DAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: ADC and RTOS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Serial UART and I2C Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : LCD and Interrupt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SES250
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../instruction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Instructions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Project : RC Lowpass Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Electrostatics and Triboelectric Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 10: RLC Circuit Resonance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : Digital Multimeter, Power Supply, and Ohm's Law
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: Series and Parallel Resistive Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 : Kirchhoff's Laws
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Thévenin Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : Digital Storage Oscilloscope (DSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7 : Capacitor and RC Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 8 : RL Circuit and Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 9 : RC and RL Circuit in AC
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 9 : RC and RL Circuit in AC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purposes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purposes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alternating-current" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternating Current
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-mean-square-rms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Mean Square (RMS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rc-circuit-phase-shift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RC Circuit Phase Shift
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rl-circuit-phase-shift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RL Circuit Phase Shift
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Materials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-1-ac-waveform-and-rms-voltage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1 : AC Waveform and RMS Voltage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-2-rc-circuit-in-ac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2 : RC Circuit in AC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-3-rl-circuit-in-ac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 3 : RL Circuit in AC
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Common
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../common/lab-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purposes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purposes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alternating-current" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternating Current
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-mean-square-rms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Mean Square (RMS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rc-circuit-phase-shift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RC Circuit Phase Shift
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rl-circuit-phase-shift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RL Circuit Phase Shift
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Materials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-1-ac-waveform-and-rms-voltage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1 : AC Waveform and RMS Voltage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-2-rc-circuit-in-ac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2 : RC Circuit in AC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-3-rl-circuit-in-ac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 3 : RL Circuit in AC
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+  
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Lab Manuals
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    SES250
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="lab-9-rc-and-rl-circuit-in-ac">Lab 9 : RC and RL Circuit in AC</h1>
+<p><font size="5">
+Seneca Polytechnic</br>
+SES250 Electromagnatics
+</font></p>
+<h2 id="purposes">Purposes</h2>
+<ul>
+<li>To understand the concept of frequency and period of an alternating current</li>
+<li>To observe the phase shift of an RC and RL circuit in AC</li>
+</ul>
+<h2 id="objectives">Objectives</h2>
+<ul>
+<li>Assemble electronic components onto a breadboard</li>
+<li>Setup function generator to output AC sine wave</li>
+<li>Measure the frequency and the period of a periodic signal using a Digital Storage Oscilloscope (DSO)</li>
+<li>Measure the phase shift of an RC and RL circuit using a DSO</li>
+</ul>
+<h2 id="description">Description</h2>
+<h3 id="alternating-current">Alternating Current</h3>
+<p>Alternating current (AC) is an electric current which periodically reverses direction and changes its magnitude continuously with time, in contrast to direct current (DC), which flows only in one direction.</p>
+<p>The usual waveform of alternating current in most electric power circuits is a sine wave, whose positive half-period corresponds with the positive direction of the current and vice versa (the full period is called a cycle). In certain applications, different waveforms are used, such as triangular waves or square waves.</p>
+<p><img alt="Figure 9.1" src="../lab9-ac-wave.png" /></p>
+<p><strong><em>Figure 9.1 Various AC Waveforms. From Left to Right and Top to Bottom: Sine, Square, Sawtooth or Ramp, Triangular</em></strong></p>
+<p>Source: <a href="https://en.wikipedia.org/wiki/Alternating_current">Wikipedia: Alternating current</a></p>
+<p>Source: <a href="https://circuitdigest.com/tutorial/ac-circuit-theory-2-waveforms-and-their-properties">Circuit Digest: AC Circuit Theory (Part 2)</a></p>
+<h3 id="root-mean-square-rms">Root Mean Square (RMS)</h3>
+<p>For alternating electric current, RMS is equal to the value of the constant direct current that would produce the same power dissipation in a resistive load.</p>
+<p>Electrical engineers often need to know the power, P, dissipated by electrical resistance, R. It is easy to do the calculation when there is a constant current, I, through the resistance. However, if the current is a time-varying function, I(t), this formula must be extended to reflect the fact that the current (and thus the instantaneous power) is varying over time. If the function is periodic (such as household AC power), it is still meaningful to discuss the average power dissipated over time.</p>
+<p>When measuring AC using a DMM, oftentimes, you are not measuring the maximum amplitude of the current and voltage but <span class="arithmatex">\(1 \over \sqrt{2}\)</span> of the amplitude. This is the root-mean-square (rms) value of a sine waveform: <span class="arithmatex">\(V_{rms}\)</span> and <span class="arithmatex">\(I_{rms}\)</span>.</p>
+<div class="arithmatex">\[ V_{rms} = {V_0 \over \sqrt{2}} $$
+$$ I_{rms} = {I_0 \over \sqrt{2}} \]</div>
+<p><img alt="Figure 9.2" src="../lab9-rms.png" /></p>
+<p><strong><em>Figure 9.2 AC Waveforms showing the difference between <span class="arithmatex">\(V_{rms}\)</span>, <span class="arithmatex">\(V_{pk} = V_0\)</span>, and <span class="arithmatex">\(V_{pp}\)</span></em></strong></p>
+<p>Source: <a href="https://circuitdigest.com/tutorial/ac-circuit-theory-2-waveforms-and-their-properties">Circuit Digest: RMS Voltage</a></p>
+<p><strong>Note:</strong> Keep in mind that <span class="arithmatex">\(V_{rms}\)</span> calculation uses <span class="arithmatex">\(V_{0}\)</span>, not <span class="arithmatex">\(V_{pp}\)</span>.</p>
+<h3 id="rc-circuit-phase-shift">RC Circuit Phase Shift</h3>
+<p>A Capacitive Circuit that consists of R and C in series exhibits a timing difference between the peak amplitude of the current and voltage. This timing difference is called Phase Shift. As the Capacitor opposes a change in Voltage and stores energy from the Power Supply in the form of an Electric Field, the Capacitor Voltage <span class="arithmatex">\(V_{C}\)</span> lags the Capacitor Current <span class="arithmatex">\(I_{C}\)</span> by 90° and lags the Power Supply Voltage V by a Phase Angle <span class="arithmatex">\(\phi\)</span>.</p>
+<p>This phase shift [RAD] between voltage and current can be calculated by:</p>
+<div class="arithmatex">\[ \phi = tan^{-1} {\left({-1} \over {2 \pi fRC}\right)} \]</div>
+<p>where <span class="arithmatex">\(f\)</span> is AC frequency in Hz, <span class="arithmatex">\(R\)</span> in Ohms and <span class="arithmatex">\(C\)</span> in Farads.</p>
+<p><img alt="Figure 9.3" src="../lab9-rc-shift.png" /></p>
+<p><strong><em>Figure 9.3 V-I Relationship of the Series RC Circuit</em></strong></p>
+<h3 id="rl-circuit-phase-shift">RL Circuit Phase Shift</h3>
+<p>An Inductive Circuit that consists of R and L in series. As the Inductor opposes a change in Current and stores energy from the Power Supply in the form of a Magnetic Field, the Inductor Voltage <span class="arithmatex">\(V_{L}\)</span> leads the Inductor Current <span class="arithmatex">\(I_{L}\)</span> by 90° and leads the Power Supply Voltage V by a Phase Angle <span class="arithmatex">\(\phi\)</span>.</p>
+<p>This phase shift [RAD] between voltage and current can be calculated by:</p>
+<div class="arithmatex">\[ \phi = tan^{-1} {\left({2 \pi fL} \over {R}\right)} \]</div>
+<p>where <span class="arithmatex">\(f\)</span> is AC frequency in Hz, <span class="arithmatex">\(R\)</span> in Ohms and <span class="arithmatex">\(L\)</span> in Henry.</p>
+<p><img alt="Figure 9.4" src="../lab9-rl-shift.png" /></p>
+<p><strong><em>Figure 9.4 V-I Relationship of the Series RL Circuit</em></strong></p>
+<p>Source: <a href="https://www.cmm.gov.mo/eng/exhibition/secondfloor/moreinfo/2_4_4_PhaseShift.html">CMM: Phase Shift</a></p>
+<h3 id="reference">Reference</h3>
+<ul>
+<li><a href="https://www.translatorscafe.com/unit-converter/en-US/calculator/series-rc-impedance/">Series RC Circuit Impedance Calculator</a></li>
+<li><a href="https://www.translatorscafe.com/unit-converter/en-US/calculator/series-rl-impedance/">Series RL Circuit Impedance Calculator</a></li>
+</ul>
+<h2 id="materials">Materials</h2>
+<ul>
+<li>Safety glasses (PPE)</li>
+<li><a href="../supplies/">Lab Supplies</a><ul>
+<li>Breadboard</li>
+<li>Jumper Wires</li>
+<li>(1x) 100Ω Resistor (brown-black-brown)</li>
+<li>(1x) 330Ω Resistor (orange-orange-brown)</li>
+<li>(1x) 1kΩ resistor (brown-black-red)</li>
+<li>(1x) 10kΩ resistor (brown-black-orange)</li>
+<li>(1x) 100nF Ceramic Capacitor</li>
+<li>(1x) 100μH drum inductor</li>
+</ul>
+</li>
+</ul>
+<h2 id="preparation">Preparation</h2>
+<blockquote>
+<p><strong>Lab Preparation Question:</strong></p>
+<ol>
+<li>Read and summarize the lab as necessary.</li>
+<li>Copy observation Tables 1, and 2 of this lab into your notebook.</li>
+<li>Sketch a breadboard diagram of Figure 9.5 and Figure 9.7 onto your notebook.</li>
+<li>Calculate the <span class="arithmatex">\(V_{rms}\)</span> for a <span class="arithmatex">\(3 V_{pp}\)</span> (Not <span class="arithmatex">\(V_{0}\)</span>) sine signal.</li>
+<li>
+<p>Calculate the phase difference [°] between voltage and current of an RC series circuit with a the following:</p>
+<blockquote>
+<ul>
+<li>10kΩ resistors and 100nF capacitor at 1kHz</li>
+<li>1kΩ resistors and 100nF capacitor at 1kHz</li>
+<li>1kΩ resistors and 100nF capacitor at 500Hz</li>
+<li>10kΩ resistors and 100nF capacitor at 500Hz</li>
+</ul>
+<p>Show all calculations and fill them into the Theoretical Phase Shift column of Table 1.</p>
+</blockquote>
+</li>
+<li>
+<p>Calculate the phase difference [°] between the voltage and current of an RL series circuit with a 100Ω, 330Ω resistors, 100μH inductor, and at 100kHz and 200kHz. Show all calculations and fill them into the Theoretical Phase Shift column of Table 2.</p>
+<blockquote>
+<ul>
+<li>100Ω resistors and 100μH inductor at 100kHz</li>
+<li>330Ω resistors and 100μH inductor at 100kHz</li>
+<li>330Ω resistors and 100μH inductor at 200kHz</li>
+<li>100Ω resistors and 100μH inductor at 200kHz</li>
+</ul>
+<p>Show all calculations and fill them into the Theoretical Phase Shift column of Table 2.</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<h2 id="procedures">Procedures</h2>
+<h3 id="part-1-ac-waveform-and-rms-voltage">Part 1 : AC Waveform and RMS Voltage</h3>
+<p>This part of the lab is to re-familiarize with generating a waveform using a function generator and AC measurement using an oscilloscope and a digital multimeter (DMM). Refer to <a href="../lab6/">Lab 6</a> if you don't remember how to use a function generator.</p>
+<ol>
+<li>Turn on the function generator, the DMM, and the oscilloscope.</li>
+<li>Ensure the function generator output is off. Set the function generator to <strong>High-Z output mode</strong> then set it to a 1kHz sine wave with 3Vpp as the amplitude. Leave DC offset and phase shift to zero (0).</li>
+<li>Connect the output of the function generator to CH1 of the oscilloscope. The red alligator clip of the function generator output should connect to the red alligator clip of the oscilloscope input and the same for the black alligator clip.</li>
+<li>Connect the DMM to the output of the function generator while keeping the oscilloscope connected. All three red clips connected togehter then three black connected together or use breadboard and jumper wires.</li>
+<li>Adjust the DSO so that about two periods are showing on the display. Make note of the TIME/DIV and VOLT/DIV and verify if align with the setting you provided to the function generator.</li>
+<li>
+<p>Set up the DMM to measure in AC voltage mode (VAC).</p>
+<blockquote>
+<p><strong>Lab Question 1:</strong> Does the reading from the DMM agree with the setting from the function generator and the DSO?</p>
+<p><strong>Lab Question 2:</strong> Your DMM should give you a reading that is not 3V, why do you think that is the case?</p>
+</blockquote>
+</li>
+<li>
+<p>Turn off the output from the function generator.</p>
+</li>
+</ol>
+<h3 id="part-2-rc-circuit-in-ac">Part 2 : RC Circuit in AC</h3>
+<p>The next part of this lab is to observe the AC response of an RC Circuit and the relationship between the voltage <span class="arithmatex">\(V(t)\)</span> and the current <span class="arithmatex">\(I(t)\)</span> using an oscilloscope. Since we cannot measure <span class="arithmatex">\(I(t)\)</span> directly using an oscilloscope, we'll be measuring the voltage across the resistor <span class="arithmatex">\(V_R(t)\)</span> since the current and voltage are always in phase at the resistor.</p>
+<p><img alt="Figure 9.5" src="../lab9-rc-circuit.png" /></p>
+<p><strong><em>Figure 9.5</em></strong></p>
+<ol>
+<li>Set up the circuit in Figure 9.7 using a 10kΩ resistor and a 100nF ceramic capacitor.
+    <div style="padding: 15px; border: 1px solid red; background-color: red; color: white;">
+    <p style="font-size: 18px"><strong>DO NOT USE A POLARIZED CAPACITOR!</strong><p>
+    </div></li>
+<li>Ensure that the function generator’s output is off then set the output of the function generator to <strong>High-Z</strong>.</li>
+<li>Set the output waveform to be a sine wave then set the output amplitude to 3 Vpp and the frequency to 1.00 kHz. Leave offset voltage and phase at 0.</li>
+<li>
+<p>Turn on the oscilloscope then connect CH1 and CH2 to the circuit per the circuit diagram.</p>
+<p><strong>NOTE:</strong> The ground (black cable) for both CH1 and CH2 is connected to the negative (black) node of the function generator.</p>
+</li>
+<li>
+<p>Turn on the function generator output and observe the relationship between CH1 and CH2. Adjust the voltage and time division to see about two periods on the display.</p>
+</li>
+<li>
+<p>You should see two waveforms ressembling <span class="arithmatex">\(V\)</span> and <span class="arithmatex">\(V_R\)</span> in Figure 9.3. From the two signals that you see, find a peak from CH1 (measuring <span class="arithmatex">\(V(t)\)</span>) and the closest peak from CH2 (measuring <span class="arithmatex">\(V_R(t) = I(t)\)</span>). CH2 (<span class="arithmatex">\(I(t)\)</span>) should be leading CH1 (<span class="arithmatex">\(V(t)\)</span>).</p>
+<blockquote>
+<p><strong>Lab Question 3:</strong> Which signal is leading? Does it agree with what you expect from a series RC circuit?</p>
+<p><strong>Lab Question 4:</strong> Find the time difference between the two signals. You may use the horizontal position knob to move one of the signals to the centre for easier measurement. Afterward, convert this time difference you found to the phase angle difference by using the formula below. Does it agree with the phase angle difference you calculated in your pre-lab? Write your result in Table 2.</p>
+<div class="arithmatex">\[ \phi = 2 \pi {\Delta t \over T} \text{ or } \phi = 360° {\Delta t \over T} \]</div>
+<p>where <span class="arithmatex">\(\Delta t\)</span> is the time difference and <span class="arithmatex">\(T\)</span> is the period.</p>
+<p><strong>NOTE:</strong> <span class="arithmatex">\(I(t)\)</span> leading means the time difference is a negative time. Also, the time difference might be in [ms] and the phase angle difference might be in [RAD] depending on your setting.</p>
+<p><strong>Table 1:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Freq</th>
+<th>R</th>
+<th>C</th>
+<th>Theoretical Phase Shift [°]</th>
+<th>Time Diff</th>
+<th>Phase Shift [°]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 kHz</td>
+<td>10 kΩ</td>
+<td>100 nF</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1 kHz</td>
+<td>1 kΩ</td>
+<td>100 nF</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>500 Hz</td>
+<td>1 kΩ</td>
+<td>100 nF</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>500 Hz</td>
+<td>10 kΩ</td>
+<td>100 nF</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+</ol>
+<p><img alt="Figure 9.6" src="../lab9-shift.png" /></p>
+<p><strong><em>Figure 9.6</em></strong></p>
+<ol>
+<li>Repeat the measurement with various resistor values and frequencies to complete Table 1 to understand their relationships.</li>
+</ol>
+<h3 id="part-3-rl-circuit-in-ac">Part 3 : RL Circuit in AC</h3>
+<p>The next part of this lab is to observe the AC response of an RL Circuit and the relationship between the voltage <span class="arithmatex">\(V(t)\)</span> and the current <span class="arithmatex">\(I(t)\)</span> using an oscilloscope. Since we cannot measure <span class="arithmatex">\(I(t)\)</span> directly using an oscilloscope, we'll be measuring the voltage across the resistor <span class="arithmatex">\(V_R(t)\)</span> since the current and voltage are always in phase at the resistor.</p>
+<p><img alt="Figure 9.7" src="../lab9-rl-circuit.png" /></p>
+<p><strong><em>Figure 9.7</em></strong></p>
+<ol>
+<li>Set up the circuit in Figure 9.6 using a 100 Ω resistor and 100 μH.</li>
+<li>Ensure that the function generator’s output is off then set the output of the function generator to <strong>High-Z</strong>.</li>
+<li>Set the output waveform to be a sine wave then set the output amplitude to 3 Vpp and the frequency to 100 kHz. Leave offset voltage and phase at 0.</li>
+<li>
+<p>Turn on the oscilloscope then connect CH1 and CH2 to the circuit per the circuit diagram.</p>
+<p><strong>NOTE:</strong> The ground (black cable) for both CH1 and CH2 is connected to the negative (black) node of the function generator.</p>
+</li>
+<li>
+<p>Turn on the function generator output and observe the relationship between CH1 and CH2. Adjust the voltage and time division to see about two periods on the display.</p>
+</li>
+<li>
+<p>You should see two waveforms ressembling <span class="arithmatex">\(V\)</span> and <span class="arithmatex">\(V_R\)</span> in Figure 9.4. From the two signals that you see, find a peak from CH1 (measuring <span class="arithmatex">\(V(t)\)</span>) and the closest peak from CH2 (measuring <span class="arithmatex">\(V_R(t) = I(t)\)</span>). CH2 (<span class="arithmatex">\(I(t)\)</span>) should be lagging CH1 (<span class="arithmatex">\(V(t)\)</span>).</p>
+<blockquote>
+<p><strong>Lab Question 5:</strong> Which signal is leading? Does it agree with what you expect from a series RL circuit?</p>
+<p><strong>Lab Question 6:</strong> Find the time difference between the two signals. You may use the horizontal position knob to move one of the signals to the centre for easier measurement. Afterward, convert this time difference you found to the phase angle difference by using the formula below. Does it agree with the phase angle difference you calculated in your pre-lab? Write your result in Table 2.</p>
+<div class="arithmatex">\[ \phi = 2 \pi {\Delta t \over T} \text{ or } \phi = 360° {\Delta t \over T} \]</div>
+<p><strong>NOTE:</strong> <span class="arithmatex">\(I(t)\)</span> lagging means the time difference is a positive time. Also, the time difference might be in [ms] and the phase angle difference might be in [RAD] depending on your setting.</p>
+<p><strong>Table 2:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Freq</th>
+<th>R</th>
+<th>L</th>
+<th>Theoretical Phase Shift [°]</th>
+<th>Time Diff</th>
+<th>Phase Shift [°]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100 kHz</td>
+<td>100 Ω</td>
+<td>100 μH</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>100 kHz</td>
+<td>330 Ω</td>
+<td>100 μH</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>200 kHz</td>
+<td>330 Ω</td>
+<td>100 μH</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>200 kHz</td>
+<td>100 Ω</td>
+<td>100 μH</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+<li>
+<p>Repeat the measurement with various resistor values and frequencies to complete Table 2 to understand their relationships.</p>
+</li>
+</ol>
+<p>Once you've completed all the above steps, ask the lab professor or instructor over and demostrate that you've completed the lab and written down all your observations. You might be asked to explain some of the concepts you've learned in this lab.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.section", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

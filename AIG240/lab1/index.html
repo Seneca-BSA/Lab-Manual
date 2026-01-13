@@ -1,0 +1,2182 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://seneca-bsa.github.io/lab-manual/AIG240/lab1/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../lab2/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Lab 1: Introduction to ROS and TurtleSim - Lab Manuals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-1-introduction-to-ros-and-turtlesim" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Lab Manuals" class="md-header__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lab Manuals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 1: Introduction to ROS and TurtleSim
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Lab Manuals" class="md-nav__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Lab Manuals
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Manuals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AIG240
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Introduction to ROS and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Introduction to ROS and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-ros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is ROS?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ubuntu-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ubuntu Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-jetauto-user-as-sudoer-and-install-desktop-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add jetauto User as Sudoer and Install Desktop GUI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ros-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROS Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#turtlesim-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Turtlesim Test
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Turtlesim Test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-roscore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using roscore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-rosrun" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using rosrun
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-rqt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using rqt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remapping-turtle_teleop_key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remapping turtle_teleop_key
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: ROS Workspace, Package, Publisher, and Subscriber
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: Robot Model and Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: JetAuto Robot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 1 - Setting up ROS1 and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 2 - Moving JetAuto in Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 3 - Moving JetAuto in Real World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SEP600
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab-supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: FreeRTOS and MCUXpresso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2: Comparator and Digital I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: PWM and DAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: ADC and RTOS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Serial UART and I2C Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : LCD and Interrupt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SES250
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/instruction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Instructions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Project : RC Lowpass Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Electrostatics and Triboelectric Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 10: RLC Circuit Resonance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : Digital Multimeter, Power Supply, and Ohm's Law
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: Series and Parallel Resistive Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 : Kirchhoff's Laws
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Thévenin Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : Digital Storage Oscilloscope (DSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7 : Capacitor and RC Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 8 : RL Circuit and Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 9 : RC and RL Circuit in AC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Common
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../common/lab-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-ros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is ROS?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ubuntu-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ubuntu Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-jetauto-user-as-sudoer-and-install-desktop-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add jetauto User as Sudoer and Install Desktop GUI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ros-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROS Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#turtlesim-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Turtlesim Test
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Turtlesim Test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-roscore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using roscore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-rosrun" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using rosrun
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-rqt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using rqt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remapping-turtle_teleop_key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remapping turtle_teleop_key
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+  
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Lab Manuals
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    AIG240
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="lab-1-introduction-to-ros-and-turtlesim">Lab 1: Introduction to ROS and TurtleSim</h1>
+<h2 id="introduction">Introduction</h2>
+<p>In this course, you'll be using the <a href="https://www.hiwonder.com/products/jetauto-pro?variant=40040875229271&amp;srsltid=AfmBOopGiD-7htdo9MYV2dDxaC_hu9xuS887mAu3p1SuU0YDl9iVj6Da">JetAuto Pro ROS Robot Car</a> as the base platform for development. The JetAuto robot uses the NVIDIA Jetson Nano embedded computing board as its controller. The robot comes with various accessories and add-ons for robotics applications, all of which can be controlled using the <a href="https://www.ros.org/">Robot Operating System (ROS)</a> as the core framework.</p>
+<p>However, before working with the physical robot, we will first learn how to use ROS and <a href="https://gazebosim.org/">Gazebo</a> to simulate the robot and its environment. During the design phase of any robotics project, testing your code and robot functionality in a simulated environment is a crucial part of the development cycle. In some industrial settings (such as robots deployed in remote locations), physical access to the robot may be limited or impossible. In such cases, simulating the robot's actions and performance is the only way to ensure mission success.</p>
+<h3 id="what-is-ros">What is ROS?</h3>
+<p>Per the ROS website:</p>
+<blockquote>
+<p>The Robot Operating System (ROS) is a set of software libraries and tools that help you build robot applications. From drivers to state-of-the-art algorithms, and with powerful developer tools, ROS has what you need for your next robotics project. And it's all open source.</p>
+</blockquote>
+<p>The above description may sound abstract, so let’s look at a practical example.</p>
+<p><img alt="Figure 1.1 Robotics Arm" src="../lab1-robot-arm.png" /></p>
+<p><em><strong>Figure 1.1</strong> Robotic Arm (Source: Hiwonder)</em></p>
+<p>A robotics system usually consists of various sensors, actuators, and controllers. The system in Figure 1.1 includes the following:</p>
+<ol>
+<li>A servo gripper at the end of the arm.</li>
+<li>A servo revolute joint that rotates the gripper.</li>
+<li>A servo revolute joint for link 3–2.</li>
+<li>A servo revolute joint for link 4–3.</li>
+<li>A servo revolute joint for link 5–4.</li>
+<li>A servo revolute joint that rotates the base.</li>
+<li>A stationary camera supervising the workspace.</li>
+</ol>
+<p>To pick up an object, the robot might:</p>
+<ul>
+<li>Use the camera to determine the object's position.</li>
+<li>Command the arm to move to the object's location.</li>
+<li>Once in position, command the gripper to close around the object.</li>
+</ul>
+<p>To achieve this, we break the process into smaller tasks. In robotics, this typically means having independent low-level control loops, each responsible for a single function:</p>
+<ul>
+<li>A control loop for each joint that, given a position or velocity command, controls the power applied to the joint motor based on position sensor measurements.</li>
+<li>A control loop for the gripper, which turns the gripper motor on and off and adjusts power to avoid crushing objects.</li>
+<li>A sensing loop that reads images from the camera.</li>
+</ul>
+<p>These low-level loops are then coordinated via a high-level supervisory control module:</p>
+<ul>
+<li>Request an image from the camera sensing loop.</li>
+<li>Use a vision algorithm to calculate the target object's location.</li>
+<li>Calculate joint angles to move the arm to the location.</li>
+<li>Send commands to the joint control loops.</li>
+<li>Signal the gripper control loop to close.</li>
+</ul>
+<p>An important feature of this architecture is modularity; the supervisor need not understand the implementation of any control loop. It communicates with each via simple control messages. This abstraction makes it easier to reuse code across platforms.</p>
+<p>In ROS, each control loop is implemented as a <strong>node</strong> — a software process performing a specific task. Nodes communicate by publishing and subscribing to <strong>topics</strong> or using <strong>services</strong>.</p>
+<p>Nodes can be written in many languages (including Python and C++), and ROS handles data conversion and message passing seamlessly.</p>
+<p>We can visualize this system using a <strong>computation graph</strong>:</p>
+<p><img alt="Figure 1.2 Example computation graph" src="../lab1-computation-graph.png" /></p>
+<p><em><strong>Figure 1.2</strong> Example computation graph</em></p>
+<ul>
+<li>Nodes are shown as ovals (e.g., <code>/usb_cam</code> or <code>/ar_track_alvar</code>).</li>
+<li>Topics are shown as rectangles (e.g., <code>/usb_cam/camera_info</code>, <code>/usb_cam/image_raw</code>).</li>
+<li>Arrows show the direction of data flow between nodes and topics. For example, <code>/usb_cam</code> publishes to <code>/usb_cam/camera_info</code> and <code>/usb_cam/image_raw</code>, which are subscribed to by <code>/ar_track_alvar</code>.</li>
+<li>Services, not shown here, are represented by dotted arrows.</li>
+</ul>
+<h2 id="procedures">Procedures</h2>
+<h3 id="ubuntu-installation">Ubuntu Installation</h3>
+<p>For this course, we'll use <strong>Ubuntu 18.04 LTS (Bionic Beaver)</strong> as our development OS. If you're using Windows, macOS, or another version of Linux, ensure Ubuntu 18.04 is running on a virtual machine, as this matches the OS on the JetAuto platform.</p>
+<ol>
+<li>
+<p>Install Ubuntu 18.04 on your computer or virtual machine (<a href="https://www.virtualbox.org/">VirtualBox</a> is recommended as it's a free VM software).</p>
+<ul>
+<li>OS Image: <a href="https://www.releases.ubuntu.com/bionic/ubuntu-18.04.6-desktop-amd64.iso">ubuntu-18.04.6-desktop-amd64.iso</a> from the <a href="https://releases.ubuntu.com/18.04/">Ubuntu 18.04.6 LTS Release</a></li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">ARM-based processor such as Apple M-series</p>
+<p>If you are using a computer with an ARM-based processor, you'll need to use the <a href="https://cdimage.ubuntu.com/releases/18.04.6/release/ubuntu-18.04.6-server-arm64.iso">ubuntu-18.04.6-server-arm64.iso</a> ARMv8 server image from the <a href="https://cdimage.ubuntu.com/releases/18.04.6/release/">Ubuntu 18.04.6 LTS Server Release</a> and then manually add a desktop interface to the OS.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>On Windows, some students have reported success using <code>wsl</code> to run Ubuntu and ROS.</p>
+</div>
+<ul>
+<li>Allocate at least 4 CPU cores, 4 GB RAM, and 20 GB of storage to emulate a <a href="https://developer.nvidia.com/embedded/jetson-nano">Jetson Nano</a>  </li>
+<li>Use the username: <strong>jetauto</strong> to maintain code compatibility  </li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Using <strong>jetauto</strong> as the user on your Ubuntu 18.04 virtual machine is important as it will ensure file path consistency when we transfer files between our computer and the robot.</p>
+</div>
+<p>You may also refer to this <a href="https://youtu.be/kZuOnZjDDss">Installation Video</a> as a guide.</p>
+<h3 id="add-jetauto-user-as-sudoer-and-install-desktop-gui">Add <code>jetauto</code> User as Sudoer and Install Desktop GUI</h3>
+<p><strong>Run in the Ubuntu 18 Machine</strong></p>
+</li>
+<li>
+<p>Depending on how the Ubuntu OS was installed, your active user <code>jetauto</code> may not have sudoer permissions. If that's the case, you'll need to switch to the <code>root</code> user and add <code>jetauto</code> to the <code>sudo</code> group.</p>
+<p>Open a terminal and switch to the <code>root</code> user:</p>
+<pre><code>su root
+</code></pre>
+<p>Change the <code>jetauto</code> user into the sudo group:</p>
+<pre><code>usermod -a -G sudo jetauto
+</code></pre>
+</li>
+<li>
+<p><strong>Log out, then log back in (or restart)</strong> to the <code>jetauto</code> user.</p>
+<p>You can restart using the power button within the VM or:</p>
+<pre><code>reboot
+</code></pre>
+<p>After the system starts up again, you may now verify if you have sudo privileges:</p>
+<pre><code>sudo -v
+</code></pre>
+<p>If it gives you a permission error, that means you are not a sudoer yet. Repeat step 1.</p>
+</li>
+<li>
+<p>Now that you are a sudoer, let's perform a system update and upgrade:</p>
+<pre><code>sudo apt update &amp;&amp; sudo apt upgrade
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>DO NOT upgrade to Ubuntu 20 or higher when prompted</strong> — we need Ubuntu 18.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">For Ubuntu 18 Server Image without Desktop Interface</p>
+<p>You'll need to install a desktop interface!</p>
+<ol>
+<li>
+<p>If you didn't install the desktop version of Ubuntu, install the Ubuntu GNOME desktop (or similar) interface:</p>
+<pre><code>sudo apt install ubuntu-gnome-desktop
+</code></pre>
+<p>After the installation is complete, restart the system:</p>
+<pre><code>reboot
+</code></pre>
+<p>The Ubuntu GNOME desktop should run after the system restarts.</p>
+</li>
+<li>
+<p>Next, ensure you can open a terminal from the GUI. If the terminal fails to start, go to "Settings" and change the language to "English (CA)" and save. You may switch it back afterward. This addresses a bug with a missing attribute in the Ubuntu desktop.</p>
+</li>
+</ol>
+</div>
+<h3 id="ros-installation">ROS Installation</h3>
+<p><strong>Run in the Ubuntu 18 Machine</strong></p>
+</li>
+<li>
+<p>Set up your computer to accept software from packages.ros.org.</p>
+<pre><code>sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" &gt; /etc/apt/sources.list.d/ros-latest.list'
+</code></pre>
+</li>
+<li>
+<p>Set up your keys.</p>
+<p>If you haven't already installed curl:</p>
+<pre><code>sudo apt install curl
+</code></pre>
+<p>Add the key:</p>
+<pre><code>curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+</code></pre>
+</li>
+<li>
+<p>Now, make sure your system package index is up-to-date:</p>
+<pre><code>sudo apt update
+</code></pre>
+</li>
+<li>
+<p>Next, we'll install the full desktop version of ROS with rqt, rviz, robot-generic libraries, 2D/3D simulators and 2D/3D perception, etc.:</p>
+<pre><code>sudo apt install ros-melodic-desktop-full
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Later, if you need to install other ROS packages, you can use the following command: <code>sudo apt install ros-melodic-&lt;PACKAGE&gt;</code> e.g. <code>sudo apt install ros-melodic-slam-gmapping</code>. To find available packages, use: <code>apt search ros-melodic</code></p>
+</div>
+</li>
+<li>
+<p>Since we want our terminal to load the ROS source every time it starts, add the <code>source</code> command to <code>.bashrc</code> so the ROS environment variables are automatically added to your bash session every time a new shell is launched.</p>
+<p>Only execute once:</p>
+<pre><code>echo "source /opt/ros/melodic/setup.bash" &gt;&gt; ~/.bashrc
+</code></pre>
+<div class="admonition info">
+<p class="admonition-title">Verify <code>~/.bashrc</code></p>
+<p>To verify if the above code has been added to <code>~/.bashrc</code>, use <code>nano</code>, or any editor to open <code>~/.bashrc</code> in your user's home directory.</p>
+<pre><code>nano ~/.bashrc
+</code></pre>
+<p><code>Ctrl + X</code> to exit.</p>
+</div>
+<p>Execute the command for the current terminal as well to take effect:</p>
+<pre><code>source /opt/ros/melodic/setup.bash
+</code></pre>
+</li>
+<li>
+<p>After ROS installation and setting up <code>.bashrc</code>, we'll also want to install a few tools to help build ROS packages.</p>
+<p>To install this tool and other dependencies for building ROS packages, run:</p>
+<pre><code>sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+</code></pre>
+</li>
+<li>
+<p>Before you can use many ROS tools, you will need to initialize <code>rosdep</code>. <code>rosdep</code> enables you to easily install system dependencies for sources you want to compile and is required to run some core components in ROS. With the following, you can initialize <code>rosdep</code>.</p>
+<pre><code>sudo rosdep init
+</code></pre>
+<p>Since Melodic is no longer a supported distro, we'll run <code>rosdep update</code> and explicitly specify <code>melodic</code>.</p>
+<pre><code>rosdep update --rosdistro=melodic
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Reference</p>
+<p>You may reference the official <a href="https://wiki.ros.org/melodic/Installation/Ubuntu">ROS Melodic Installation</a> instructions.</p>
+</div>
+<h3 id="turtlesim-test">Turtlesim Test</h3>
+<p>Turtlesim is a lightweight simulator for learning ROS. It illustrates what ROS does at the most basic level to give you an idea of what you will do with a real robot or a robot simulation later on.</p>
+<h4 id="using-roscore">Using <code>roscore</code></h4>
+</li>
+<li>
+<p><code>roscore</code> is the first command you should run when using ROS. It starts the ROS master node, the centralized server for managing nodes, topics, services, communication, and more. It is typically the main entry point and the first step for running any ROS system.</p>
+<p>In a terminal, run:</p>
+<pre><code>roscore
+</code></pre>
+<p>You will see something similar to:</p>
+<pre><code>... logging to ~/.ros/log/9cf88ce4-b14d-11df-8a75-00251148e8cf/roslaunch-machine_name-13039.log
+Checking log directory for disk usage. This may take awhile.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is &lt;1GB.
+
+started roslaunch server http://machine_name:33919/
+ros_comm version 1.4.7
+
+SUMMARY
+======
+
+PARAMETERS
+* /rosversion
+* /rosdistro
+
+NODES
+
+auto-starting new master
+process[master]: started with pid [13054]
+ROS_MASTER_URI=http://machine_name:11311/
+
+setting /run_id to 9cf88ce4-b14d-11df-8a75-00251148e8cf
+process[rosout-1]: started with pid [13067]
+started core service [/rosout]
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not close this terminal as it is the ROS server.</p>
+</div>
+<h4 id="using-rosrun">Using <code>rosrun</code></h4>
+</li>
+<li>
+<p>The command <code>rosrun</code> allows you to use the package name to directly run a node within a package (without having to know the package path). Usage: <code>rosrun [package_name] [node_name]</code>. Now, we want to run the <code>turtlesim_node</code> in the turtlesim package.</p>
+<p>In a <strong>new terminal</strong>:</p>
+<pre><code>rosrun turtlesim turtlesim_node
+</code></pre>
+<p>The simulator window should appear, with a random turtle in the center.</p>
+<p><img alt="Figure 1.3 TurtleSim" src="../lab1-turtlesim.png" /></p>
+<p><em><strong>Figure 1.3</strong> TurtleSim</em></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not close this terminal and the TurtleSim window as it is the simulation environment.</p>
+</div>
+</li>
+<li>
+<p>Open a <strong>new terminal</strong> to run a new node to control the turtle in the <code>turtlesim_node</code> node:</p>
+<pre><code>rosrun turtlesim turtle_teleop_key
+</code></pre>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>At this point you should have four terminals/windows open:</p>
+<ul>
+<li>a terminal running <code>roscore</code></li>
+<li>a terminal running <code>turtlesim_node</code></li>
+<li>a terminal running <code>turtle_teleop_key</code></li>
+<li>the "TurtleSim window"</li>
+</ul>
+<p>Arrange the terminals/windows so that you can see the TurtleSim window but also have the terminal running <code>turtle_teleop_key</code> active so that you can control the turtle in turtlesim.</p>
+</div>
+</li>
+<li>
+<p>Ensuring the terminal running <code>turtle_teleop_key</code> is active, use the arrow keys on your keyboard to control the turtle. The turtle should move around the screen, using its attached “pen” to draw its path.</p>
+<p><img alt="Figure 1.4 Turtle Moving" src="../lab1-turtle-moving.png" /></p>
+<p><em><strong>Figure 1.4</strong> TurtleSim</em></p>
+<h3 id="using-rqt">Using rqt</h3>
+<p>rqt is a graphical user interface (GUI) tool for ROS. Everything done in rqt can be done on the command line, but rqt provides a more user-friendly way to manipulate ROS elements.</p>
+</li>
+<li>
+<p>Open a new terminal and run rqt.</p>
+<pre><code>rqt
+</code></pre>
+</li>
+<li>
+<p>When running rqt for the first time, the window will be blank. No worries; just select <strong>Plugins &gt; Services &gt; Service Caller</strong> from the menu bar at the top.</p>
+<p><img alt="Figure 1.5 rqt" src="../lab1-rqt.png" /></p>
+<p><em><strong>Figure 1.5</strong> rqt</em></p>
+</li>
+<li>
+<p>Use the refresh button to the left of the Service dropdown list to ensure all the services of your turtlesim node are available.</p>
+</li>
+<li>
+<p>Click on the Service dropdown list to see turtlesim’s services and select the <code>/spawn</code> service to spawn another turtle.</p>
+<p>Give the new turtle a unique name, like <code>turtle2</code>, by double-clicking between the empty single quotes in the <strong>Expression</strong> column. You can see that this expression corresponds to the value of <strong>name</strong> and is of type <strong>string</strong>.</p>
+<p>Next, enter some valid coordinates at which to spawn the new turtle, like x = <code>1.0</code> and y = <code>1.0</code>.</p>
+<p><img alt="Figure 1.6 rqt spawn" src="../lab1-rqt-spawn.png" /></p>
+<p><em><strong>Figure 1.6</strong> rqt spawn</em></p>
+<p>If you try to spawn a new turtle with the same name as an existing turtle, you will get an error message in the terminal running <code>turtlesim_node</code>.</p>
+</li>
+<li>
+<p>Call the <code>spawn</code> service by clicking the Call button on the upper right side of the rqt window. You should now see a new turtle (with a random design) spawn at the coordinates you input for x and y.</p>
+</li>
+<li>
+<p>Refresh the service list in rqt and you will now see services related to the new turtle, <code>/turtle2/...</code>, in addition to <code>/turtle1/...</code>.</p>
+</li>
+<li>
+<p>Next, we'll give <code>turtle1</code> a unique pen using the <code>/set_pen</code> service and have <code>turtle1</code> draw with a distinct red line by changing the value of <strong>r</strong> to <code>255</code>, and the value of <strong>width</strong> to <code>5</code>. Don’t forget to call the service after updating the values.</p>
+<p><img alt="Figure 1.7 rqt set_pen" src="../lab1-rqt-set-pen.png" /></p>
+<p><em><strong>Figure 1.7</strong> rqt set_pen</em></p>
+</li>
+<li>
+<p>Return to the terminal where <code>turtle_teleop_key</code> is running and press the arrow keys; you will see <code>turtle1</code>’s pen has changed.</p>
+<p><img alt="Figure 1.8 TurtleSim Turtles" src="../lab1-turtlesim-2.png" /></p>
+<p><em><strong>Figure 1.8</strong> TurtleSim Turtles</em></p>
+<h3 id="remapping-turtle_teleop_key">Remapping <code>turtle_teleop_key</code></h3>
+</li>
+<li>
+<p>To control <code>turtle2</code>, you need a second teleop node. However, if you try to run the same command as before, you will notice only <code>turtle1</code> is controlled. The way to change this behavior is by remapping the <code>cmd_vel</code> topic and providing a new name for the node.</p>
+<p>In a <strong>new terminal</strong>, run:</p>
+<pre><code>rosrun turtlesim turtle_teleop_key turtle1/cmd_vel:=turtle2/cmd_vel __name:=teleop_turtle2
+</code></pre>
+<p>Now, you can move <code>turtle2</code> when this new terminal is active, and <code>turtle1</code> when the old terminal running <code>turtle_teleop_key</code> is active.</p>
+<p><img alt="Figure 1.9 TurtleSim Turtles Moving" src="../lab1-turtlesim-3.png" /></p>
+<p><em><strong>Figure 1.9</strong> TurtleSim Turtles</em></p>
+</li>
+</ol>
+<h2 id="lab-exercise">Lab Exercise</h2>
+<ol>
+<li>Use <code>rqt</code> to create a third turtle that you can control in turtlesim with a green (g = 255) pen line color.</li>
+</ol>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://wiki.ros.org/ROS/Tutorials">ROS Tutorials</a></li>
+<li>EECS 106A Labs</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.section", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

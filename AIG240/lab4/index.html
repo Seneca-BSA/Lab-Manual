@@ -1,0 +1,2221 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://seneca-bsa.github.io/lab-manual/AIG240/lab4/">
+      
+      
+        <link rel="prev" href="../lab3/">
+      
+      
+        <link rel="next" href="../lab5/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Lab 4: Robot Model and Gazebo - Lab Manuals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-4-robot-model-and-gazebo" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Lab Manuals" class="md-header__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lab Manuals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 4: Robot Model and Gazebo
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Lab Manuals" class="md-nav__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Lab Manuals
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Manuals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AIG240
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Introduction to ROS and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: ROS Workspace, Package, Publisher, and Subscriber
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: Robot Model and Gazebo
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: Robot Model and Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#urdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        URDF
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#urdf-vs-xacro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        URDF vs XACRO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rviz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RViz
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gazebo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gazebo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jetauto-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetAuto Robot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-gazebo-and-other-ros-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install Gazebo and other ROS packages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-the-jetauto-workspace-to-local-machine-for-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download the JetAuto Workspace to Local Machine for Simulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jetauto-robot-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetAuto Robot Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-jetauto-robot-in-gazebo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running JetAuto Robot in Gazebo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-question" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Question
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: JetAuto Robot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 1 - Setting up ROS1 and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 2 - Moving JetAuto in Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 3 - Moving JetAuto in Real World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SEP600
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab-supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: FreeRTOS and MCUXpresso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2: Comparator and Digital I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: PWM and DAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: ADC and RTOS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Serial UART and I2C Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : LCD and Interrupt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SES250
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/instruction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Instructions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Project : RC Lowpass Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Electrostatics and Triboelectric Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 10: RLC Circuit Resonance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : Digital Multimeter, Power Supply, and Ohm's Law
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: Series and Parallel Resistive Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 : Kirchhoff's Laws
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Thévenin Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : Digital Storage Oscilloscope (DSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7 : Capacitor and RC Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 8 : RL Circuit and Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 9 : RC and RL Circuit in AC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Common
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../common/lab-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#urdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        URDF
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#urdf-vs-xacro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        URDF vs XACRO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rviz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RViz
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gazebo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gazebo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jetauto-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetAuto Robot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-gazebo-and-other-ros-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install Gazebo and other ROS packages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-the-jetauto-workspace-to-local-machine-for-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download the JetAuto Workspace to Local Machine for Simulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jetauto-robot-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetAuto Robot Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-jetauto-robot-in-gazebo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running JetAuto Robot in Gazebo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-question" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Question
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+  
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Lab Manuals
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    AIG240
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="lab-4-robot-model-and-gazebo">Lab 4: Robot Model and Gazebo</h1>
+<h2 id="introduction">Introduction</h2>
+<h3 id="urdf">URDF</h3>
+<p>URDF (Unified Robot Description Format) is an XML format for representing a robot model. URDF is commonly used in Robot Operating System (ROS) tools such as RViz (ROS Visualization tool) and the Gazebo simulator. It is essentially a 3D model with information about joints, motors, mass, etc. The files are then processed by the Robot Operating System (ROS). The data from the file informs the human operator what the robot looks like and what it is capable of before they begin operating the robot.</p>
+<p>More details on the URDF specification can be found <a href="http://wiki.ros.org/urdf/XML">here</a>.</p>
+<p>Many robotic manufacturers have URDF models of their devices available for download. These include the <a href="https://stanleyinnovation.com/rmp-urdf-3d-files/">Segway RMP</a>, <a href="http://wiki.ros.org/turtlebot_description">TurtleBot</a>, and <a href="https://github.com/Active8Robots/AR10/blob/master/ar10_description/urdf/ar10.urdf">AR10</a>.</p>
+<p>More Models:</p>
+<ul>
+<li><a href="https://github.com/adubredu/DigitRobot.jl">Agility Robotics Digit</a></li>
+<li><a href="https://github.com/ANYbotics/anymal_b_simple_description">ANYbotics Anymal</a></li>
+<li><a href="https://github.com/clearpathrobotics/spot_ros">Boston Dynamics Spot (via Clearpath ROS Driver)</a></li>
+<li><a href="https://www.clearpathrobotics.com/assets/guides/kinetic/jackal/description.html">Clearpath Jackal</a></li>
+<li><a href="https://www.clearpathrobotics.com/assets/guides/melodic/dingo/description.html">Clearpath Dingo</a></li>
+<li><a href="https://github.com/husky/husky">Clearpath Husky</a></li>
+<li><a href="http://wiki.ros.org/turtlebot_description">Clearpath TurtleBot</a></li>
+<li><a href="https://github.com/unitreerobotics/unitree_ros">Unitree Go1</a></li>
+<li><a href="https://github.com/UniversalRobots/Universal_Robots_ROS2_Description">Universal Robots</a></li>
+</ul>
+<h3 id="urdf-vs-xacro">URDF vs XACRO</h3>
+<p>URDF (Unified Robot Description Format) and XACRO (XML Macros) are both used in ROS (Robot Operating System) for robot modeling, but they have distinct roles. URDF is a straightforward XML format that describes the physical structure of a robot, detailing its links and joints, as well as their properties like geometry and dynamics. It is ideal for simpler robot designs where the model's complexity is limited. In contrast, XACRO is an extension of URDF that incorporates macros, allowing for parameterization and reducing redundancy in model descriptions. This makes XACRO particularly useful for complex robots or those with interchangeable components, as it facilitates easier maintenance and enhances readability. Typically, XACRO files are processed into URDF files before they are utilized in simulations or applications, combining the flexibility of XACRO with the straightforwardness of URDF.</p>
+<h3 id="rviz">RViz</h3>
+<p>RViz, or Robot Visualization, is a powerful 3D visualization tool used primarily in robotics and the Robot Operating System (ROS). It enables developers to visualize and interpret a wide array of sensor data, such as point clouds, maps, and robot models, in real-time. With its interactive features, users can manipulate objects and adjust visual settings to enhance their understanding of robot behavior and performance. RViz's plugin architecture allows for extensibility, accommodating various data types and visualization needs. This makes it an invaluable resource for debugging algorithms, simulating scenarios, and gaining insights into robotic systems, ultimately aiding in the development and refinement of robotics applications.</p>
+<h3 id="gazebo">Gazebo</h3>
+<p>Gazebo is an open-source robotics simulation tool that provides a highly realistic environment for testing and developing robotic systems. It allows users to simulate robots in complex 3D environments, complete with detailed physics interactions, including gravity, collisions, and friction. Gazebo supports a variety of sensors, such as cameras and LIDAR, enabling the generation of realistic sensor data for developing perception algorithms. Its seamless integration with the Robot Operating System (ROS) enhances its functionality, allowing developers to leverage ROS tools and libraries for robot control and communication. With a flexible plugin architecture, Gazebo can be customized to meet specific simulation needs, making it an essential platform for researchers and engineers in the field of robotics.</p>
+<h2 id="preparation">Preparation</h2>
+<h3 id="jetauto-robot">JetAuto Robot</h3>
+<p>In preparation for using the JetAuto robot, please become familiar with the user manual and the basic lesson provided by the manufacturer found here:</p>
+<ul>
+<li><a href="../JetAuto-User-Manual.pdf">JetAuto User Manual</a></li>
+<li><a href="https://drive.google.com/drive/folders/16pwHYO8rK-22oAzStc7-olP9Weq7AbzY">JetAuto &amp; JetAuto Pro Resources</a></li>
+</ul>
+<h2 id="procedures">Procedures</h2>
+<h3 id="install-gazebo-and-other-ros-packages">Install Gazebo and other ROS packages</h3>
+<p>After becoming familiar with ROS, we'll now install the Gazebo simulation environment.</p>
+<ol>
+<li>
+<p>Install Gazebo version 9.X to be used with ROS Melodic. Each Gazebo version works with a specific version of ROS. More details about the installation can be found <a href="https://classic.gazebosim.org/tutorials?tut=install_ubuntu&amp;cat=install">here</a>.</p>
+<pre><code>sudo apt install gazebo9 libgazebo9-dev
+</code></pre>
+</li>
+<li>
+<p>Once installed, start Gazebo with the following command to ensure it is functional:</p>
+<pre><code>gazebo
+</code></pre>
+<p><img alt="Figure 4.1 Gazebo Running" src="../lab4-gazebo.png" /></p>
+<p><em><strong>Figure 4.1</strong> Gazebo Running</em></p>
+</li>
+<li>
+<p>Lastly, ensure the following ROS Gazebo packages are installed:</p>
+<pre><code>sudo apt install ros-melodic-gazebo-dev ros-melodic-gazebo-msgs ros-melodic-gazebo-plugins ros-melodic-gazebo-ros ros-melodic-gazebo-ros-control ros-melodic-gazebo-ros-pkgs ros-melodic-joint-state-publisher ros-melodic-joint-state-publisher-gui ros-melodic-joint-trajectory-controller ros-melodic-moveit ros-melodic-trac-ik-kinematics-plugin ros-melodic-slam-gmapping
+</code></pre>
+</li>
+<li>
+<p>ROS Melodic was designed for Python 2.7, but some of our code might be written in Python 3. As a result, we'll also need to install the Python 3 version of <code>rospkg</code> in order to run scripts written in Python 3.</p>
+<p>First, install <code>pip</code> for Python 3.</p>
+<pre><code>sudo apt install python3-pip
+</code></pre>
+<p>Then we'll use <code>pip3</code> to install <code>rospkg</code>.</p>
+<pre><code>pip3 install rospkg
+</code></pre>
+<p><strong>NOTE</strong> Do NOT use <code>apt</code> to install <code>python-rospkg</code> as it will cause a conflict with the existing Python 2 package installed with ROS.</p>
+<h3 id="download-the-jetauto-workspace-to-local-machine-for-simulation">Download the JetAuto Workspace to Local Machine for Simulation</h3>
+</li>
+<li>
+<p>For this lab, we'll use the JetAuto workspace <code>jetauto_ws</code> on our local virtual machine so we can test the robot locally in a simulation before programming the actual robot.</p>
+<p><a href="https://drive.google.com/file/d/1SSaqoji_3H5vm9ZKAljeWPFmDUGfCc_u/view?usp=drive_link">Download jetauto_ws.zip</a> and unzip it to the <code>jetauto</code> user's directory: <code>/home/jetauto/</code></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>If you downloaded the file to your host machine instead of your virtual machine, you may use WinSCP to transfer the file over to your virtual machine.</p>
+<p><strong>On your virtual machine:</strong> Open a terminal and ensure <code>openssh-server</code> is installed.</p>
+<pre><code>sudo apt-get install openssh-server
+</code></pre>
+<p>Enable and start SSH as necessary:</p>
+<pre><code>sudo systemctl enable ssh
+sudo systemctl start ssh
+</code></pre>
+<p><strong>On your host machine:</strong> Open WinSCP and connect to: 127.0.0.1 port 22.</p>
+<p>Move/Copy the <code>jetauto_ws</code> directory from <code>jetauto_ws.zip</code> into <code>/home/jetauto/</code>.</p>
+</div>
+<p>Verify that <code>jetauto_ws</code> is in the right place by running:</p>
+<pre><code>cd ~ &amp;&amp; ls -l
+</code></pre>
+<p>You should see <code>jetauto_ws</code> listed as a directory among other directories.</p>
+</li>
+<li>
+<p>Once <code>jetauto_ws</code> is on your virtual machine's <code>jetauto</code> user directory, let's add it as a source in <code>~/.bashrc</code>.</p>
+<p>First, we need to change the workspace setup script to be an executable:</p>
+<pre><code>sudo chmod +x /home/jetauto/jetauto_ws/devel/_setup_util.py
+</code></pre>
+<p>Then:</p>
+<pre><code>echo "source /home/jetauto/jetauto_ws/devel/setup.bash" &gt;&gt; ~/.bashrc
+</code></pre>
+<p>Use <code>nano</code> to check if the <code>source</code> line was added to the end of <code>~/.bashrc</code>.</p>
+<pre><code>nano ~/.bashrc
+</code></pre>
+<h3 id="jetauto-robot-model">JetAuto Robot Model</h3>
+<p>Now that the JetAuto robot workspace is on the virtual machine, let's try to simulate it in Gazebo. A robot model in URDF consists of links that are joined together to form a robot assembly. Each link has its given geometry, mass, and collision parameters. The geometry can be provided as a simple shape or a complex shape using a solid model.</p>
+</li>
+<li>
+<p>Before we start, let's ensure (and double-check) we have the required packages installed (if you haven't installed them from the beginning of this lab) to view and test our robot model:</p>
+<pre><code>sudo apt install ros-melodic-joint-state-publisher ros-melodic-joint-state-publisher-gui ros-melodic-joint-trajectory-controller
+</code></pre>
+</li>
+<li>
+<p>Next, we need to set some environment variables that our launch script will look for. Edit the system's environment variables:</p>
+<pre><code>sudo gedit /etc/environment
+</code></pre>
+<p>Add the following into the system's environment variables:</p>
+<pre><code>LIDAR_TYPE="A1"
+DEPTH_CAMERA_TYPE="AstraProPlus"
+MACHINE_TYPE="JetAutoPro"
+HOST="/"
+MASTER="/"
+</code></pre>
+<p><strong>Restart</strong> your virtual machine in order for the changes to take effect:</p>
+<pre><code>reboot
+</code></pre>
+</li>
+<li>
+<p>Now, let's have a quick view of the URDF model. We can use RViz for visualization. A launch file allows us to start multiple nodes at once as well as define other attributes.</p>
+<p>Inspect this particular launch file using <code>nano</code> or a text editor at the following location:</p>
+<p><strong>~/jetauto_ws/src/jetauto_simulations/jetauto_description/launch/display.launch</strong></p>
+<p>In it, you'll find it starts three nodes:</p>
+<ul>
+<li>joint_state_publisher_gui</li>
+<li>robot_state_publisher</li>
+<li>rviz</li>
+</ul>
+<p>You can find more information about <code>roslaunch</code> and <code>.launch</code> files in the official ROS tutorials: <a href="https://wiki.ros.org/roslaunch">roslaunch</a> and <a href="https://wiki.ros.org/ROS/Tutorials/Roslaunch%20tips%20for%20larger%20projects">Roslaunch tips for large projects</a>.</p>
+<p>Run the launch file:</p>
+<pre><code>roslaunch jetauto_description display.launch model:=urdf/jetauto.urdf
+</code></pre>
+</li>
+<li>
+<p>Once RViz is started, you can use the <code>joint_state_publisher_gui</code> to adjust the arm angle.</p>
+<p><img alt="Figure 4.3 JetAuto in RViz" src="../lab4-rviz-jetauto.png" /></p>
+<p><em><strong>Figure 4.3</strong> JetAuto in RViz</em> <em>(Note: The original image caption said "JetAuto in Gazebo", but the context and image refer to RViz)</em></p>
+</li>
+<li>
+<p>Let's open up the JetAuto URDF model file to take a closer look at it.</p>
+<p>Inspect this particular urdf file using <code>nano</code> or a text editor at the following location:</p>
+<p><strong>~/jetauto_ws/src/jetauto_simulations/jetauto_description/urdf/jetauto_car.urdf.xacro</strong></p>
+<p>Here, we see a file in XML format:</p>
+<pre><code>&lt;robot name="jetauto" xmlns:xacro="http://ros.org/wiki/xacro" &gt;
+    &lt;xacro:property name="M_PI"               value="3.1415926535897931"/&gt;
+    &lt;xacro:property name="base_link_mass"     value="1.6" /&gt; 
+    &lt;xacro:property name="base_link_w"        value="0.297"/&gt;
+    &lt;xacro:property name="base_link_h"        value="0.145"/&gt;
+    &lt;xacro:property name="base_link_d"        value="0.11255"/&gt;
+
+    &lt;xacro:property name="wheel_link_mass"    value="0.1" /&gt;
+    &lt;xacro:property name="wheel_link_radius"  value="0.049"/&gt;
+    &lt;xacro:property name="wheel_link_length"  value="0.04167"/&gt;
+</code></pre>
+<p>The first few lines define the robot's name and the basic parameters of the JetAuto's body.</p>
+<ul>
+<li><code>M_PI</code> defines the value of π.</li>
+<li><code>base_link_mass</code> defines the mass of the JetAuto’s body model.</li>
+<li><code>base_link_w</code> defines the width of the JetAuto’s body model.</li>
+<li><code>base_link_h</code> defines the height of the JetAuto’s body model.</li>
+<li><code>base_link_d</code> defines the length of the JetAuto’s body model.</li>
+<li><code>wheel_link_mass</code> defines the mass of each Mecanum wheel.</li>
+<li><code>wheel_link_radius</code> defines the radius of each Mecanum wheel.</li>
+</ul>
+<p>The name of the robot is also defined as <code>jetauto</code>.</p>
+<pre><code>&lt;link name="base_footprint"/&gt;
+
+&lt;joint name="base_joint" type="fixed"&gt;
+    &lt;parent link="base_footprint"/&gt;
+    &lt;child link="base_link"/&gt;
+    &lt;origin xyz="0.0 0.0 0.0" rpy="0 0 0"/&gt;
+&lt;/joint&gt;
+</code></pre>
+<p><code>base_footprint</code> is defined as the top parent link (part) of the JetAuto model to create an overall envelope that sits at the origin. <code>base_link</code> is the base part of the robot that houses the battery and motor. In the URDF model, it is connected to <code>base_footprint</code> as a child link. This envelope configuration ensures the wheels of the robot will always be above the origin (ground).</p>
+<pre><code>&lt;link
+    name="base_link"&gt;
+    &lt;xacro:box_inertial m="${base_link_mass}" w="${base_link_w}" h="${base_link_h}" d="${base_link_d}"/&gt;
+    &lt;visual&gt;
+        &lt;origin
+            xyz="0 0 0"
+            rpy="0 0 0" /&gt;
+        &lt;geometry&gt;
+            &lt;mesh
+                filename="package://jetauto_description/meshes/base_link.stl" /&gt;
+        &lt;/geometry&gt;
+        &lt;material name="green"/&gt;
+    &lt;/visual&gt;
+    &lt;collision&gt;
+        &lt;origin
+            xyz="${base_link_w/2.0 - 0.14810} 0 ${0.126437/2 + 0.02362364}"
+            rpy="0 0 0" /&gt;
+        &lt;geometry&gt;
+            &lt;box size="${base_link_w} ${base_link_h} ${base_link_d}" /&gt;
+        &lt;/geometry&gt;
+    &lt;/collision&gt;
+&lt;/link&gt;
+</code></pre>
+<p>Next is the link/part <code>base_link</code> along with its elements. The mass and inertial information of the part is defined as a XACRO element. The <code>geometry</code> sub-element in the <code>visual</code> element is provided by an <code>stl</code> mesh file from the <code>jetauto_description</code> package. The <code>collision</code> element is also defined as a box relative to the specified XYZ coordinates.</p>
+<p><img alt="Figure 4.4 JetAuto base_link STL" src="../lab4-base_link-stl.png" /></p>
+<p><em><strong>Figure 4.4</strong> JetAuto base_link STL</em></p>
+<pre><code>&lt;link
+    name="back_shell_link"&gt;
+    &lt;inertial&gt;
+    &lt;origin
+        xyz="-1.22838595456587E-05 0.00218574826309681 -0.0500522861933898"
+        rpy="0 0 0" /&gt;
+    &lt;mass
+        value="0.0663478534899862" /&gt;
+    &lt;inertia
+        ixx="5.65277934912267E-05"
+        ixy="-5.13394387877366E-11"
+        ixz="-4.07561372273553E-11"
+        iyy="4.33740893441632E-05"
+        iyz="-5.43059341238134E-06"
+        izz="6.86642544694324E-05" /&gt;
+    &lt;/inertial&gt;
+    &lt;visual&gt;
+        &lt;origin
+            xyz="0 0 0"
+            rpy="0 0 0" /&gt;
+        &lt;geometry&gt;
+            &lt;mesh
+            filename="package://jetauto_description/meshes/back_shell_link.stl" /&gt;
+        &lt;/geometry&gt;
+        &lt;material name="black"&gt;
+        &lt;/material&gt;
+    &lt;/visual&gt;
+    &lt;collision&gt;
+        &lt;origin
+            xyz="0 0 0"
+            rpy="0 0 0" /&gt;
+        &lt;geometry&gt;
+            &lt;mesh
+            filename="package://jetauto_description/meshes/back_shell_link.stl" /&gt;
+        &lt;/geometry&gt;
+    &lt;/collision&gt;
+&lt;/link&gt;
+&lt;joint
+    name="back_shell_joint"
+    type="fixed"&gt;
+    &lt;origin
+        xyz="-0.076481 0 0.082796"
+        rpy="-3.1416 0 1.5708" /&gt;
+    &lt;parent
+        link="base_link" /&gt;
+    &lt;child
+        link="back_shell_link" /&gt;
+    &lt;axis
+        xyz="0 0 0" /&gt;
+&lt;/joint&gt;
+</code></pre>
+<p>The <code>back_shell_link</code> is the part that houses the Jetson Nano and the expansion board, and mounts the antenna. All the elements are defined in a similar manner as <code>base_link</code>, and it is defined as a child link of <code>base_link</code> with its relative position defined in <code>joint</code>.</p>
+<p>The <code>wheel_XXX_link</code> links are all defined in a similar manner.</p>
+</li>
+<li>
+<p>The JetAuto URDF model file above only defines the mechanical structure of the robot. If we take a look at the URDF file for simulating the robot in Gazebo, we will find more links that are used and defined in other URDF files within the same package.</p>
+<p>You may inspect this additional xacro file using <code>nano</code> or a text editor at the following location:</p>
+<p><strong>~/jetauto_ws/src/jetauto_simulations/jetauto_description/urdf/jetauto.xacro</strong></p>
+</li>
+<li>
+<p>If you are interested in building a URDF from scratch, visit the ROS tutorial <a href="https://wiki.ros.org/urdf/Tutorials">here</a>.</p>
+</li>
+<li>
+<p>Close all terminals.</p>
+<h3 id="running-jetauto-robot-in-gazebo">Running JetAuto Robot in Gazebo</h3>
+</li>
+<li>
+<p>In a terminal, launch:</p>
+<pre><code>roslaunch jetauto_gazebo worlds.launch
+</code></pre>
+<p>Gazebo should run, and you should see the JetAuto robot in the simulation environment.</p>
+<p><img alt="Figure 4.5 JetAuto in Gazebo" src="../lab4-gazebo-jetauto.png" /></p>
+<p><em><strong>Figure 4.5</strong> JetAuto in Gazebo</em></p>
+</li>
+<li>
+<p>With Gazebo and ROS running, we can now control the virtual robot the same way as the physical robot.</p>
+<p>Let's try publishing to the <code>cmd_vel</code> topic. Open a new terminal and run:</p>
+<pre><code>rostopic pub -1 /jetauto_controller/cmd_vel geometry_msgs/Twist '{linear: {x: 0.1, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}'
+</code></pre>
+<p>Stop the robot:</p>
+<pre><code>rostopic pub -1 /jetauto_controller/cmd_vel geometry_msgs/Twist '{linear: {x: 0.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}'
+</code></pre>
+<p>Notice that the JetAuto robot listens to the same <code>cmd_vel</code> topics and uses the same <code>Twist</code> message as <code>TurtleSim</code>.</p>
+</li>
+<li>
+<p>Let's inspect the source code of the motion controller to take a closer look. Open the file at the following path:</p>
+<p><strong>~/jetauto_ws/src/jetauto_driver/jetauto_controller/scripts/jetauto_controller_main.py</strong></p>
+<p>As we can see in the controller code:</p>
+<pre><code>linear_x = self.go_factor*msg.linear.x
+linear_y = self.go_factor*msg.linear.y
+angular_z = self.turn_factor*msg.angular.z
+
+speed_up = False
+if abs(self.last_linear_x - linear_x) &gt; 0.2 or abs(self.last_linear_y - linear_y) &gt; 0.2 or abs(self.last_angular_z - angular_z) &gt; 1:
+    speed_up = True
+
+self.last_linear_x = linear_x
+self.last_linear_y = linear_y
+self.last_angular_z = angular_z
+
+linear_x_, linear_y_ = linear_x * 1000.0, linear_y * 1000.0 #mm to m
+speed = math.sqrt(linear_x_ ** 2 + linear_y_ ** 2)
+direction =  math.atan2(linear_y_, linear_x_)
+direction = math.pi * 2 + direction if direction &lt; 0 else direction
+self.mecanum.set_velocity(speed, direction, angular_z, speed_up=speed_up)
+</code></pre>
+<p>The <code>Twist</code> message from <code>cmd_vel</code> provides the necessary information to calculate <code>speed</code>, <code>direction</code>, and <code>angular_z</code> for controlling the Mecanum wheels using the <code>MecanumChassis</code> object.</p>
+<p>Refer to <a href="https://drive.google.com/drive/folders/16pwHYO8rK-22oAzStc7-olP9Weq7AbzY">JetAuto &amp; JetAuto Pro Resources</a> chapter 7.3 for the working principle of the Mecanum wheel.</p>
+</li>
+<li>
+<p>Try other various combinations of motion commands to gain a better understanding of the robot's movement, such as changing the linear values for both <code>x</code> and <code>y</code> as well as the angular values.</p>
+</li>
+<li>
+<p>Next, we'll try controlling the JetAuto robot using keyboard input. In a new/other terminal:</p>
+<p>First, let's make the python script executable:</p>
+<pre><code>sudo chmod +x /home/jetauto/jetauto_ws/src/jetauto_peripherals/scripts/teleop_key_control.py
+</code></pre>
+<p>Next:</p>
+<pre><code>roslaunch jetauto_peripherals teleop_key_control.launch robot_name:="/"
+</code></pre>
+<p>Use w, a, s, d to control the robot.</p>
+</li>
+<li>
+<p>Inspect the source code of the teleop controller to understand its operation by opening the file at:</p>
+<p><strong>~/jetauto_ws/src/jetauto_peripherals/scripts/teleop_key_control.py</strong></p>
+</li>
+</ol>
+<h2 id="lab-question">Lab Question</h2>
+<ol>
+<li>
+<p>Modify the controller you created from <a href="../lab3/">lab3</a> (or create a new one) so that it publishes to the <code>/jetauto_controller/cmd_vel</code> topic for controlling the JetAuto robot in Gazebo.</p>
+<p><strong>Hint:</strong> You can follow the same approach as Lab 3 by creating a new package called <code>lab4_jetauto_control</code> in your <code>ros_ws</code>.</p>
+<pre><code>catkin_create_pkg lab4_jetauto_control rospy geometry_msgs
+</code></pre>
+<p>Refer to the <code>teleop_key_control.py</code> controller you used in this lab for instructions on how to publish to the JetAuto nodes.</p>
+</li>
+</ol>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://wiki.ros.org/ROS/Tutorials">ROS Tutorials</a></li>
+<li><a href="https://formant.io/resources/glossary/urdf/">What is the Unified Robotics Description Format (URDF)?</a></li>
+<li>EECS 106A Labs</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.section", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -213,7 +213,7 @@ Recently, ARM made the [announcement](https://os.mbed.com/blog/entry/Important-U
         Button pressed!
         SEP600 is Cool!
 
-    After the code starts, whenever the button is pressed, the LED should blink more rapidly at 5 Hz.
+    After the code starts, whenever the button is pressed and held, the LED should blink more rapidly at 5Hz. Once the button is released, the LED return to blink at 1Hz.
 
     !!! quote "Start with this prompt"
     

@@ -1,35 +1,35 @@
-# Lab 3 : ROS Workspace, Package, Publisher and Subscriber
+# Lab 3: ROS Workspace, Package, Publisher, and Subscriber
 
 ## Introduction
 
 ### ROS Workspace
 
-A workspace is a directory containing ROS packages. Before using ROS, it’s necessary to source your ROS installation workspace in the terminal you plan to work in. This makes ROS’s packages available for you to use in that terminal.
+A workspace is a directory containing ROS packages. Before using ROS, it’s necessary to source your ROS installation workspace in the terminal you plan to work in. This makes ROS packages available for you to use in that terminal.
 
 ### ROS Package
 
-A package is an organizational unit for your ROS code. If you want to be able to install your code or share it with others, then you’ll need it organized in a package. With packages, you can release your ROS work and allow others to build and use it easily.
+A package is an organizational unit for your ROS code. If you want to be able to install your code or share it with others, then you’ll need to organize it in a package. With packages, you can release your ROS work and allow others to build and use it easily.
 
-For a package to be considered a catkin package it must meet a few requirements:
+For a package to be considered a catkin package, it must meet a few requirements:
 
-- The package must contain a catkin compliant `package.xml` file.
-    - That `package.xml` file provides meta information about the package.
-- The package must contain a `CMakeLists.txt` which uses catkin.
-    - If it is a catkin metapackage it must have the relevant boilerplate `CMakeLists.txt` file.
-- Each package must have its own directory
-    - This means no nested packages nor multiple packages sharing the same directory.
+- The package must contain a catkin-compliant `package.xml` file.
+    - That `package.xml` file provides meta-information about the package.
+- The package must contain a `CMakeLists.txt` file which uses catkin.
+    - If it is a catkin metapackage, it must have the relevant boilerplate `CMakeLists.txt` file.
+- Each package must have its own directory.
+    - This means neither nested packages nor multiple packages sharing the same directory.
 
-The simplest possible package may have a file structure that looks like:
+The simplest possible package may have a file structure that looks like this:
 
     my_package/
         CMakeLists.txt
         package.xml
 
-A single workspace can contain as many packages as you want, each in their own directory. You can also have packages of different build types in one workspace (CMake, Python, etc.). You cannot have nested packages.
+A single workspace can contain as many packages as you want, each in its own directory. You can also have packages of different build types in one workspace (CMake, Python, etc.). You cannot have nested packages.
 
-Best practice is to have a `src` directory within your workspace, and to create your packages in there. This keeps the top level of the workspace “clean”.
+The best practice is to have a `src` directory within your workspace and to create your packages in there. This keeps the top level of the workspace “clean”.
 
-A trivial workspace might look like:
+A trivial workspace might look like this:
 
     workspace_directory/            -- WORKSPACE
     └─ src/                         -- SOURCE SPACE
@@ -42,11 +42,13 @@ A trivial workspace might look like:
              ├─ CMakeLists.txt      -- CMakeLists.txt file for package_n
              └─ package.xml         -- Package manifest for package_n
 
+
+
 ## Procedures
 
 ### Create a Workspace directory
 
-1. Best practice is to create a new directory for every new workspace. The name doesn’t matter, but it is helpful to have it indicate the purpose of the workspace. Let’s choose the directory name `ros_ws`, for our development workspace. Open a new terminal and run:
+1. The best practice is to create a new directory for every new workspace. The name doesn’t matter, but it is helpful to have it indicate the purpose of the workspace. Let’s choose the directory name `ros_ws` for our development workspace. Open a new terminal and run:
 
         mkdir -p ~/ros_ws/src
         cd ~/ros_ws/
@@ -56,11 +58,11 @@ A trivial workspace might look like:
 
     Another best practice is to put any packages in your workspace into the `src` directory. The above code creates a `src` directory inside `ros_ws`.
 
-1. Additionally, if you look in your current directory you should now have a `build` and `devel` directory. Inside the `devel` directory you can see that there are now several setup files. Sourcing any of these files will overlay this workspace on top of your environment. Before continuing, source your new setup.sh file:
+1. Additionally, if you look in your current directory, you should now have a `build` and `devel` directory. Inside the `devel` directory, you can see that there are now several setup files. Sourcing any of these files will overlay this workspace on top of your environment. Before continuing, source your new setup.bash file:
 
         source devel/setup.bash
 
-1. To make sure your workspace is properly overlayed by the setup script, make sure the `ROS_PACKAGE_PATH` environment variable includes the directory you're in.
+1. To make sure your workspace is properly overlaid by the setup script, make sure the `ROS_PACKAGE_PATH` environment variable includes the directory you're in.
 
     Run:
 
@@ -198,7 +200,7 @@ A trivial workspace might look like:
 
     Initialize ROS. This allows ROS to do name remapping through the command line -- not important for now. This is also where we specify the name of our node. Node names must be unique in a running system.
 
-    The name used here must be a base name, i.e., it cannot have a / in it.
+    The name used here must be a base name, i.e., it cannot have a `/` in it.
 
         ros::NodeHandle n;
 
@@ -206,21 +208,23 @@ A trivial workspace might look like:
 
         ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
 
-    Tell the master that we are going to be publishing a message of type `std_msgs/String` on the topic `chatter`. This lets the master tell any nodes listening on `chatter` that we are going to publish data on that topic. The second argument is the size of our publishing queue. In this case if we are publishing too quickly it will buffer up a maximum of 1000 messages before beginning to throw away old ones.
+    Tell the master that we are going to be publishing a message of type `std_msgs/String` on the topic `chatter`. This lets the master tell any nodes listening on `chatter` that we are going to publish data on that topic. The second argument is the size of our publishing queue. In this case, if we are publishing too quickly, it will buffer up a maximum of 1000 messages before beginning to throw away old ones.
 
     `NodeHandle::advertise()` returns a `ros::Publisher` object, which serves two purposes: 1) it contains a `publish()` method that lets you publish messages onto the topic it was created with, and 2) when it goes out of scope, it will automatically unadvertise.
+
+    
 
         ros::Rate loop_rate(10);
 
     A `ros::Rate` object allows you to specify a frequency that you would like to loop at. It will keep track of how long it has been since the last call to `Rate::sleep()`, and sleep for the correct amount of time.
 
-    In this case we tell it we want to run at 10Hz.
+    In this case, we tell it we want to run at 10Hz.
 
         int count = 0;
         while (ros::ok())
         {
 
-    By default roscpp will install a SIGINT handler which provides Ctrl-C handling which will cause `ros::ok()` to return false if that happens.
+    By default, roscpp will install a SIGINT handler which provides Ctrl-C handling which will cause `ros::ok()` to return false if that happens.
 
     `ros::ok()` will return false if:
     
@@ -237,7 +241,7 @@ A trivial workspace might look like:
         ss << "hello world " << count;
         msg.data = ss.str();
 
-    We broadcast a message on ROS using a message-adapted class, generally generated from a msg file. More complicated datatypes are possible, but for now we're going to use the standard `String` message, which has one member: "data".
+    We broadcast a message on ROS using a message-adapted class, generally generated from a msg file. More complicated datatypes are possible, but for now, we're going to use the standard `String` message, which has one member: "data".
 
         chatter_pub.publish(msg);
 
@@ -249,7 +253,7 @@ A trivial workspace might look like:
 
         ros::spinOnce();
 
-    Calling `ros::spinOnce()` here is not necessary for this simple program, because we are not receiving any callbacks. However, if you were to add a subscription into this application, and did not have `ros::spinOnce()` here, your callbacks would never get called. So, add it for good measure.
+    Calling `ros::spinOnce()` here is not necessary for this simple program, because we are not receiving any callbacks. However, if you were to add a subscription into this application and did not have `ros::spinOnce()` here, your callbacks would never get called. So, add it for good measure.
 
         loop_rate.sleep();
 
@@ -258,12 +262,12 @@ A trivial workspace might look like:
     Here's the condensed version of what's going on:
 
     - Initialize the ROS system
-    - Advertise that we are going to be publishing std_msgs/String messages on the chatter topic to the master
+    - Advertise to the master that we are going to be publishing std_msgs/String messages on the chatter topic
     - Loop while publishing messages to chatter 10 times a second
 
     #### Write the subscriber node
 
-    Now we need to write a node to receive the messsages.
+    Now we need to write a node to receive the messages.
 
 1. Return to `ros_ws/src/cpp_pubsub/src` to create the next node. Enter the following code in your terminal to download the subscriber:
 
@@ -273,7 +277,7 @@ A trivial workspace might look like:
 
         talker.cpp  listener.cpp
 
-1. Open the `listener.cpp` with your text editor. Alternatively, create a `.cpp` file with the following:
+1. Open `listener.cpp` with your text editor. Alternatively, create a `.cpp` file with the following:
 
         #include "ros/ros.h"
         #include "std_msgs/String.h"
@@ -349,13 +353,13 @@ A trivial workspace might look like:
 
     Subscribe to the `chatter` topic with the master. ROS will call the `chatterCallback()` function whenever a new message arrives. The 2nd argument is the queue size, in case we are not able to process messages fast enough. In this case, if the queue reaches 1000 messages, we will start throwing away old messages as new ones arrive.
 
-    `NodeHandle::subscribe()` returns a `ros::Subscriber` object, that you must hold on to until you want to unsubscribe. When the Subscriber object is destructed, it will automatically unsubscribe from the `chatter` topic.
+    `NodeHandle::subscribe()` returns a `ros::Subscriber` object that you must hold on to until you want to unsubscribe. When the Subscriber object is destructed, it will automatically unsubscribe from the `chatter` topic.
 
     There are versions of the `NodeHandle::subscribe()` function which allow you to specify a class member function, or even anything callable by a `Boost.Function` object. The [roscpp](https://wiki.ros.org/roscpp/Overview) overview contains more information.
 
         ros::spin();
     
-    `ros::spin()` enters a loop, calling message callbacks as fast as possible. Don't worry though, if there's nothing for it to do it won't use much CPU. `ros::spin()` will exit once `ros::ok()` returns false, which means `ros::shutdown()` has been called, either by the default Ctrl-C handler, the master telling us to shutdown, or it being called manually.
+    `ros::spin()` enters a loop, calling message callbacks as fast as possible. Don't worry though, if there's nothing for it to do, it won't use much CPU. `ros::spin()` will exit once `ros::ok()` returns false, which means `ros::shutdown()` has been called, either by the default Ctrl-C handler, the master telling us to shutdown, or it being called manually.
 
     Again, here's a condensed version of what's going on:
 
@@ -397,11 +401,11 @@ A trivial workspace might look like:
 
     This will create two executables, `talker` and `listener`, which by default will go into the package directory of your `devel` space, located by default at `~/ros_ws/devel/lib/<package name>`.
 
-    Note that you have to add dependencies for the executable targets to message the generation targets:
+    Note that you have to add dependencies for the executable targets to the message generation targets:
 
         add_dependencies(talker cpp_pubsub_generate_messages_cpp)
 
-    This makes sure message headers of this package are generated before being used. If you use messages from other packages inside your catkin workspace, you need to add dependencies to their respective generation targets as well, because catkin builds all projects in parallel. The following variable to allow you to depend on all necessary targets:
+    This makes sure message headers of this package are generated before being used. If you use messages from other packages inside your catkin workspace, you need to add dependencies to their respective generation targets as well, because catkin builds all projects in parallel. The following variable allows you to depend on all necessary targets:
 
         target_link_libraries(talker ${catkin_LIBRARIES})
 
@@ -421,7 +425,7 @@ A trivial workspace might look like:
         cd ~/ros_ws
         catkin_make
 
-    Note: Or if you're adding as new pkg, you may need to tell catkin to force making by `--force-cmake` option.
+    Note: If you're adding a new pkg, you may need to tell catkin to force making using the `--force-cmake` option.
 
     Now you have written a simple publisher and subscriber.
 
@@ -464,7 +468,7 @@ A trivial workspace might look like:
 
 ### Create a Python Package
 
-Next, we'll use Python create ROS package to compare the difference between C++ and Python.
+Next, we'll use Python to create a ROS package to compare the difference between C++ and Python.
 
 1. Navigate into `ros_ws/src`, and run the package creation command to create a simple Python publisher and subscriber:
 
@@ -475,7 +479,7 @@ Next, we'll use Python create ROS package to compare the difference between C++ 
 
     #### Write the publisher node
 
-1.  Navigate to your package `ros_ws/src/py_pubsub` and let's first create a `scripts` directories to store our Python scripts in and navigate into it:
+1.  Navigate to your package `ros_ws/src/py_pubsub` and let's first create a `scripts` directory to store our Python scripts in and navigate into it:
 
         cd ~/ros_ws/src/py_pubsub
 
@@ -583,7 +587,7 @@ Next, we'll use Python create ROS package to compare the difference between C++ 
 
         listener.py  talker.py
 
-1. Open the `listener.py` with your text editor. Alternatively, create a .py file with the following:
+1. Open `listener.py` with your text editor. Alternatively, create a .py file with the following:
 
         #!/usr/bin/env python
         import rospy
@@ -609,7 +613,7 @@ Next, we'll use Python create ROS package to compare the difference between C++ 
         if __name__ == '__main__':
             listener()
 
-1. Add the following to your `ros_ws/src/py_pubsub/CMakeLists.txt` in the `py_pubsub` package. This makes sure the python scripts get installed properly, and uses the right python interpreter. You may just add this to the end of the `CMakeLists.txt`.
+1. Add the following to your `ros_ws/src/py_pubsub/CMakeLists.txt` in the `py_pubsub` package. This makes sure the python scripts get installed properly and uses the right python interpreter. You may just add this to the end of the `CMakeLists.txt`.
 
         catkin_install_python(PROGRAMS scripts/talker.py scripts/listener.py
             DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -630,7 +634,7 @@ Next, we'll use Python create ROS package to compare the difference between C++ 
 
     We also changed up the call to `rospy.init_node()` somewhat. We've added the `anonymous=True` keyword argument. ROS requires that each node have a unique name. If a node with the same name comes up, it bumps the previous one. This is so that malfunctioning nodes can easily be kicked off the network. The `anonymous=True` flag tells `rospy` to generate a unique name for the node so that you can have multiple `listener.py` nodes run easily.
 
-    The final addition, `rospy.spin()` simply keeps your node from exiting until the node has been shutdown. Unlike `roscpp`, `rospy.spin()` does not affect the subscriber callback functions, as those have their own threads.
+    The final addition, `rospy.spin()`, simply keeps your node from exiting until the node has been shutdown. Unlike `roscpp`, `rospy.spin()` does not affect the subscriber callback functions, as those have their own threads.
 
 ### Build and run Python Package
 
@@ -693,32 +697,35 @@ We use CMake as our build system and, yes, you have to use it even for Python no
 
 1. Press `Ctrl+C` in each terminal to stop the nodes from spinning.
 
-## Lab Exercise ([Project 1](project1.md))
+## Lab Exercise (part of [Project 1](project1.md))
 
-1. Write a new controller (C++ or Python) for turtlesim that replaces `turtle_teleop_key`. Since the turtlesim node is the subscriber in this example, you’ll only need
-to write a single publisher node.
+
+
+1. Write a new controller (Python or C++) for turtlesim that replaces `turtle_teleop_key`. Since the turtlesim node is the subscriber in this example, you’ll only need to write a single publisher node.
 
     Create a new package called `lab3_turtlesim`. You can create a new workspace called `lab3_ws` or use your existing workspace.
 
-    The command to create the packages are given below depending on your preferred programming language. You'll need the `geometry_msgs` dependency to use the `twist` object.
+    The commands to create the packages are given below depending on your preferred programming language. You'll need the `geometry_msgs` dependency to use the `twist` object.
 
-        catkin_create_pkg lab3_turtlesim roscpp geometry_msgs
-    
-    or
+    Python (Easy) project:
 
         catkin_create_pkg lab3_turtlesim rospy geometry_msgs
+
+    or C++ (Hard) project:
+
+        catkin_create_pkg lab3_turtlesim roscpp geometry_msgs
 
     Your node should do the following:
 
     - Accept a command line argument specifying the name of the turtle it should control.
         - i.e., running `rosrun lab3_turtlesim turtle_controller turtle1` will start a controller node that controls `turtle1`.
-    - Use `w`, `a`, `s`, `d` (and `q`, `e`, `c`, and `z`) to control the turtle by publish velocity control messages on the appropriate topic whenever the user presses those keys on the keyboard, as in the original `turtle_teleop_key`. **The turtle should ONLY move when is key is pressed. When the key is released, the turtle should STOP moving.**
-        - Option 1 (Easy) Single keypress: In addition to just forward/backward and turns, the turtle should move forward and turn left in a circular path if `q` is pressed and similar for `e`, `c`, and `z` in their corresponding direction.
-        - Option 2 (Hard) Multiple keypress: If you want to challenge your Python skills, make the controller so it listen to multiple keys. i.e., if `w + a` are pressed, the turtle should move forward and turn left in a circular path. If the keys pressed are contracdicting, there should be no movement. You'll need to install additional Python package to achieve this.
+    - Use `w`, `a`, `s`, `d` (and `q`, `e`, `c`, and `z`) to control the turtle by publishing velocity control messages on the appropriate topic whenever the user presses those keys on the keyboard, as in the original `turtle_teleop_key`. **The turtle should ONLY move when a key is pressed. When the key is released, the turtle should STOP moving.**
+        - Option 1 (Easy) Single keypress: In addition to just forward/backward and turns, the turtle should move forward and turn left in a circular path if `q` is pressed and similar for `e`, `c`, and `z` in their corresponding directions.
+        - Option 2 (Hard) Multiple keypress: If you want to challenge your Python skills, make the controller so it listens to multiple keys. i.e., if `w + a` are pressed, the turtle should move forward and turn left in a circular path. If the keys pressed are contradicting, there should be no movement. You'll need to install an additional Python package to achieve this.
 
     **Hint:** You'll need to use the `Twist` message type in the `geometry_msgs` package.
     
-    **Hint:** Find the `turtle_teleop_key` source code as a reference. [teleop_turtle_key.cpp](https://docs.ros.org/en/kinetic/api/turtlesim/html/teleop__turtle__key_8cpp_source.html)
+    **Hint:** You can use [teleop_turtle_key.cpp](https://docs.ros.org/en/kinetic/api/turtlesim/html/teleop__turtle__key_8cpp_source.html) as a reference for cpp.
     
     To test, spawn multiple turtles and open multiple instances of your new turtle controller node, each linked to a different turtle.
 

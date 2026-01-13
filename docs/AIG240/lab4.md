@@ -1,15 +1,10 @@
 # Lab 4: Robot Model and Gazebo
 
-<font size="5">
-Seneca Polytechnic</br>
-AIG240 Robotics
-</font>
-
 ## Introduction
 
 ### URDF
 
-URDF (Unified Robot Description Format) is an XML format for representing a robot model. URDF is commonly used in Robot Operating System (ROS) tools such as RViz (ROS Visualization tool) and Gazebo simulator. It is essentially a 3D model with information about joints, motors, mass, etc. The files are then run through the Robot Operating System (ROS). The data from the file informs the human operator what the robot looks like and is capable of before they begin operating the robot.
+URDF (Unified Robot Description Format) is an XML format for representing a robot model. URDF is commonly used in Robot Operating System (ROS) tools such as RViz (ROS Visualization tool) and the Gazebo simulator. It is essentially a 3D model with information about joints, motors, mass, etc. The files are then processed by the Robot Operating System (ROS). The data from the file informs the human operator what the robot looks like and what it is capable of before they begin operating the robot.
 
 More details on the URDF specification can be found [here](http://wiki.ros.org/urdf/XML).
 
@@ -33,17 +28,17 @@ URDF (Unified Robot Description Format) and XACRO (XML Macros) are both used in 
 
 ### RViz
 
-RViz, or Robot Visualization, is a powerful 3D visualization tool used primarily in robotics and the Robot Operating System (ROS). It enables developers to visualize and interpret a wide array of sensor data, such as point clouds, maps, and robot models, in real-time. With its interactive features, users can manipulate objects and adjust visual settings to enhance understanding of robot behavior and performance. RViz's plugin architecture allows for extensibility, accommodating various data types and visualization needs. This makes it an invaluable resource for debugging algorithms, simulating scenarios, and gaining insights into robotic systems, ultimately aiding in the development and refinement of robotics applications.
+RViz, or Robot Visualization, is a powerful 3D visualization tool used primarily in robotics and the Robot Operating System (ROS). It enables developers to visualize and interpret a wide array of sensor data, such as point clouds, maps, and robot models, in real-time. With its interactive features, users can manipulate objects and adjust visual settings to enhance their understanding of robot behavior and performance. RViz's plugin architecture allows for extensibility, accommodating various data types and visualization needs. This makes it an invaluable resource for debugging algorithms, simulating scenarios, and gaining insights into robotic systems, ultimately aiding in the development and refinement of robotics applications.
 
 ### Gazebo
 
-Gazebo is an open-source robotics simulation tool that provides a highly realistic environment for testing and developing robotic systems. It allows users to simulate robots in complex 3D environments, complete with detailed physics interactions, which include gravity, collisions, and friction. Gazebo supports a variety of sensors, such as cameras and LIDAR, enabling the generation of realistic sensor data for developing perception algorithms. Its seamless integration with the Robot Operating System (ROS) enhances its functionality, allowing developers to leverage ROS tools and libraries for robot control and communication. With a flexible plugin architecture, Gazebo can be customized to meet specific simulation needs, making it an essential platform for researchers and engineers in the field of robotics.
+Gazebo is an open-source robotics simulation tool that provides a highly realistic environment for testing and developing robotic systems. It allows users to simulate robots in complex 3D environments, complete with detailed physics interactions, including gravity, collisions, and friction. Gazebo supports a variety of sensors, such as cameras and LIDAR, enabling the generation of realistic sensor data for developing perception algorithms. Its seamless integration with the Robot Operating System (ROS) enhances its functionality, allowing developers to leverage ROS tools and libraries for robot control and communication. With a flexible plugin architecture, Gazebo can be customized to meet specific simulation needs, making it an essential platform for researchers and engineers in the field of robotics.
 
 ## Preparation
 
 ### JetAuto Robot
 
-In preparation for using the JetAuto robot, please be familiar with the user manual and the basic lesson provided by the manufacturer found here:
+In preparation for using the JetAuto robot, please become familiar with the user manual and the basic lesson provided by the manufacturer found here:
 
 - [JetAuto User Manual](JetAuto-User-Manual.pdf)
 - [JetAuto & JetAuto Pro Resources](https://drive.google.com/drive/folders/16pwHYO8rK-22oAzStc7-olP9Weq7AbzY)
@@ -70,26 +65,46 @@ After becoming familiar with ROS, we'll now install the Gazebo simulation enviro
 
         sudo apt install ros-melodic-gazebo-dev ros-melodic-gazebo-msgs ros-melodic-gazebo-plugins ros-melodic-gazebo-ros ros-melodic-gazebo-ros-control ros-melodic-gazebo-ros-pkgs ros-melodic-joint-state-publisher ros-melodic-joint-state-publisher-gui ros-melodic-joint-trajectory-controller ros-melodic-moveit ros-melodic-trac-ik-kinematics-plugin ros-melodic-slam-gmapping
 
-### Download the JetAuto Workspace to Local Machine for Simulation
+1. ROS Melodic was designed for Python 2.7, but some of our code might be written in Python 3. As a result, we'll also need to install the Python 3 version of `rospkg` in order to run scripts written in Python 3.
+
+    First, install `pip` for Python 3.
+
+        sudo apt install python3-pip
+
+    Then we'll use `pip3` to install `rospkg`.
+
+        pip3 install rospkg
+
+    **NOTE** Do NOT use `apt` to install `python-rospkg` as it will cause a conflict with the existing Python 2 package installed with ROS.
+
+    ### Download the JetAuto Workspace to Local Machine for Simulation
 
 1. For this lab, we'll use the JetAuto workspace `jetauto_ws` on our local virtual machine so we can test the robot locally in a simulation before programming the actual robot.
 
     [Download jetauto_ws.zip](https://drive.google.com/file/d/1SSaqoji_3H5vm9ZKAljeWPFmDUGfCc_u/view?usp=drive_link) and unzip it to the `jetauto` user's directory: `/home/jetauto/`
 
-    If you downloaded the file on your host machine instead of your virtual machine, you may use WinSCP to transfer the file over to your virtual machine.
-
-    **On your virtual machine:** Open a terminal and ensure `openssh-server` is installed.
-
-        sudo apt-get install openssh-server
-
-    Enable and start SSH as necessary:
-
-        sudo systemctl enable ssh
-        sudo systemctl start ssh
+    !!! info
     
-    **On your host machine:** Open WinSCP and connect to: 127.0.0.1 port 22.
+        If you downloaded the file to your host machine instead of your virtual machine, you may use WinSCP to transfer the file over to your virtual machine.
 
-    Copy the `jetauto_ws` folder from `jetauto_ws.zip` into `/home/jetauto/`.
+        **On your virtual machine:** Open a terminal and ensure `openssh-server` is installed.
+
+            sudo apt-get install openssh-server
+
+        Enable and start SSH as necessary:
+
+            sudo systemctl enable ssh
+            sudo systemctl start ssh
+        
+        **On your host machine:** Open WinSCP and connect to: 127.0.0.1 port 22.
+
+        Move/Copy the `jetauto_ws` directory from `jetauto_ws.zip` into `/home/jetauto/`.
+    
+    Verify that `jetauto_ws` is in the right place by running:
+
+        cd ~ && ls -l
+    
+    You should see `jetauto_ws` listed as a directory among other directories.
 
 1. Once `jetauto_ws` is on your virtual machine's `jetauto` user directory, let's add it as a source in `~/.bashrc`.
 
@@ -101,15 +116,15 @@ After becoming familiar with ROS, we'll now install the Gazebo simulation enviro
 
         echo "source /home/jetauto/jetauto_ws/devel/setup.bash" >> ~/.bashrc
 
-    Use `nano` to check if the `source` line got added to the end of `~/.bashrc`
+    Use `nano` to check if the `source` line was added to the end of `~/.bashrc`.
 
         nano ~/.bashrc
 
-### JetAuto Robot Model
+    ### JetAuto Robot Model
 
-Now that the JetAuto robot workspace is on the virtual machine, let's try to simulate it in Gazebo. A robot model in URDF consists of links that are joined together to form a robot assembly. Each link has its given geometry, mass, and collision parameters. The geometry can be provided as a simple shape or a complex shape using a solid model.
+    Now that the JetAuto robot workspace is on the virtual machine, let's try to simulate it in Gazebo. A robot model in URDF consists of links that are joined together to form a robot assembly. Each link has its given geometry, mass, and collision parameters. The geometry can be provided as a simple shape or a complex shape using a solid model.
 
-1. Before we start, let's ensure (double-check) we have the required packages installed (if you haven't installed them from the beginning of this lab) to view and test our robot model:
+1. Before we start, let's ensure (and double-check) we have the required packages installed (if you haven't installed them from the beginning of this lab) to view and test our robot model:
 
         sudo apt install ros-melodic-joint-state-publisher ros-melodic-joint-state-publisher-gui ros-melodic-joint-trajectory-controller
 
@@ -117,7 +132,7 @@ Now that the JetAuto robot workspace is on the virtual machine, let's try to sim
 
         sudo gedit /etc/environment
 
-    We'll add the following in the environment:
+    Add the following into the system's environment variables:
 
         LIDAR_TYPE="A1"
         DEPTH_CAMERA_TYPE="AstraProPlus"
@@ -125,13 +140,13 @@ Now that the JetAuto robot workspace is on the virtual machine, let's try to sim
         HOST="/"
         MASTER="/"
 
-    **Restart your virtual machine in order for the changes to take effect.**
+    **Restart** your virtual machine in order for the changes to take effect:
+
+        reboot
 
 1. Now, let's have a quick view of the URDF model. We can use RViz for visualization. A launch file allows us to start multiple nodes at once as well as define other attributes.
 
-        roslaunch jetauto_description display.launch model:=urdf/jetauto.urdf
-
-    You may inspect this particular launch file at the following location:
+    Inspect this particular launch file using `nano` or a text editor at the following location:
 
     **~/jetauto_ws/src/jetauto_simulations/jetauto_description/launch/display.launch**
 
@@ -143,6 +158,10 @@ Now that the JetAuto robot workspace is on the virtual machine, let's try to sim
 
     You can find more information about `roslaunch` and `.launch` files in the official ROS tutorials: [roslaunch](https://wiki.ros.org/roslaunch) and [Roslaunch tips for large projects](https://wiki.ros.org/ROS/Tutorials/Roslaunch%20tips%20for%20larger%20projects).
 
+    Run the launch file:
+
+        roslaunch jetauto_description display.launch model:=urdf/jetauto.urdf
+
 1. Once RViz is started, you can use the `joint_state_publisher_gui` to adjust the arm angle.
 
     ![Figure 4.3 JetAuto in RViz](lab4-rviz-jetauto.png)
@@ -150,6 +169,8 @@ Now that the JetAuto robot workspace is on the virtual machine, let's try to sim
     ***Figure 4.3** JetAuto in RViz* *(Note: The original image caption said "JetAuto in Gazebo", but the context and image refer to RViz)*
 
 1. Let's open up the JetAuto URDF model file to take a closer look at it.
+
+    Inspect this particular urdf file using `nano` or a text editor at the following location:
 
     **~/jetauto_ws/src/jetauto_simulations/jetauto_description/urdf/jetauto_car.urdf.xacro**
 
@@ -211,7 +232,7 @@ Now that the JetAuto robot workspace is on the virtual machine, let's try to sim
             </collision>
         </link>
 
-    Next is the link/part `base_link` along with its elements. The mass and inertial information of the part is defined as an XACRO element. The `geometry` sub-element in the `visual` element is provided by an `stl` mesh file from the `jetauto_description` package. The `collision` element is also defined as a box relative to the specified XYZ coordinate.
+    Next is the link/part `base_link` along with its elements. The mass and inertial information of the part is defined as a XACRO element. The `geometry` sub-element in the `visual` element is provided by an `stl` mesh file from the `jetauto_description` package. The `collision` element is also defined as a box relative to the specified XYZ coordinates.
 
     ![Figure 4.4 JetAuto base_link STL](lab4-base_link-stl.png)
 
@@ -268,11 +289,13 @@ Now that the JetAuto robot workspace is on the virtual machine, let's try to sim
                 xyz="0 0 0" />
         </joint>
 
-    The `back_shell_link` is the part that houses the Jetson Nano, the expansion board, and mounts the antenna. All the elements are defined in a similar manner as `base_link`, and it is defined as a child link of `base_link` with its relative position defined in `joint`.
+    The `back_shell_link` is the part that houses the Jetson Nano and the expansion board, and mounts the antenna. All the elements are defined in a similar manner as `base_link`, and it is defined as a child link of `base_link` with its relative position defined in `joint`.
 
-    The `wheel_XXX_link` are all defined in a similar manner.
+    The `wheel_XXX_link` links are all defined in a similar manner.
 
 1. The JetAuto URDF model file above only defines the mechanical structure of the robot. If we take a look at the URDF file for simulating the robot in Gazebo, we will find more links that are used and defined in other URDF files within the same package.
+
+    You may inspect this additional xacro file using `nano` or a text editor at the following location:
 
     **~/jetauto_ws/src/jetauto_simulations/jetauto_description/urdf/jetauto.xacro**
 
@@ -280,7 +303,7 @@ Now that the JetAuto robot workspace is on the virtual machine, let's try to sim
 
 1. Close all terminals.
 
-### Running JetAuto robot in Gazebo
+    ### Running JetAuto Robot in Gazebo
 
 1. In a terminal, launch:
 
@@ -302,7 +325,7 @@ Now that the JetAuto robot workspace is on the virtual machine, let's try to sim
 
         rostopic pub -1 /jetauto_controller/cmd_vel geometry_msgs/Twist '{linear: {x: 0.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}'
 
-    Do you notice the JetAuto robot listens to the same `cmd_vel` topics and uses the same `Twist` message as `TurtleSim`?
+    Notice that the JetAuto robot listens to the same `cmd_vel` topics and uses the same `Twist` message as `TurtleSim`.
 
 1. Let's inspect the source code of the motion controller to take a closer look. Open the file at the following path:
 
@@ -334,22 +357,17 @@ Now that the JetAuto robot workspace is on the virtual machine, let's try to sim
 
 1. Try other various combinations of motion commands to gain a better understanding of the robot's movement, such as changing the linear values for both `x` and `y` as well as the angular values.
 
-1. Next, we'll try controlling the JetAuto robot using keyboard input. In a new/other terminal, run:
+1. Next, we'll try controlling the JetAuto robot using keyboard input. In a new/other terminal:
+
+    First, let's make the python script executable:
+
+        sudo chmod +x /home/jetauto/jetauto_ws/src/jetauto_peripherals/scripts/teleop_key_control.py
+
+    Next:
 
         roslaunch jetauto_peripherals teleop_key_control.launch robot_name:="/"
 
     Use w, a, s, d to control the robot.
-
-    **Troubleshooting:** If you get a `No module named 'rospkg'` error, it means there are some errors with the python interpretor and the ROS package. First, ensure `rospkg` is installed:
-
-        sudo apt install python-rospkg
-
-    **Troubleshooting:** If the problem presist, try removing `python-rospkg` which will also remove a long list of `ros` modules. Then re-install ROS.
-
-        sudo apt remove python-rospkg
-        sudo apt install ros-melodic-desktop-full
-
-    **Make sure you re-install all the dependency at the start of this lab as well.**
     
 1. Inspect the source code of the teleop controller to understand its operation by opening the file at:
 
@@ -357,13 +375,13 @@ Now that the JetAuto robot workspace is on the virtual machine, let's try to sim
 
 ## Lab Question
 
-1. Modify the controller you created from [lab3](lab3.md) (or create a new one) so it will publish to the `/jetauto_controller/cmd_vel` topic for controlling the JetAuto robot in Gazebo.
+1. Modify the controller you created from [lab3](lab3.md) (or create a new one) so that it publishes to the `/jetauto_controller/cmd_vel` topic for controlling the JetAuto robot in Gazebo.
 
     **Hint:** You can follow the same approach as Lab 3 by creating a new package called `lab4_jetauto_control` in your `ros_ws`.
 
         catkin_create_pkg lab4_jetauto_control rospy geometry_msgs
 
-    Refer to the `teleop_key_control.py` controller you used in this lab on how to publish to the JetAuto nodes.
+    Refer to the `teleop_key_control.py` controller you used in this lab for instructions on how to publish to the JetAuto nodes.
 
 ## Reference
 

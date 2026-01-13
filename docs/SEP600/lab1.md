@@ -175,6 +175,10 @@ Recently, ARM made the [announcement](https://os.mbed.com/blog/entry/Important-U
     - Windows: Open Device Manager and look under COM Ports, then unplug and re-plug your board to identify the COM port.
     - Mac/Linux: Use `ls /dev/tty*`, then unplug and re-plug your board to find the device port.
 
+    !!! info
+
+        Only one serial terminal can communicate with the microcontroller board. If you want to use PuTTY, stop/close all other serial terminal.
+
     If you don't see the output, check your code and ensure you are opening the proper port. If the problem persists, be resourceful and troubleshoot the issue.
 
     Typical settings for PuTTY:
@@ -183,11 +187,13 @@ Recently, ARM made the [announcement](https://os.mbed.com/blog/entry/Important-U
 
     ***Figure 1.5:** Open COM Port with PuTTY*
 
-    Typical command for `screen`:
+    !!! info "`screen` terminal for Linux and Mac
+    
+        Typical command for `screen`:
 
-        screen /dev/ttyXXXXXXXXXXXX 115200
+            screen /dev/ttyXXXXXXXXXXXX 115200
 
-    Replace the above command with the name of your port. To exit the `screen` interface, use `Ctrl + A` then `\`. See the `screen` documentation for details.
+        Replace the above command with the name of your port. To exit the `screen` interface, use `Ctrl + A` then `\`. See the `screen` documentation for details.
 
     ### Part 5: GenAI-assisted Development Challenge
 

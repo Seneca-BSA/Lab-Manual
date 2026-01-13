@@ -263,7 +263,7 @@ This sharp transition between high and low states makes op-amp comparators ideal
     - Button 1: Increase Duty Cycle by 10%.
     - Button 2: Decrease Duty Cycle by 10%.
 
-    Use `FTM_UpdatePwmDutycycle()` to change the duty cycle and `FTM_SetSoftwareTrigger()` to apply the duty cycle update. Refer to [FTM: FlexTimer Driver](https://mcuxpresso.nxp.com/api_doc/dev/1533/a00021.html).
+    Use `FTM_UpdatePwmDutycycle()` to change the duty cycle and `FTM_SetSoftwareTrigger()` to apply the duty cycle update. Refer to [FTM: FlexTimer Driver](https://mcuxpresso.nxp.com/api_doc/dev/1533/a00021.html) for documentation on how to use these functions.
 
 8.  **Build, Flash, Run** your program. Turn on the DSO and adjust the settings to see CH1 as a stable square wave. Does the duty cycle and the PWM frequency match the settings from `FTM_SetupPwm`? 
 

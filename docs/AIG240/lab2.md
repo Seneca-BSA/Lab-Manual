@@ -10,7 +10,7 @@ An overview of some computation graph concepts:
 
 ### Nodes in ROS
 
-Each node in ROS should be responsible for a single, modular purpose, i.e., controlling the wheel motors or publishing the sensor data from a laser range-finder. Each node can send and receive data from other nodes via topics, services, actions, or parameters. A full robotic system is comprised of many nodes working in concert.
+Each node in ROS should be responsible for a single, modular purpose, i.e., controlling the wheel motors or publishing the sensor data from a laser range-finder. Each node can send and receive data from other nodes via topics, services, actions, or parameters. A full robotic system is composed of many nodes working in concert.
 
 ![Figure 2.1 ROS Nodes Graph](lab2-nodes-graph.gif)
 
@@ -52,7 +52,7 @@ A parameter is a configuration value of a node. You can think of parameters as n
 
 ### Understanding ROS Nodes
 
-1. Open a terminal to run ROS using `roscore` and **another terminal** to run turtlesim. The command `rosrun [package_name] [node_name]` launches an executable from a package. For our case, the package name to be `turtlesim` and the executable name to be `turtlesim_node`.
+1. Open a terminal to run ROS using `roscore` and **another terminal** to run turtlesim. The command `rosrun [package_name] [node_name]` launches an executable from a package. In our case, the package name is `turtlesim` and the executable name is `turtlesim_node`.
 
     First terminal:
 
@@ -87,7 +87,7 @@ A parameter is a configuration value of a node. You can think of parameters as n
 
         rosrun turtlesim turtlesim_node __name:=my_turtle
 
-1. Return to the terminal where you ran `rosnode list`, and run it again, you will now see four nodes:
+1. Return to the terminal where you ran `rosnode list` and run it again. You will now see four nodes:
 
         /my_turtle
         /rosout
@@ -98,7 +98,7 @@ A parameter is a configuration value of a node. You can think of parameters as n
 
         rosnode info /my_turtle
 
-    `rosnode info` returns a list of subscribers, publishers, services, and actions. i.e. the ROS graph connections that interact with that node. The output should look like this:
+    `rosnode info` returns a list of subscribers, publishers, services, and actions (i.e., the ROS graph connections that interact with that node). The output should look like this:
 
         --------------------------------------------------------------------------------
         Node [/my_turtle]
@@ -123,11 +123,11 @@ A parameter is a configuration value of a node. You can think of parameters as n
 
 1. Run the same command on the `/teleop_turtle` node and see the difference.
 
-### Understanding ROS Topics
+    ### Understanding ROS Topics
 
-1. Close the `/my_turtle` terminal so only the `/roscore`, `/turtlesim` and `/teleop_turtle` are open.
+1. Close the `/my_turtle` terminal so only the `/roscore`, `/turtlesim`, and `/teleop_turtle` are open.
 
-1. We will use `rqt_graph` to visualize the changing nodes and topics, as well as the connections between them
+1. We will use `rqt_graph` to visualize the changing nodes and topics, as well as the connections between them.
 
     Open a **new terminal** and enter the command:
 
@@ -145,7 +145,7 @@ A parameter is a configuration value of a node. You can think of parameters as n
 
     The highlighting feature of `rqt_graph` is very helpful when examining more complex systems with many nodes and topics connected in many different ways. Click on one of the nodes or topics to try it out.
     
-    While `rqt_graph` is a usefle graphical introspection tool, we’ll look at some other command line tools for introspecting topics.
+    While `rqt_graph` is a useful graphical introspection tool, we’ll look at some other command line tools for introspecting topics.
 
 1. Open **another terminal** and run the `rostopic list` command to return a list of all the topics currently active in the system:
 
@@ -156,7 +156,7 @@ A parameter is a configuration value of a node. You can think of parameters as n
         /turtle1/color_sensor
         /turtle1/pose
 
-1. Running the code with an additional argument `rostopic list -v` will return more details on the topics with the topic type appended in brackets:
+1. Running the command with the additional argument `rostopic list -v` will return more details on the topics with the topic type appended in brackets:
 
         Published topics:
          * /turtle1/color_sensor [turtlesim/Color] 2 publishers
@@ -196,7 +196,7 @@ A parameter is a configuration value of a node. You can think of parameters as n
           z: 0.0
         ---
 
-1. Return to rqt_graph and unhide the **Debug** box, hide everything else, then refresh.
+1. Return to `rqt_graph` and unhide the **Debug** box, hide everything else, then refresh.
 
     ![Figure 2.8 ROS rqt_graph with debug](lab2-rqt_graph-debug.png)
 
@@ -204,7 +204,7 @@ A parameter is a configuration value of a node. You can think of parameters as n
 
     A new node `/rostopic_XXXXX` is created by the `echo` command we just ran (the number might be different). Now you can see that the publisher is publishing data over the `cmd_vel` topic, and two subscribers are subscribed to it (the two arrows with `/turtle1/cmd_vel`).
 
-1. Nodes send data over topics using messages. Publishers and subscribers must send and receive the same type of message to communicate. The topic types we saw earlier after running `rostopic list -v` let us know what message type is used on each topic. Recall that the `cmd_vel` topic has the type `geometry_msgs/Twist`. This means that in the package `geometry_msgs` there is a type called `Twist`. Alternatively, We can run `rostopic type [topic]` to see the topic type. We can also run `rosmsg show [msg type]` on the type to learn its details. Specifically, what structure of data the message expects.
+1. Nodes send data over topics using messages. Publishers and subscribers must send and receive the same type of message to communicate. The topic types we saw earlier after running `rostopic list -v` let us know what message type is used on each topic. Recall that the `cmd_vel` topic has the type `geometry_msgs/Twist`. This means that in the package `geometry_msgs` there is a type called `Twist`. Alternatively, we can run `rostopic type [topic]` to see the topic type. We can also run `rosmsg show [msg type]` on the type to learn its details (specifically, what structure of data the message expects).
 
     Let's verify the topic type for `/turtle1/cmd_vel`:
 
@@ -231,7 +231,7 @@ A parameter is a configuration value of a node. You can think of parameters as n
 
     This tells you that the `/turtlesim` node is expecting a message with two vectors, `linear` and `angular`, of three elements each. This is the data we saw `/teleop_turtle` passing to `/turtlesim` with the echo command earlier.
 
-1. Now that you have the message structure, you can publish data to a topic directly from command line using: `rostopic pub [topic] [msg_type] [args]`. The `[args]` argument is the actual data you’ll pass to the topic, in the structure you just discovered in the previous section.
+1. Now that you have the message structure, you can publish data to a topic directly from the command line using: `rostopic pub [topic] [msg_type] [args]`. The `[args]` argument is the actual data you’ll pass to the topic, in the structure you just discovered in the previous section.
 
     It’s important to note that this argument needs to be input in YAML syntax. Input the full command like so:
 
@@ -243,7 +243,7 @@ A parameter is a configuration value of a node. You can think of parameters as n
 
     ***Figure 2.9** The turtle starts moving in a circle*
 
-    This might seem like a pretty complicated example but it's actually not, so lets look at each argument in details.
+    This might seem like a pretty complicated example but it's actually not, so let's look at each argument in detail.
 
     - This command will publish messages to a given topic:
 
@@ -261,7 +261,7 @@ A parameter is a configuration value of a node. You can think of parameters as n
 
             geometry_msgs/Twist
     
-    - This option (double-dash) tells the option parser that none of the following arguments is an option. This is required in cases where your arguments have a leading dash -, like negative numbers.
+    - This option (double-dash) tells the option parser that none of the following arguments is an option. This is required in cases where your arguments have a leading dash `-`, like negative numbers.
 
             --
     
@@ -269,7 +269,7 @@ A parameter is a configuration value of a node. You can think of parameters as n
 
             '[2.0, 0.0, 0.0]' '[0.0, 0.0, 1.8]' 
 
-1. In order to continuously operate the turtle (and commonly a real robot which it is meant to emulate) require a steady stream of commands. So, to get the turtle to keep moving, you can run:
+1. Continuously operating the turtle (and commonly a real robot which it is meant to emulate) requires a steady stream of commands. So, to get the turtle to keep moving, you can run:
 
         rostopic pub /turtle1/cmd_vel geometry_msgs/Twist -r 1 -- '[2.0, 0.0, 0.0]' '[0.0, 0.0, -1.8]'
 
@@ -287,7 +287,7 @@ A parameter is a configuration value of a node. You can think of parameters as n
 
 1. Next, in a new terminal, run `echo` on the `pose` topic and recheck `rqt_graph`:
 
-        rosopic echo /turtle1/pose
+        rostopic echo /turtle1/pose
 
     ![Figure 2.12 ROS rqt_graph of turtle moving in a circle with pose](lab2-turtle-circle-graph-pose.png)
 
@@ -315,9 +315,9 @@ A parameter is a configuration value of a node. You can think of parameters as n
         /turtlesim/get_loggers
         /turtlesim/set_logger_level
 
-    Let's look more closely at the turtlesim-specific services, `/clear`, `/kill`, `/reset`, `/spawn`, `/turtle1/set_pen`, `/turtle1/teleport_absolute`, and `/turtle1/teleport_relative`. You may recall interacting with some of these services using rqt.
+    Let's look more closely at the turtlesim-specific services: `/clear`, `/kill`, `/reset`, `/spawn`, `/turtle1/set_pen`, `/turtle1/teleport_absolute`, and `/turtle1/teleport_relative`. You may recall interacting with some of these services using rqt.
 
-1. Services have types that describe how the request and response data of a service is structured. Service types are defined similarly to topic types, except service types have two parts: one message for the request and another for the response. To find out the type of a service, use the command: `rosservice type [service]`
+1. Services have types that describe how the request and response data of a service is structured. Service types are defined similarly to topic types, except service types have two parts: one message for the request and another for the response. To find out the type of a service, use the command: `rosservice type [service]`.
 
     Let’s take a look at turtlesim’s `/clear` service. In a new terminal, enter the command:
 
@@ -367,7 +367,7 @@ A parameter is a configuration value of a node. You can think of parameters as n
 
     The information below the `---` line isn’t something you need to know in this case, but it can help you understand the data type of the response you get from the call.
 
-1. Now, that you know what a service type is, how to find a service’s type, and how to find the structure of that type’s arguments, you can call a service using: `rosservice call [service_name] [service_type] [arguments]`. The `[arguments]` part is optional. For example, you know that `Empty` typed services don’t have any arguments:
+1. Now that you know what a service type is, how to find a service’s type, and how to find the structure of that type’s arguments, you can call a service using: `rosservice call [service_name] [service_type] [arguments]`. The `[arguments]` part is optional. For example, you know that `Empty` typed services don’t have any arguments:
 
         rosservice call /clear
 
@@ -397,7 +397,7 @@ A parameter is a configuration value of a node. You can think of parameters as n
 
 ### Understanding ROS Parameters
 
-1. `rosparam` allows you to store and manipulate data on the ROS [Parameter Server](https://wiki.ros.org/Parameter%20Server). The Parameter Server can store integers, floats, boolean, dictionaries, and lists. rosparam uses the YAML markup language for syntax. In simple cases, YAML looks very natural: 1 is an integer, 1.0 is a float, one is a string, true is a boolean, [1, 2, 3] is a list of integers, and {a: b, c: d} is a dictionary. `rosparam` has many commands that can be used on parameters, as shown below:
+1. `rosparam` allows you to store and manipulate data on the ROS [Parameter Server](https://wiki.ros.org/Parameter%20Server). The Parameter Server can store integers, floats, booleans, dictionaries, and lists. rosparam uses the YAML markup language for syntax. In simple cases, YAML looks very natural: 1 is an integer, 1.0 is a float, one is a string, true is a boolean, [1, 2, 3] is a list of integers, and {a: b, c: d} is a dictionary. `rosparam` has many commands that can be used on parameters, as shown below:
 
     Usage:
 
@@ -442,7 +442,7 @@ A parameter is a configuration value of a node. You can think of parameters as n
 
         rosservice call /clear
 
-    The background of your turtlesim window should change its colour.
+    The background of your turtlesim window should change its color.
 
     ![Figure 2.16 Turtlesim Purple](lab2-turtlesim-purple.png)
 
@@ -450,10 +450,10 @@ A parameter is a configuration value of a node. You can think of parameters as n
 
 ## Lab Exercise
 
-1. Change the background of `turtlesim` to orange or cyan.
-1. Spawn another turtle into `turtlesim` using the command line.
-1. Command the first turtle to move in a large circle in the clockwise direction continuously using the command line.
-1. While the first turtle is moving, command the second turtle to move in a smaller circle in the counter-clockwise direction for about full circle only. 
+1. Use the command line to change the background of `turtlesim` to orange or cyan.
+1. Use the command line to spawn another turtle into `turtlesim`.
+1. Use the command line (not `teleop_key`) to control the first turtle to move in a large circle in the clockwise direction continuously.
+1. While the first turtle is moving, use the command line (not `teleop_key`) to control the second turtle to move in a smaller circle in the counter-clockwise direction for only about a full circle.
 
     **Hint:** you can use ubuntu's `timeout` command.
 

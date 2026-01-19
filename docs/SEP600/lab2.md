@@ -45,8 +45,8 @@ This sharp transition between high and low states makes op-amp comparators ideal
 - FRDM-K64F or FRDM-K66F microcontroller board
 - Breadboard
 - Jumper wires
-- (1x) Op-Amp (LM358, LM324, or similar)
 - Various 1kΩ-10kΩ resistors
+- (1x) Op-Amp (LM358, LM324, or similar)
 - (2x) Buttons or switches
 - (1x) Potentiometer (Optional)
 
@@ -66,7 +66,7 @@ This sharp transition between high and low states makes op-amp comparators ideal
 
     ***Figure 2.2** Comparator Circuit to MCU*
 
-    - Use the microcontroller's **3.3V** and **GND** pins to power the Op-Amp. Refer to your Op-Amp's datasheet for pinout. 
+    - Use the microcontroller's **3.3V** and **GND** pins to power the Op-Amp. Refer to your Op-Amp's datasheet for pinout.
     - **Calculation:** Select \(R_1\) and \(R_2\) such that the reference voltage (\(V_{ref}\) or Inverting Input (\(V_{in-}\))) is approximately **2.0V**. *Formula:* \(V_{ref} = V_{cc} \times \frac{R_2}{R_1 + R_2}\).
 
     !!! info
@@ -78,6 +78,10 @@ This sharp transition between high and low states makes op-amp comparators ideal
     !!! tip
 
         It is always a good idea to validate your circuit's output using a multimeter before connecting it to a microcontroller to prevent damage. The Op-Amp output should be between 0-1.0V when it's in the low state and 2.3-3.3V when it's in the high state. How close the output can get to 0V (negative rail) and 3.3V (positive rail) will depend on the model of the Op-Amp.
+
+    !!! tip "Why is the output not at 0V and 3.3V?"
+
+        The LM358 (or LM324) is not a "Rail-to-Rail" op-amp. When you power it with 3.3V, the internal transistors "eat up" about 1.5V of that range, leaving you with a maximum output of only roughly 1.8V. If you inspect section 7.2 from the [LM358 Datasheet](https://www.ti.com/lit/ds/symlink/lm358.pdf), you'll see the output "OUT" in between two transistors (NPN connected to \(V_{CC+}\) and PNP connected to ground).
 
 3.  Connect the Op-Amp output to a GPIO pin on your board (e.g., PTC12, PTA1, etc.). All numbered pins (PTXXX) can be used for GPIO. However, it is good practice not to use a pin that can be used for other purposes (e.g., PWM, UART, I2C, etc.) for simple digital input and output.
 
@@ -272,6 +276,10 @@ This sharp transition between high and low states makes op-amp comparators ideal
     !!! info "Note"
 
         Ensure you fully understand the concept of PWM.
+
+    !!! warning "Save your code!"
+
+        Save your PWM code as you'll use it again during Lab 3.
 
 Once you've completed all the steps above (and ONLY when you are ready, as you'll only have one opportunity to demo), ask the lab professor or instructor to verify that you've completed the lab. You may be asked to explain some of the concepts you've learned in this lab.
 

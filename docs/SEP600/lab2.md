@@ -81,7 +81,7 @@ This sharp transition between high and low states makes op-amp comparators ideal
 
     !!! tip "Why is the output not at 0V and 3.3V?"
 
-        The LM358 (or LM324) is not a "Rail-to-Rail" op-amp. When you power it with 3.3V, the internal transistors "eat up" about 1.5V of that range, leaving you with a maximum output of only roughly 1.8V. If you inspect section 7.2 from the [LM358 Datasheet](https://www.ti.com/lit/ds/symlink/lm358.pdf), you'll see the output "OUT" in between two transistors (NPN connected to \(V_{CC+}\) and PNP connected to ground).
+        The LM358 (or LM324) is not a "Rail-to-Rail" op-amp. When you power it with 3.3V, the internal transistors "eat up" about 1.5V of that range, leaving you with a maximum output of only roughly 1.8V. If you inspect section 7.2 from the [LM358 Datasheet](https://www.ti.com/lit/ds/symlink/lm358.pdf), you'll see the output "OUT" in between two transistors (NPN Darlington pair connected to \(V_{CC+}\) and PNP connected to ground).
 
 3.  Connect the Op-Amp output to a GPIO pin on your board (e.g., PTC12, PTA1, etc.). All numbered pins (PTXXX) can be used for GPIO. However, it is good practice not to use a pin that can be used for other purposes (e.g., PWM, UART, I2C, etc.) for simple digital input and output.
 
@@ -238,7 +238,9 @@ This sharp transition between high and low states makes op-amp comparators ideal
 
     Generating PWM is more complex than simple GPIO. It requires configuring either the Timer/PWM Module (TPM) or the FlexTimer Module (FTM). While the TPM is easier to use, FTM is more flexible and preferred.
 
-1.  Without removing the comparator, Pull-Up, and Pull-Down circuits, connect a PWM-capable pin (those with a purple PWM label in the pinout diagram) to **CH1** of the DSO. Refer to the microcontroller board manual for details on pin assignments. Connect the DSO ground to the **common ground** of your circuit.
+1.  Add the FTM driver component into your project by right click on your project (ie. "sep600_lab2") from the **Project Explorer** then **SDK Management > Manage SDK Components**. Check the box beside **ftm** in **Drivers** then click "OK".
+
+1.  Without removing the comparator, Pull-Up, and Pull-Down circuits, connect a PWM-capable pin (those with a purple PWM label in the pinout diagram from [FRDM-K64F Mbed Reference](https://os.mbed.com/platforms/FRDM-K64F/) and [FRDM-K66F Mbed Reference](https://os.mbed.com/platforms/FRDM-K66F/)) to **CH1** of the DSO. Connect the DSO ground to the **common ground** of your circuit.
 
 2.  Find the associated FTM channel for the PWM-capable pin you have chosen from **Section 10.3 Pinout** of the [Kinetis K64 Reference Manual](https://www.nxp.com/webapp/Download?colCode=K64P144M120SF5RM) ([PDF](K64P144M120SF5RM.pdf)) or **Section 11.3 Pinout** of the [Kinetis K66 Reference Manual](https://www.nxp.com/webapp/Download?colCode=K66P144M180SF5RMV2) ([PDF](K66P144M180SF5RMV2.pdf)).
 

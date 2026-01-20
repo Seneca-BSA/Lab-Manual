@@ -230,6 +230,10 @@ A DAC converts digital binary values into a continuous analog voltage. Unlike PW
         - Increase the PWM duty cycle from 0% to 100% using `FTM_UpdatePwmDutycycle` and the DAC voltage from 0V to 3.3V using `DAC_SetBufferValue` over 500ms.
         - Decrease the PWM duty cycle from 100% to 0% using `FTM_UpdatePwmDutycycle` and the DAC voltage from 3.3V to 0V using `DAC_SetBufferValue` over 500ms.
 
+    !!! note "12-bit DAC"
+
+        Remember, the DAC on the FRDM-K64F and FRDM-K66F is 12-bit meaning their value range from 0-4095.
+
 5. **Build, Flash, Run** and observe the waveform from the DSO. Adjust the time division so you can see at least one full period of the DAC waveform. You should see something similar to the figure below on your DSO, but the PWM will be too fast for the DSO to display the square wave properly.
 
     ![Figure 3.6](lab3-dac-pwm.png)

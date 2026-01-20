@@ -46,7 +46,7 @@ This sharp transition between high and low states makes op-amp comparators ideal
 - Breadboard
 - Jumper wires
 - Various 1kΩ-10kΩ resistors
-- (1x) Op-Amp (LM358, LM324, or similar)
+- (1x) Op-Amp (LM358, LM324, LM741, or similar)
 - (2x) Buttons or switches
 - (1x) Potentiometer (Optional)
 

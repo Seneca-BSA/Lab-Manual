@@ -48,7 +48,7 @@ Also included on the list are some of the places you can purchase the items. The
 | (2x) 100μF 50V 20% Electrolytic Capacitor | [2 pcs](https://www.canadarobotix.com/products/1087) | [2 pcs](https://secure.sayal.com/STORE4/prodetails.php?SKU=233058) | From SES250/SEH300 Kit |
 | (1x) Red 5mm LED | [5pcs](https://www.canadarobotix.com/products/706) | [5 pcs](https://secure.sayal.com/STORE4/prodetails.php?SKU=205842) | From SES250/SEH300 |
 | (1x) Potentiometer 10K with Knob | [1 pc](https://www.canadarobotix.com/products/553) | [1 pc](https://secure.sayal.com/STORE4/prodetails.php?SKU=260634) | From SES250/SEH300 |
-| (1x) Op-Amp LM358 | [1 pc](https://www.canadarobotix.com/products/621) | | LM324 from SEH300 can be used |
+| (1x) Op-Amp LM358 | [1 pc](https://www.canadarobotix.com/products/621) | | LM324 or LM741 from SEH300 can be used |
 | (2x) NPN Transistors P/2N2222 | [2 pc](https://www.canadarobotix.com/products/1633) | | 2N3904 from SEH300 can be used |
 | (2x) Momentary Push Button/Tactile Switch | [1 pc](https://www.canadarobotix.com/products/854) | | Jumper wires can be used |
 

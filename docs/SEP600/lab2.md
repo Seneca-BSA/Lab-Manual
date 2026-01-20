@@ -83,6 +83,10 @@ This sharp transition between high and low states makes op-amp comparators ideal
 
         The LM358 (or LM324) is not a "Rail-to-Rail" op-amp. When you power it with 3.3V, the internal transistors "eat up" about 1.5V of that range, leaving you with a maximum output of only roughly 1.8V. If you inspect section 7.2 from the [LM358 Datasheet](https://www.ti.com/lit/ds/symlink/lm358.pdf), you'll see the output "OUT" in between two transistors (NPN Darlington pair connected to \(V_{CC+}\) and PNP connected to ground).
 
+    !!! warning "LM741"
+
+        The LM741 is an older op-amp that is designed for 15V operation. If you are using the LM741, you'll need to add a voltage divider circuit at your output because the output will not go below ~1.7V. Since the output range varies from ~1.7-2.7V, use a 1:2 ratio voltage divider (ie. a 1kΩ and a 2.2kΩ) to achive an output range of about ~1.1-1.9V (70% of the original) for the microcontroller.
+
 3.  Connect the Op-Amp output to a GPIO pin on your board (e.g., PTC12, PTA1, etc.). All numbered pins (PTXXX) can be used for GPIO. However, it is good practice not to use a pin that can be used for other purposes (e.g., PWM, UART, I2C, etc.) for simple digital input and output.
 
     ![Figure 2.3](lab2-frdm_k64f_reve4_header_pinout.jpg)

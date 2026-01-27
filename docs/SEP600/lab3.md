@@ -171,7 +171,7 @@ A DAC converts digital binary values into a continuous analog voltage. Unlike PW
 
 5. Turn on the DSO and connect CH1 to your PWM output pin before the RC circuit and CH2 to the output signal of the RC circuit, as shown in Figure 3.3. The DSO ground should be common with your circuit ground.
 
-6. **Build, Flash, Run** and observe the waveform. Adjust the DSO so both CH1 and CH2 are visible on the display. Your signal should look similar to the graph below, with a sawtooth pattern that corresponds to the charging and discharging of the capacitor.
+6. **Build, Flash, Run** and observe the waveform. Adjust the DSO so both CH1 and CH2 have the same voltage division setting and both channels are visible on the display. Your signal should look similar to the graph below, with a sawtooth pattern that corresponds to the charging and discharging of the capacitor.
 
     ![Figure 3.4](lab3-rc-pwm.png)
 

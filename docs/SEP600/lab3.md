@@ -32,8 +32,8 @@ Documentation for the Cortex-M4 instruction set can be found here:
 
 As discussed in class and tested in Lab 2, Pulse Width Modulation (PWM) controls power delivery by varying the width of signal pulses. It involves switching a signal on and off at a high frequency. The "Duty Cycle" is the proportion of time the signal is high.
 
-- High Duty Cycle: More power/voltage delivered.
-- Low Duty Cycle: Less power/voltage delivered.
+- **High Duty Cycle:** More power/voltage delivered.
+- **Low Duty Cycle:** Less power/voltage delivered.
 
 PWM is efficient because the switch is either fully on or fully off, minimizing heat generation compared to linear regulation using a resistive circuit. PWM is widely used in applications such as motor control, light dimming, and power regulation.
 
@@ -89,7 +89,7 @@ A DAC converts digital binary values into a continuous analog voltage. Unlike PW
 
     !!! info "You must use another PWM pin other than PTC3!"
 
-        The following example code generates a PWM signal at PTC3 on a FRDM-K64F board. You must use another PWM-capable pin to demonstrate your understanding of how to create a PWM signal. 
+        The following example code generates a PWM signal at PTC3 on the FRDM-K64F board. You must use another PWM-capable pin to demonstrate your understanding of how to create a PWM signal. 
 
     Add the following header files, macros, and function prototypes into your code:
 
@@ -98,8 +98,10 @@ A DAC converts digital binary values into a continuous analog voltage. Unlike PW
         #include "fsl_ftm.h"
         #include "fsl_port.h"
 
-        #define BOARD_FTM_BASEADDR FTM0
-        #define BOARD_FTM_CHANNEL  kFTM_Chnl_2
+        #define BOARD_FTM_BASEADDR FTM0 // <<<<<< change this for the PWM channel you used
+        #define BOARD_FTM_CHANNEL  kFTM_Chnl_2 // <<<<<< change this for the PWM channel you used
+        #define PWM_FREQUENCY 1000U // <<<<<< replace 1000U (1kHz)
+            // with a frequency that will produces a period that is half of the RC time constant
 
         #define vTaskFunction_PRIORITY (configMAX_PRIORITIES - 1)
         static void vTaskFunction(void *pvParameters);
@@ -124,56 +126,56 @@ A DAC converts digital binary values into a continuous analog voltage. Unlike PW
 
     Add the following code under the `main()` function to implement the initialization function:
 
-    void InitPWM(void)
-    {
-        ftm_config_t ftmInfo;
-        ftm_chnl_pwm_signal_param_t ftmParam;
-
-        CLOCK_EnableClock(kCLOCK_PortC);
-        CLOCK_EnableClock(kCLOCK_Ftm0);
-        PORT_SetPinMux(PORTC, 3U, kPORT_MuxAlt4);
-
-        FTM_GetDefaultConfig(&ftmInfo);
-        FTM_Init(BOARD_FTM_BASEADDR, &ftmInfo);
-
-        ftmParam.chnlNumber            = BOARD_FTM_CHANNEL;
-        ftmParam.level                 = kFTM_HighTrue;
-        ftmParam.dutyCyclePercent      = 50U;
-        ftmParam.firstEdgeDelayPercent = 0U;
-        ftmParam.enableComplementary   = false;
-        ftmParam.enableDeadtime        = false;
-
-        // replace XXXXX with a frequency that produces a period that is half of the RC time constant you calculated
-        if (kStatus_Success != FTM_SetupPwm(BOARD_FTM_BASEADDR, &ftmParam, 1U, kFTM_EdgeAlignedPwm, XXXXXU, CLOCK_GetFreq(kCLOCK_BusClk)))
+        void InitPWM(void)
         {
-            PRINTF("PWM Setup Failed\r\n");
-            return;
-        }
+            ftm_config_t ftmInfo;
+            ftm_chnl_pwm_signal_param_t ftmParam;
 
-        FTM_StartTimer(BOARD_FTM_BASEADDR, kFTM_SystemClock);
-    }
+            CLOCK_EnableClock(kCLOCK_PortC);
+            CLOCK_EnableClock(kCLOCK_Ftm0);
+            PORT_SetPinMux(PORTC, 3U, kPORT_MuxAlt4);
 
-    static void vTaskFunction(void *pvParameters)
-    {
-        bool increasing = true;
-        uint8_t dutyCycle = 0;
+            FTM_GetDefaultConfig(&ftmInfo);
+            ftmInfo.prescale = FTM_CalculateCounterClkDiv(BOARD_FTM_BASEADDR, PWM_FREQUENCY, CLOCK_GetFreq(kCLOCK_BusClk));
+            FTM_Init(BOARD_FTM_BASEADDR, &ftmInfo);
 
-        for (;;)
-        {
-            if (increasing) {
-                dutyCycle++;
-                if (dutyCycle >= 100) increasing = false;
-            } else {
-                dutyCycle--;
-                if (dutyCycle <= 0) increasing = true;
+            ftmParam.chnlNumber            = BOARD_FTM_CHANNEL;
+            ftmParam.level                 = kFTM_HighTrue;
+            ftmParam.dutyCyclePercent      = 50U;
+            ftmParam.firstEdgeDelayPercent = 0U;
+            ftmParam.enableComplementary   = false;
+            ftmParam.enableDeadtime        = false;
+
+            if (kStatus_Success != FTM_SetupPwm(BOARD_FTM_BASEADDR, &ftmParam, 1U, kFTM_EdgeAlignedPwm, PWM_FREQUENCY, CLOCK_GetFreq(kCLOCK_BusClk)))
+            {
+                PRINTF("PWM Setup Failed\r\n");
+                return;
             }
 
-            FTM_UpdatePwmDutycycle(BOARD_FTM_BASEADDR, BOARD_FTM_CHANNEL, kFTM_EdgeAlignedPwm, dutyCycle);
-            FTM_SetSoftwareTrigger(BOARD_FTM_BASEADDR, true);
-
-            vTaskDelay(pdMS_TO_TICKS(20));
+            FTM_StartTimer(BOARD_FTM_BASEADDR, kFTM_SystemClock);
         }
-    }
+
+        static void vTaskFunction(void *pvParameters)
+        {
+            bool increasing = true;
+            uint8_t dutyCycle = 0;
+
+            for (;;)
+            {
+                if (increasing) {
+                    dutyCycle++;
+                    if (dutyCycle >= 100) increasing = false;
+                } else {
+                    dutyCycle--;
+                    if (dutyCycle <= 0) increasing = true;
+                }
+
+                FTM_UpdatePwmDutycycle(BOARD_FTM_BASEADDR, BOARD_FTM_CHANNEL, kFTM_EdgeAlignedPwm, dutyCycle);
+                FTM_SetSoftwareTrigger(BOARD_FTM_BASEADDR, true);
+
+                vTaskDelay(pdMS_TO_TICKS(20));
+            }
+        }
 
 5. Turn on the DSO and connect CH1 to your PWM output pin before the RC circuit and CH2 to the output signal of the RC circuit, as shown in Figure 3.3. The DSO ground should be common with your circuit ground.
 

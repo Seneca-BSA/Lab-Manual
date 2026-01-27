@@ -122,7 +122,7 @@ A DAC converts digital binary values into a continuous analog voltage. Unlike PW
         vTaskStartScheduler();
         for (;;)
             ;
-        return 0 ;
+        return 0;
 
     Add the following code under the `main()` function to implement the initialization function:
 

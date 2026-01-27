@@ -157,18 +157,10 @@ A DAC converts digital binary values into a continuous analog voltage. Unlike PW
 
         static void vTaskFunction(void *pvParameters)
         {
-            bool increasing = true;
-            uint8_t dutyCycle = 0;
+            uint8_t dutyCycle = 50;
 
             for (;;)
             {
-                if (increasing) {
-                    dutyCycle++;
-                    if (dutyCycle >= 100) increasing = false;
-                } else {
-                    dutyCycle--;
-                    if (dutyCycle <= 0) increasing = true;
-                }
 
                 FTM_UpdatePwmDutycycle(BOARD_FTM_BASEADDR, BOARD_FTM_CHANNEL, kFTM_EdgeAlignedPwm, dutyCycle);
                 FTM_SetSoftwareTrigger(BOARD_FTM_BASEADDR, true);
@@ -190,6 +182,30 @@ A DAC converts digital binary values into a continuous analog voltage. Unlike PW
     **Hint:** Think about the charging/discharging and transient response of a capacitor.
 
 8. Find the IP address of your DSO by pressing the **Utility** button > **I/O** > **LAN Settings** and connect to it using the computer at your work station. Take a screenshot of the improved DC ripple and be prepared to show it to the professor at the end of the lab.
+
+9. Next, replace the code in the `vTaskFunction()` function to vary the PWM duty cycle.
+
+        static void vTaskFunction(void *pvParameters)
+        {
+            bool increasing = true;
+            uint8_t dutyCycle = 0;
+
+            for (;;)
+            {
+                if (increasing) {
+                    dutyCycle++;
+                    if (dutyCycle >= 100) increasing = false;
+                } else {
+                    dutyCycle--;
+                    if (dutyCycle <= 0) increasing = true;
+                }
+
+                FTM_UpdatePwmDutycycle(BOARD_FTM_BASEADDR, BOARD_FTM_CHANNEL, kFTM_EdgeAlignedPwm, dutyCycle);
+                FTM_SetSoftwareTrigger(BOARD_FTM_BASEADDR, true);
+
+                vTaskDelay(pdMS_TO_TICKS(20));
+            }
+        }
 
     ### Part 2: PWM vs DAC as Current Driver: GenAI-assisted Development Challenge
 

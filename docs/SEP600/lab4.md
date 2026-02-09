@@ -53,8 +53,8 @@ An RTOS is a specialized operating system designed to manage hardware resources 
 - FRDM-K64F or FRDM-K66F microcontroller board
 - Breadboard
 - Jumper wires
-- (1×) 10kΩ Resistor
-- (1×) 1kΩ–10kΩ Potentiometer (Optional)
+- (1×) 10kΩ resistor
+- (1×) 1kΩ–10kΩ potentiometer (Optional)
 
 ## Preparation
 
@@ -175,7 +175,7 @@ An RTOS is a specialized operating system designed to manage hardware resources 
 
 4. **Build, Flash, Run** your code and open a serial terminal to read the output from your microcontroller. It should start displaying the ADC value.
 
-5. Turn on the power supply and set the output to 1V. If using a potentiometer, set it to a middle position. Your ADC value should now read between 1000-2000.
+5. Turn on the power supply and set the output to 1V. If using a potentiometer, set it to a middle position. Your ADC value should now read between 1000 and 2000.
 
     !!! danger "DO NOT exceed 3.3V"
     
@@ -204,7 +204,7 @@ An RTOS is a specialized operating system designed to manage hardware resources 
 
     !!! quote "Start with this prompt"
 
-        Write two tasks for the FRDM-K64F running FreeRTOS using the MCUXpresso SDK. Task 1 will read signal from ADC every 100ms, save it to a variable, then display a status message. Task 2 will read the variable from Task 1 every 500ms and print its value to serial.
+        Write two tasks for the FRDM-K64F running FreeRTOS using the MCUXpresso SDK. Task 1 will read the signal from the ADC every 100ms, save it to a variable, then display a status message. Task 2 will read the variable from Task 1 every 500ms and print its value to the serial terminal.
 
 9. Continue the conversation with the GenAI and work collaboratively to achieve the desired outcome. Observe the possible race condition between the two tasks using the same UART resource. You will likely see garbled text (e.g., "Reading ADC ValueSensor ...") on the serial terminal.
 
@@ -230,14 +230,14 @@ An RTOS is a specialized operating system designed to manage hardware resources 
 
         xMutexUART = xSemaphoreCreateMutex();
 
-11. Protect the UART resource by wrapping every `PRINTF` call in both tasks with the mutex "Take" and "Give" commands.
+11. Protect the UART resource by wrapping every `PRINTF` call in both tasks with the Mutex "Take" and "Give" commands.
 
         if (xSemaphoreTake(xMutexUART, portMAX_DELAY) == pdTRUE) {
             PRINTF("ADC Value: ...");
             xSemaphoreGive(xMutexUART);
         }
 
-12. **Build, Flash, Run** your code again. The output should now be perfectly interlaced and readable.
+12. **Build, Flash, Run** your code again. The output should now be perfectly interleaved and readable.
 
     !!! question "Lab Question"
     

@@ -10,7 +10,6 @@ This lab introduces Analog-to-Digital Conversion (ADC) and explores the capabili
 2. Convert raw ADC values into meaningful voltage levels and percentages.
 3. Create and manage multiple FreeRTOS tasks (Analog Reading vs. Serial Logging).
 4. Implement Mutexes (Mutual Exclusion) to protect shared resources (like UART) from corruption.
-5. Use GenAI to generate complex SDK configuration code and critically review it against hardware specifications.
 
 Documentation for the Cortex-M4 instruction set, board user's guide, and the microcontroller reference manual can be found here:
 
@@ -87,7 +86,7 @@ An RTOS is a specialized operating system designed to manage hardware resources 
 
     !!! info "You must use another ADC pin other than PTB2!"
 
-        The following example code initializes and calibrates the ADC at PTB2 on the FRDM-K64F board. You must use another ADC pin to demonstrate your understanding of how to initialize and calibrate an ADC to read an analog signal. 
+        The following example code initializes and calibrates the ADC at PTB2 on the FRDM-K64F board. **You must use another ADC pin** to demonstrate your understanding of how to initialize and calibrate an ADC to read an analog signal. 
 
     Add the following header files, macros, and function prototypes into your code:
 
@@ -103,7 +102,7 @@ An RTOS is a specialized operating system designed to manage hardware resources 
         static void vTaskFunction(void *pvParameters);
         void InitADC(void);
 
-    Replace your `main()` function after all the `Board_Init...` calls with the following:
+    Replace the code after all the `Board_Init...` calls into your `main()` function with the following:
 
         PRINTF("SEP600 Lab 4 Start\r\n");
 
@@ -196,7 +195,7 @@ An RTOS is a specialized operating system designed to manage hardware resources 
 
     ### Part 2: RTOS Multi-Threading and Race Conditions : GenAI-assisted Development Challenge
 
-Now we will simulate a realistic embedded scenario: One task reads data from the ADC (high priority), and another task prints/logs the data (low priority), competing for the UART port.
+    Now we will simulate a realistic embedded scenario: One task reads data from the ADC (high priority), and another task prints/logs the data (low priority), competing for the UART port.
 
 8. Ask a GenAI agent of your choice to help you divide the current code with a single task into two tasks:
 
@@ -213,7 +212,7 @@ Now we will simulate a realistic embedded scenario: One task reads data from the
     
         The UART is a shared resource. The PRINTF function is not atomic; the scheduler switches tasks in the middle of printing a sentence.
 
-    ### Part 3: Mutex for Thread Safety : GenAI-assisted Development Challenge
+    ### Part 3: Mutex for Thread Safety
 
     To fix the corruption, we must ensure only one task writes to the UART at a time. We can use a Mutex or Semaphore to protect the shared resource from race conditions.
 

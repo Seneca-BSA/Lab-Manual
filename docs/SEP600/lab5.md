@@ -1,15 +1,17 @@
-# Lab 5 : Serial UART and I2C Communication
-
-<font size="5">
-Seneca Polytechnic</br>
-SEP600 Embedded Systems
-</font>
+# Lab 5: Serial UART and I2C Communication
 
 ## Introduction
 
-Documentation for the Cortex-M4 instruction set, the board user's guide, and the microcontroller reference manual can be found here:
+This lab explores two of the most common communication protocols in embedded systems: UART (Universal Asynchronous Receiver/Transmitter) and I2C (Inter-Integrated Circuit). You will move away from high-level Mbed libraries and use the MCUXpresso SDK drivers within a FreeRTOS environment. A key focus of this lab is leveraging Generative AI to accelerate the development of peripheral drivers while critically verifying the generated code against hardware specifications.
 
-Documentation for the Freedom K64 and K66 boards and their microcontrollers can be found here:
+### Learning Objectives
+
+1.  Understand the working principles of UART and I2C protocols.
+2.  Configure and use I2C and UART peripherals using the MCUXpresso SDK.
+3.  Implement FreeRTOS tasks to handle asynchronous communication.
+4.  Analyze I2C and UART signals using an oscilloscope.
+
+Documentation for the Cortex-M4 instruction set, board user's guide, and the microcontroller reference manual can be found here:
 
 - [FRDM-K64F Freedom Module User’s Guide](https://www.nxp.com/webapp/Download?colCode=FRDMK64FUG) ([PDF](FRDMK64FUG.pdf))
 - [Kinetis K64 Reference Manual](https://www.nxp.com/webapp/Download?colCode=K64P144M120SF5RM) ([PDF](K64P144M120SF5RM.pdf))
@@ -35,164 +37,315 @@ Serial UART is a communication protocol commonly used for transmitting and recei
 I2C is a synchronous, multi-master, multi-slave communication protocol commonly used to connect low-speed peripheral devices like sensors, displays, and memory chips to microcontrollers. It uses only two wires for communication: a serial data line (SDA) and a serial clock line (SCL), allowing multiple devices to share the same bus. I2C operates in a master-slave configuration, where the master device controls the clock and initiates communication with the slave devices. Each device on the bus is assigned a unique address, and data is transferred in packets, which include the address and the data to be sent. I2C is favored for its simplicity, ease of use, and ability to connect multiple devices with minimal wiring, making it ideal for embedded systems and applications where space and resources are limited.
 
 ## Materials
+
 - Safety glasses (PPE)
-- Freedom K64F or K66F Board
+- FRDM-K64F or FRDM-K66F microcontroller board
 - Breadboard
-- Jumper Wires
+- Jumper wires
 - (2×) 1kΩ Resistors
-- LCD Display (Parallel or I2C) (Optional)
+- I2C MPU6050 Accelerometer Module (Optional)
 
 ## Preparation
 
-> ### Lab Preparation Question
-> 1. Read over the lab and understand the procedures.
+1.  Read through the lab manual for this lab.
+2.  Ensure you have all the necessary materials for this lab.
+3.  Review how to use an Oscilloscope (DSO).
 
 ## Procedures
 
-### Part 1: Onboard I2C Accelerometer and Magnetometer (Or any I2C Sensor or I2C LCD)
+### Part 1: Onboard I2C Accelerometer and Magnetometer
 
-In Part 1, we'll take a look at how to get reading from the onboard accelerometer and magnetometer (or any I2C sensor or send message to a I2C LCD).
+In this part you will initialize the I2C peripheral to communicate with the onboard accelerometer (FXOS8700CQ).
 
-<div style="padding: 15px; border: 1px solid orange; background-color: orange; color: black;">
-Check to see if the accelerometer is assembled on your board. NXP had a production change in 2023 and no longer assembles the FXOS8700CQ onto the Freedom board. If your board is missing the accelerometer chip (as shown in Figure 4.1 below), this part of the Lab will not work.
-</div>
+!!! warning "Missing Accelerometer on some FRDM-K64F"
 
-The location U8 on the Freedom Board should be assembled with the FXOS8700CQ accelerometer chip.
+    Check to see if the accelerometer is assembled on your board. NXP had a production change in 2023 and no longer assembles the FXOS8700CQ onto the Freedom board. The location **U8** on the Freedom Board should be assembled with the FXOS8700CQ accelerometer chip.
 
-![Figure 5.1](lab5-u8.png)
+    ![Figure 5.1](lab5-u8.png)
 
-***Figure 5.1** Freedom Board with missing FXOS8700CQ accelerometer chip*
+    ***Figure 5.1** Freedom Board with missing FXOS8700CQ accelerometer chip*
 
-1. To use the FXOS8700CQ, you'll need to add the FXOS8700CQ library to your project. Start Kiel Studio then go to File > Add Mbed Library to Active Program. When prompted, provide the following link [https://os.mbed.com/teams/NXP/code/FXOS8700Q/](https://os.mbed.com/teams/NXP/code/FXOS8700Q/).
+    **If your board is missing the chip:** You can still verify the I2C signals on the oscilloscope, but the read operation will fail (NACK). Alternatively:
+        
+    - you may use the FRDM-K64F board from the lab bench **(Do NOT remove the top shield board from the FRDM-K64F)**
+    - you may use an external I2C MPU6050 Accelerometer Module and connect it to I2C0 (K64F) or I2C1 (K66F)
 
-    - If you are using another sensor, find the library for your sensor in the mbed library repository.
-    - If you are using an I2C LCD, use this library: [https://os.mbed.com/users/sstaub/code/mbedLCDi2c/](I2C LCD: https://os.mbed.com/users/sstaub/code/mbedLCDi2c/)
+!!! warning "No Accessible pin for I2C FXOS8700CQ accelerometer chip on FRDM-K66F"
 
-1. The following code depend on the I2C device that you are using. The pins used for connection to the accelerometer on the Freedom board are as follows:
+    The I2C FXOS8700CQ accelerometer chip on the FRDM-K66F does not have an accessible pin on the pin header that we can read from. As a result, you will not be able to complete Part 2 of this lab if you are using a FRDM-K66F with the onboard accelerometer chip. Alternatively:
+        
+    - you may use the FRDM-K64F board from the lab bench **(Do NOT remove the top shield board from the FRDM-K64F)**
+    - you may use an external I2C MPU6050 Accelerometer Module and connect it to I2C0 (K64F) or I2C1 (K66F)
 
-    | | K64F | K66F |
+1.  Start a new C/C++ project in MCUXpresso, and ensure the **Operating System** is set to "FreeRTOS kernel". Add the **i2c** driver to your project via **SDK Management > Manage SDK Components**. You can name the project "sep600_lab5".
+
+2.  To use the I2C module connected to the FRDM-K64F or FRDM-K66F, we need to initialize the I2C peripheral and read the `WHO_AM_I` register from the module. Use the code below as an example to achieve this.
+
+    | Accelerometer: | FXOS8700CQ | MPU6050 |
     |---|---|---|
-    |SDA|PTE25|PTD9|
-    |SCL|PTE24|PTD8|
+    | **I2C Address (Default):** | 0x1D | 0x68 |
+    | **WHO_AM_I Register:** | 0x0D | 0x75 |
+    | **Expected Value:** | 0xC7 | 0x68 |
+    
+    | Recommended I2C Pins: | SCL | SDA |
+    |---|---|---|
+    | **FRDM-K64F (I2C0):** | PTE24 | PTE25 |
+    | **FRDM-K66F (I2C1):** | PTC10 | PTC11 |
 
-    The Freedom have multiple I2Cs. For the K66F, the I2C pins you see on the pinout map are not on the same I2C network as the onboard sensor.
+    !!! info "Pin for I2C FXOS8700CQ accelerometer chip on FRDM-K66F"
 
-    Start your program with the following code to include the proper library and set up I2C.
+        If you want to access the onboard FXOS8700CQ connected to I2C0 on the FRDM-K66F, change the following code for pins PTD8 (SCL) and PTD9 (SDA).
 
-        #include "mbed.h"
-        #include "FXOS8700Q.h"
+    Add the following header files, macros, and function prototypes into your code:
 
-        I2C i2c(I2C_SDA, I2C_SCL); // replace with I2C pins
+        #include "FreeRTOS.h"
+        #include "task.h"
+        #include "fsl_i2c.h"
+        #include "fsl_port.h"
 
-1. Next, we'll create the accelerometer and magnetometer objects using the I2C object we created and the accelerometer's address. You can find the address in the header file.
+        /*** Update with the correct settings for your board and I2C channel ***/
+        #define I2C_BASEADDR          I2C0
+        #define I2C_CLK_SRC           I2C0_CLK_SRC
+        #define I2C_CLK_FREQ          CLOCK_GetFreq(kCLOCK_BusClk)
+        #define I2C_BAUDRATE          100000U   // 100kHz Standard Mode
+        #define I2C_RELEASE_SCL_PORT  PORTE
+        #define I2C_RELEASE_SCL_GPIO  GPIOE
+        #define I2C_RELEASE_SCL_PIN   24U
+        #define I2C_RELEASE_SDA_GPIO  GPIOE
+        #define I2C_RELEASE_SDA_PORT  PORTE
+        #define I2C_RELEASE_SDA_PIN   25U
 
-        FXOS8700QAccelerometer acc(i2c, FXOS8700CQ_SLAVE_ADDR1);
-        FXOS8700QMagnetometer mag(i2c, FXOS8700CQ_SLAVE_ADDR1);
+        /*** Use this for FXOS8700 ***/
+        #define FXOS8700_ADDRESS        0x1D    // Default Address
+        #define FXOS8700_WHO_AM_I       0x0D    // WHO_AM_I Register
+        #define FXOS8700_EXPECTED       0xC7    // Expected Value
 
-    > **Lab Question:** Look into the header file for the FXOS8700Q (or the one for your I2C device) to find the slave address in HEX?
+        /*** Use this for MPU6050 ***/
+        #define MPU6050_ADDRESS         0x68    // Default Address
+        #define MPU6050_WHO_AM_I        0x75    // WHO_AM_I Register
+        #define MPU6050_EXPECTED        0x68    // Expected Value
 
-1. Declare the variables for the sensor data within the `main` function then enable the sensor. This varies depending on your I2C devices.
+        #define vTaskFunction_PRIORITY (configMAX_PRIORITIES - 1)
+        static void vTaskFunction(void *pvParameters);
+        void InitI2C(void);
+        bool I2C_ReadRegister(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t *rxBuff, uint32_t rxSize);
+        bool I2C_WriteRegister(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t value);
 
-        motion_data_units_t acc_data, mag_data;
-        float faX, faY, faZ, fmX, fmY, fmZ, tmp_float;
+    Replace the code after all the `Board_Init...` calls into your `main()` function with the following:
 
-        acc.enable();
-        mag.enable();
+        PRINTF("SEP600 Lab 5 Start\r\n");
 
-1. Add a `while` loop to get accelerometer readings and print it out. You may change the print statement to just integer if you don't want to setup float.
+        InitI2C();
 
-        while (true) {
-            acc.getAxis(acc_data);
-            mag.getAxis(mag_data);
-            printf("%3.3f %3.3f\r\n", acc_data.x, mag_data.x);
-            ThisThread::sleep_for(500ms);
+        if (xTaskCreate(vTaskFunction, "vTaskFunction", configMINIMAL_STACK_SIZE + 100, NULL, vTaskFunction_PRIORITY, NULL) != pdPASS)
+        {
+            PRINTF("Task creation failed!\r\n");
+            while (1)
+                ;
+        }
+        vTaskStartScheduler();
+        for (;;)
+            ;
+        return 0;
+
+    Add the following code under the `main()` function to implement the initialization, I2C read, and I2C write functions:
+
+        void InitI2C(void)
+        {
+            /*** Uncomment this for I2C0 on FRDM-K64F ***/
+            //CLOCK_EnableClock(kCLOCK_PortE);
+            //
+            //port_pin_config_t i2c_pin_config = {
+            //    kPORT_PullUp,
+            //    kPORT_FastSlewRate,
+            //    kPORT_PassiveFilterDisable,
+            //    kPORT_OpenDrainEnable,
+            //    kPORT_LowDriveStrength,
+            //    kPORT_MuxAlt5,              // Alt 5 is I2C0 on K64F
+            //    kPORT_UnlockRegister
+            //};
+
+            /*** Uncomment this for I2C1 on FRDM-K66F ***/
+            //CLOCK_EnableClock(kCLOCK_PortC);
+            //
+            //port_pin_config_t i2c_pin_config = {
+            //    kPORT_PullUp,
+            //    kPORT_FastSlewRate,
+            //    kPORT_PassiveFilterDisable,
+            //    kPORT_OpenDrainEnable,
+            //    kPORT_LowDriveStrength,
+            //    kPORT_MuxAlt2,              // Alt 2 is I2C1 on K66F
+            //    kPORT_UnlockRegister
+            //};
+
+            /*** Uncomment this for I2C0 onboard FXOS8700CQ on FRDM-K66F ***/
+            //CLOCK_EnableClock(kCLOCK_PortD);
+            //
+            //port_pin_config_t i2c_pin_config = {
+            //    kPORT_PullUp,
+            //    kPORT_FastSlewRate,
+            //    kPORT_PassiveFilterDisable,
+            //    kPORT_OpenDrainEnable,
+            //    kPORT_LowDriveStrength,
+            //    kPORT_MuxAlt2,              // Alt 2 is I2C1 on K66F
+            //    kPORT_UnlockRegister
+            //};
+
+            PORT_SetPinConfig(I2C_RELEASE_SCL_PORT, I2C_RELEASE_SCL_PIN, &i2c_pin_config);
+            PORT_SetPinConfig(I2C_RELEASE_SCL_PORT, I2C_RELEASE_SDA_PIN, &i2c_pin_config);
+
+            i2c_master_config_t masterConfig;
+            I2C_MasterGetDefaultConfig(&masterConfig);
+            masterConfig.baudRate_Bps = I2C_BAUDRATE;
+            I2C_MasterInit(I2C_BASEADDR, &masterConfig, I2C_CLK_FREQ);
         }
 
-1. (Optional) Per [Minimal printf and snprintf](https://github.com/ARMmbed/mbed-os/blob/master/platform/source/minimal-printf/README.md), as of mbed OS 6, printf no longer prints floating point by default to save memory. To enable printing of floating point value, enable it by creating a file called `mbed_app.json` in the root project folder and adding the following code to it.
-
+        bool I2C_ReadRegister(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t *rxBuff, uint32_t rxSize)
         {
-            "target_overrides": {
-                "*": {
-                    "target.printf_lib": "std"
+            i2c_master_transfer_t masterXfer;
+            status_t status;
+
+            memset(&masterXfer, 0, sizeof(masterXfer));
+
+            masterXfer.slaveAddress   = device_addr;
+            masterXfer.direction      = kI2C_Read;
+            masterXfer.subaddress     = reg_addr;
+            masterXfer.subaddressSize = 1;
+            masterXfer.data           = rxBuff;
+            masterXfer.dataSize       = rxSize;
+            masterXfer.flags          = kI2C_TransferDefaultFlag;
+
+            status = I2C_MasterTransferBlocking(base, &masterXfer);
+
+            return (status == kStatus_Success);
+        }
+
+        bool I2C_WriteRegister(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t value)
+        {
+            i2c_master_transfer_t masterXfer;
+            status_t status;
+
+            memset(&masterXfer, 0, sizeof(masterXfer));
+
+            masterXfer.slaveAddress   = device_addr;
+            masterXfer.direction      = kI2C_Write;
+            masterXfer.subaddress     = reg_addr;
+            masterXfer.subaddressSize = 1;
+            masterXfer.data           = &value;
+            masterXfer.dataSize       = 1;
+            masterXfer.flags          = kI2C_TransferDefaultFlag;
+
+            status = I2C_MasterTransferBlocking(base, &masterXfer);
+
+            return (status == kStatus_Success);
+        }
+
+        static void vTaskFunction(void *pvParameters)
+        {
+            uint8_t who_am_i_value = 0;
+
+            for (;;)
+            {
+                /*** If you are using MPU6050, change FXOS8700 to MPU6050 ***/
+                if (I2C_ReadRegister(I2C_BASEADDR, FXOS8700_ADDRESS, FXOS8700_WHO_AM_I, &who_am_i_value, 1))
+                {
+                    PRINTF("I2C Success! WHO_AM_I: 0x%X\r\n", who_am_i_value);
+                    
+                    if (who_am_i_value == FXOS8700_EXPECTED) {
+                        PRINTF("FXOS8700 ID Matches!\r\n");
+                    }
                 }
+                else
+                {
+                    PRINTF("I2C Read Failed.\r\n");
+                }
+
+                vTaskDelay(pdMS_TO_TICKS(1000));
             }
         }
 
-1. If you are using an I2C LCD, you may use the following code to output some message on the display.
+4. **Build, Flash, Run** your code and open a serial terminal to read the output from your microcontroller. It should start displaying the response from the WHO_AM_I reply from the I2C device. If your code is correct and the chip is present, you should see `0xC7`. If missing, you might see an error or `0xFF`.
 
-        #include "mbed.h"
-        #include "LCD.h"
+5. Ask a GenAI agent of your choice to help you write code that will read the X, Y, and Z acceleration from the accelerometer.
 
-        LCD lcd(D9, D8, D4, D5, D6, D7, LCD16x2); // RS, EN, D4-D7, Type
- 
-        int main() {
-
-            lcd.cls(); // clear display
-            lcd.locate(0, 0); // set cursor location
-            lcd.printf("START\n"); // display text
-            ThisThread::sleep_for(2s);
-            lcd.cls(); // clear display
-            lcd.locate(0, 0); // set cursor location
-            lcd.printf("Hello World!\n"); // display text
-
-        }
-
-1. Run your program and you should now see accelerometer and magnetometer readings (or the LCD displaying a message). Refer to the FXOS8700Q libraries for other library functions and reading you can get.
+    !!! question "Lab Question 1"
     
-    > **Lab Question:** Try getting readings from different axes to figure out which direction is X, Y, and Z? When there is acceleration in an axis, you'll get acceleration reading on that axis (including gravity).
+        What additional register on the accelerometer module do you need to write to in order to achieve this task?
 
-### Part 2: Visualize I2C Signal
+    ### Part 2: Visualize I2C Signal
 
-1. Power off the Freedom board and connect the SDA pin to CH1 and the SCL pin to CH2 of the oscilloscope. If you are using the K66F board, use I2C1 at PTC11 and PTC10 for this part of the lab.
+6.  Power off the board. Connect the oscilloscope probes to the I2C pins used in Part 1 as follows:
+    - **CH1:** SDA
+    - **CH2:** SCL
+    - **Ground:** GND
 
-1. Power the board back on With the I2C code running, adjust the oscilloscope to see the full I2C data frame. Use the "Serial" option under Measure on the right of the face plate to align the I2C signal. If Serial measurement is not available or cannot lock into the I2C signal, you might need to do this manually. If you cannot see the I2C signal, decrease the delay in each loop so data are sent more often and use "Single" reading instead of continuous readings.
+7.  Power on the board and configure the oscilloscope to use the **"Serial"** option under **"Measure"** on the right of the faceplate to align the I2C signal.
+
+    If the **"Serial"** measurement option is not available or it cannot lock onto the I2C signal, you might need to do this manually by adjusting the trigger level and the edge detection setting.
     
-    > **Lab Question:** Using the figure below as a reference, identify the start condition, the address, ACK, data, and stop condition of your I2C signal. You should be able to identify the HEX address you are sending from Part 1.
+    If you cannot see the I2C signal, decrease the delay in task loop so data are being sent more often and perform a **"Single"** capture of the waveform by pressing the **"Single"** button beside the **"Run"** button.
 
-    ![Figure 5.2](lab5-i2c-frame.jpg)
+8.  Observe the data frame. Identify the **Start Bit**, **Address (0x1D)**, **Read/Write Bit**, **ACK/NACK**, and **Stop Bit**. Connect to DSO from the lab computer and take a screenshot of the I2C data frame.
 
-    ***Figure 5.2** I2C data frame [1]*
+    ![Figure 5.3](lab5-i2c-frame.jpg)
 
-### Part 3: UART Communication
+    ***Figure 5.2** I2C data frame*
 
-In this part of the lab, you'll be working with the group beside you to communicate between processor board.
+9.  Change your code to write to address `0x1E` instead of `0x1D` and observe the difference in response from the I2C data frame. Take a screenshot of the I2C data frame.
 
-1. Add the following code to your program to create an unbuffered serial object for UART.
+    !!! question "Lab Question 2"
 
-    | | K64F | K66F |
-    |---|---|---|
-    |UART TX|PTC17|PTC4|
-    |UART RX|PTC16|PTC3|
+        When the address is wrong (or if the sensor is missing), what happens during the ACK bit slot after the address is sent? Does the line go Low (ACK) or stay High (NACK)?
 
-    
-        static BufferedSerial serial_port(UART_TX, UART_RX, 9600); // replace with UART pins
+    ### Part 3: UART Communication : GenAI-assisted Development Challenge
 
-1. Create a new thread then add a loop with the following to send some data.
+    In this part, you will establish communication between two microcontroller boards using UART. You will use GenAI to generate the code for sending and receiving data using FreeRTOS tasks.
 
-        static char c = 'a';
-        static int x = 1;
-        serial_port.write(&c, 1);
-        c += x;
-        if (c >= 'z' || c <= 'a')
-            x *= -1;
-        ThisThread::sleep_for(1s);
+1.  Verify the **uart** driver to your project via **SDK Management**.
 
-1. Create a new thread or add the following code in the main `while` loop to read incoming UART data and print it to terminal.
+2.  Identify the UART pins for board-to-board communication.
 
-        if (serial_port.read(&c, 1)) {
-            // Echo the input back to the terminal.
-            ThisThread::sleep_for(100ms); // allow reading to finish
-            printf("%c\n", c);
-        }
+    | Board | UART Instance | TX Pin | RX Pin |
+    |---|---|---|---|
+    | **FRDM-K64F** | UART3 | PTC17 | PTC16 |
+    | **FRDM-K66F** | UART1 | PTC4 | PTC3 |
 
-1. Connect the UART TX pin from one Freedom board to the UART RX pin on another board with an inline 1kΩ Resistor as well as a common ground. Once you run the program, the TX board will start sending a char per loop to the RX board and the received data will be displayed on the serial console. Do the same in reverse so you have two-ways communication between the boards.
+3.  Ask a GenAI agent of your choice to create two additional FreeRTOS tasks.
+    - **Sender Task:** Sends the X, Y, and Z accelerometer data every 500ms via the specified UART.
+    - **Receiver Task:** Reads incoming characters from the specified UART and prints them to the debug console (PC).
 
-    > **Lab Question:** Change your code to send multiple characters at a time (ie. "ABC123\n") through UART.
+    !!! quote "Start with this prompt"
+
+        Write a code snippet for FRDM-K64F (or K66F) using MCUXpresso SDK and FreeRTOS.
+        1. Initialize UART3 (or UART1) with a baud rate of 9600.
+        2. Create a FreeRTOS task "Sender" that sends the X, Y, and Z accelerometer data via UART3 (or UART1) every 500ms.
+        3. Create a FreeRTOS task "Receiver" that reads UART3 (or UART1) byte-by-byte and prints it to the debug console.
+
+4.  Do not blindly copy and paste, **verify the following:**
+    - Check if the code enables the correct clock (e.g., `kCLOCK_Uart3` and `kCLOCK_PortC`).
+    - Check pin muxing (e.g., `kPORT_MuxAlt3` for UART3 on K64F).
+    - Ensure the "Receiver" task does not block the entire system. It should ideally use a non-blocking read or a small timeout.
+
+5.  Work with a partner (or use a second board) and connect them as follows:
+
+    - **Board A TX** <--> **Board B RX**
+    - **Board A RX** <--> **Board B TX**
+    - **GND** <--> **GND**
+
+    !!! warning "Series Resistor"
+
+        It is good practice to place a **1kΩ resistor** in series on the TX/RX lines to protect the pins in case of configuration errors (e.g., two TX pins driving against each other).
+
+6.  **Build, Flash, Run.** Open the serial terminal for both boards. You should see the messages sent by the other board appearing in your terminal. If you don't see messages showing up, troubleshoot the wiring, verify the serial port number, and verify your code by continuing the conversation with the GenAI and work collaboratively to achieve the desired outcome.
+
+    !!! question "Lab Question 3"
+
+        What happens if you disconnect the Ground wire? Why is a common ground required?
 
 Once you've completed all the steps above (and ONLY when you are ready, as you'll only have one opportunity to demo), ask the lab professor or instructor to come over and demonstrate that you've completed the lab. You may be asked to explain some of the concepts you've learned in this lab.
 
 ## Reference
 
-- [AnalogIn](https://os.mbed.com/docs/mbed-os/v6.16/apis/i-o-apis.html)
-- [1] [https://learn.sparkfun.com/tutorials/i2c/all](https://learn.sparkfun.com/tutorials/i2c/all)
-- [UnbufferedSerial](https://os.mbed.com/docs/mbed-os/v6.16/apis/unbufferedserial.html)
+- [I2C: Inter-Integrated Circuit Driver](https://mcuxpresso.nxp.com/api_doc/dev/3628/a00020.html)
+- [UART: Universal Asynchronous Receiver/Transmitter Driver](https://mcuxpresso.nxp.com/api_doc/dev/92/group__uart.html)
+- This lab manual was generated with the help of Gemini 3 Pro.

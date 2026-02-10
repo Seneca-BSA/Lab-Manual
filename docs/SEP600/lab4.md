@@ -208,6 +208,10 @@ An RTOS is a specialized operating system designed to manage hardware resources 
 
 9. Continue the conversation with the GenAI and work collaboratively to achieve the desired outcome. Observe the possible race condition between the two tasks using the same UART resource. You will likely see garbled text (e.g., "Reading ADC ValueSensor ...") on the serial terminal.
 
+    !!! info "Can't find the garbled text?"
+
+        If don't see any corrupted garbled text being printed, try removing all the delay from your code so the chance of occurance is higher. Afterward, pause your serial output (or disconnect) after running for a few seconds then scroll up to review the output. You should be able to find a few line that's corrupted.
+
     !!! info "Why is there garbled text?"
     
         The UART is a shared resource. The PRINTF function is not atomic; the scheduler switches tasks in the middle of printing a sentence.

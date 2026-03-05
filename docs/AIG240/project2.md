@@ -25,7 +25,7 @@ In this project, you will demonstrate your proficiency in setting up a ROS1 envi
 1. Install Gazebo as per the [Lab 4](lab4.md) instructions.
 2. Create your new ROS workspace (or use the same one) as per the [Lab 3](lab3.md) instructions.
 
-### Step 2: Create and Run a Simple ROS Node
+### Step 2: Move the JetAuto robot in Gazebo
 
 Use open-source code, AI-generated code, or your own code to create a control script as described below to make the JetAuto robot move according to a pattern in Gazebo.
 

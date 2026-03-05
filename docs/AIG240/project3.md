@@ -1,7 +1,7 @@
 # Project 3 - Moving JetAuto in Real World
 
 <font size="5">
-**Due:** Thursday, Mar 12, 2026 at 11:59 PM on Blackboard</br>
+**Due:** Sunday, Mar 15, 2026 at 11:59 PM on Blackboard</br>
 **Weight:** 10%
 </font>
 

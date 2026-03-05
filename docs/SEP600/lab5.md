@@ -266,7 +266,7 @@ In this part you will initialize the I2C peripheral to communicate with the onbo
 
 4. **Build, Flash, Run** your code and open a serial terminal to read the output from your microcontroller. It should start displaying the response from the WHO_AM_I reply from the I2C device. If your code is correct and the chip is present, you should see `0xC7`. If missing, you might see an error or `0xFF`.
 
-5. Ask a GenAI agent of your choice to help you write code that will read the X, Y, and Z acceleration from the accelerometer.
+5. Ask a GenAI agent of your choice to help you write code that will read the X, Y, and Z acceleration from the accelerometer and print the reading in "g" (multiple of gravity) with at least 3 decimal places.
 
     !!! question "Lab Question 1"
     
@@ -287,11 +287,19 @@ In this part you will initialize the I2C peripheral to communicate with the onbo
 
 8.  Observe the data frame. Identify the **Start Bit**, **Address (0x1D)**, **Read/Write Bit**, **ACK/NACK**, and **Stop Bit**. Connect to DSO from the lab computer and take a screenshot of the I2C data frame.
 
-    ![Figure 5.3](lab5-i2c-frame.jpg)
+    ![Figure 5.2](lab5-i2c-frame.jpg)
 
     ***Figure 5.2** I2C data frame*
 
-9.  Change your code to write to address `0x1E` instead of `0x1D` and observe the difference in response from the I2C data frame. Take a screenshot of the I2C data frame.
+    ![Figure 5.3](lab5-i2c-frame.jpg)
+
+    ***Figure 5.3** Successful I2C Write Byte Transmission*
+
+    ![Figure 5.4](lab5-i2c-frame.jpg)
+
+    ***Figure 5.4** Successful I2C Read Transmission*
+
+9.  Change your code to write to address `0x1E` instead of `0x1D` and observe the difference in response from the I2C data frame. Take a screenshot of the I2C data frames (both the `0x1D` and  `0x1E` responds).
 
     !!! question "Lab Question 2"
 
@@ -346,6 +354,7 @@ Once you've completed all the steps above (and ONLY when you are ready, as you'l
 
 ## Reference
 
+- [Analog Device: I2C Primer: What is I2C? (Part 1)](https://www.analog.com/en/resources/technical-articles/i2c-primer-what-is-i2c-part-1.html)
 - [I2C: Inter-Integrated Circuit Driver](https://mcuxpresso.nxp.com/api_doc/dev/3628/a00020.html)
 - [UART: Universal Asynchronous Receiver/Transmitter Driver](https://mcuxpresso.nxp.com/api_doc/dev/92/group__uart.html)
 - This lab manual was generated with the help of Gemini 3 Pro.

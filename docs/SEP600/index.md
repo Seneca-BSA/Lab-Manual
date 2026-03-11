@@ -19,5 +19,5 @@ Labs:
 - [Lab 3: PWM and DAC](lab3.md)
 - [Lab 4: ADC and RTOS](lab4.md)
 - [Lab 5: Serial UART and I2C](lab5.md)
-<!-- [Lab 6: LCD and Interrupt](lab6.md)
-- [Lab 7: Filtering](lab7.md)-->
+- [Lab 6: Interrupts and IoT Messaging using MQTT](lab6.md)
+- [Lab 7: Software Filtering and RTOS Data Logging](lab7.md)

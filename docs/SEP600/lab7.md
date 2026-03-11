@@ -1,15 +1,16 @@
-# Lab 7
-
-<font size="5">
-Seneca Polytechnic</br>
-SEP600 Embedded Systems
-</font>
+# Lab 7: Software Filtering and RTOS Data Logging
 
 ## Introduction
 
-Documentation for the Cortex-M4 instruction set, the board user's guide, and the microcontroller reference manual can be found here:
+This lab integrates hardware data acquisition and digital signal processing. You will implement a software low-pass filter to remove noise from an analog signal and use FreeRTOS to safely pass this data to a logging task. Finally, you will stream this data over UART to a host computer and visualize it in real-time using Python.
 
-Documentation for the Freedom K64 and K66 boards and their microcontrollers can be found here:
+### Learning Objectives
+
+1. Implement an Infinite Impulse Response (IIR) software low-pass filter to clean noisy sensor data.
+2. Use FreeRTOS Queues for Inter-Process Communication (IPC) to safely pass data between an ADC reading task and a UART transmitting task.
+3. Develop a Python script to read serial data and plot it in real-time using matplotlib.
+
+Documentation for the Cortex-M4 instruction set, board user's guide, and the microcontroller reference manual can be found here:
 
 - [FRDM-K64F Freedom Module User’s Guide](https://www.nxp.com/webapp/Download?colCode=FRDMK64FUG) ([PDF](FRDMK64FUG.pdf))
 - [Kinetis K64 Reference Manual](https://www.nxp.com/webapp/Download?colCode=K64P144M120SF5RM) ([PDF](K64P144M120SF5RM.pdf))
@@ -40,47 +41,76 @@ A low-pass filter is an electronic circuit or signal processing technique that a
 
 ## Materials
 - Safety glasses (PPE)
-- Freedom K64F or K66F Board
+- FRDM-K64F or FRDM-K66F microcontroller board
 - Breadboard
 - Jumper Wires
-- (1×) 1kΩ–10kΩ Potentiometer (Optional)
+- (1×) Mini Photocell (Light Sensor) (Optional)
 
 ## Preparation
 
-> ### Lab Preparation Question
-> 1. Read over the lab and understand the procedures.
+1.  Read through the lab manual for this lab.
+2.  Install the required `pyserial`, `matplotlib`, and `numpy` Python libraries by running:
+    
+        pip install pyserial matplotlib numpy
 
 ## Procedures
 
-In this lab, we'll explore the use of software filtering techniques to remove noise from a digital signal and then plot the data on a computer. We'll also explore the concept of multi-threading to handle the two tasks.
+### Part 1: Hardware Setup
 
-1. Start the function generator to output a 1Vpp 1kHz Triangular (Ramp, 50% symmetry) wave with a 2V DC offset. Remember to set the output to high Z mode. Alternatively, you can read data from a sensor that you are using in your project.
+1. Start the function generator to output a **1Vpp 1kHz Triangular (Ramp, 50% symmetry)** wave with a **2V DC offset**.
 
-1. Connect the output of the function generator to an ADC (Analog input) pin on the K64F or K66F board.
+    !!! note "Remember to set the output to high Z mode."
+    
+    Alternatively, you can read data from a sensor that you are using in your project.
 
-1. Use the following code to read the signal from the ADC channel. Replace `PTXX` with the pin that you are using.
+2. Connect the output of the function generator (or Mini Photocell (Light Sensor) in a voltage divider circuit) to an ADC pin on your K64F or K66F board.
 
-        #include "mbed.h"
+    ### Part 2: FreeRTOS Architecture for Effectively Reading ADC
 
-        int main() {
+    Instead of just printing the data directly from the ADC loop (which causes timing jitter), let's build an architecture with two tasks communicating via a FreeRTOS Queue. 
+    
 
-            AnalogIn ain(PTXX); // Replace with your ADC pin
+    - **ADC Task (High Priority):** Reads the analog pin at a strict frequency, applies the digital filter, and pushes a struct containing both raw and filtered data into a queue.
+    - **UART Task (Low Priority):** Pops data from the queue and prints it to the serial console.
 
-            float reading = 0; // for saving readings
+3. Ask a GenAI agent of your choice to help you write the code.
 
-            while (true) {
-                reading = ain; // read ADC
-                printf("Reading: %d\n", (int) (reading * 100)); // print as int
-                // delay for 1ms for each reading
-                ThisThread::sleep_for(1ms);
-            }
-        }
+    !!! quote "Start with this prompt"
 
-1. Your serial output should now be flooded with data output between 0 to 100.
+        Write C code for MCUXpresso and FreeRTOS on an FRDM-K64F. Define a struct containing two integers: `raw_val` and `filtered_val`. Create a FreeRTOS Queue capable of holding 10 of these structs. Write two tasks: an 'ADC_Task' that sends a dummy struct into the queue every 10ms, and a 'UART_Task' that reads from the queue using `xQueueReceive` and prints the values using `PRINTF`. Include the queue creation in `main()`.
 
-1. Next, move the printing of the data into a thread so it won't interfere with the ADC reading and let the processor decide how to optimize the process.
+4. Do not just copy and paste. Verify the following in the generated code:
 
-1. Next, let's read the data from the computer using Python and plot it. Install `pyserial` using `pip install pyserial` and `matplotlib` using `pip install matplotlib` as required. Run the following Python script on your computer. 
+    - Did the AI use `xQueueCreate(10, sizeof(YourStructName))` correctly?
+    - Is `xQueueSend` used in the ADC task, and `xQueueReceive` in the UART task?
+    - Are the `portMAX_DELAY` or specific tick timeouts used appropriately to avoid blocking the ADC task indefinitely?
+
+    ### Part 3: Software Low-Pass Filter Implementation
+
+    Once your queue architecture is working with the dummy data, integrate the actual ADC reading (refer to Lab 4).
+
+5. Implement the Infinite Impulse Response (IIR) filter inside your `ADC_Task`. 
+    
+    The mathematical formula for a simple first-order IIR low-pass filter is:
+
+    $y[n] = y[n-1] + \alpha \cdot (x[n] - y[n-1])$
+    
+    Where:
+    
+    - $y[n]$ is the new filtered reading.
+    - $y[n-1]$ is the old filtered reading.
+    - $x[n]$ is the new raw ADC reading.
+    - $\alpha$ (alpha) is the smoothing factor (between 0.0 and 1.0). A lower value means more smoothing but more lag.
+
+    Modify your `ADC_Task` to calculate this:
+    
+        filtered_reading = old_reading + alpha * (adc_reading - old_reading);
+    
+6. Send both the raw `adc_reading` and filtered `filtered_reading` to the UART Task via the queue. Format your `PRINTF` so it outputs data as comma-separated values (e.g., `PRINTF("%d,%d\n", adc_reading, filtered_reading);`).
+
+    ### Part 4: Real-Time Plotting with Python
+
+7. Below is a Python script that uses a basic matplotlib scatter plot to append and plot data infinitely.
 
         import serial
         import matplotlib.pyplot as plt
@@ -108,22 +138,25 @@ In this lab, we'll explore the use of software filtering techniques to remove no
             plt.show()
             plt.pause(0.000001)
 
-1. Run the Python code and it should open the specified serial and start plotting the data. As you can tell, it is not the most optimized plotting code.
+    The script is inefficient and will cause the computer to slow down and eventually crash over time.
 
-    ![Figure 6.1](lab6-plot.png)
+    ![Figure 7.3](lab7-plot.png)
 
-    ***Figure 6.1***
+    ***Figure 7.3***
 
-1. Change the Python code so the plot becomes a line graph that's displaying the reading similar to an oscilloscope, i.e., replacing old readings with new ones instead of just adding readings to the graph.
+8. Update or completely rewrite the Python code so the plot becomes a line graph that will display the readings like an oscilloscope. Plot both the unfiltered and filtered signals on the same plot. Ask a GenAI agent of your choice to help you write the Python code.
 
-1. You should see a triangular wave (simulating noisy data) on your Python oscilloscope. Your task is to add the simple IIR filter discussed in class to smooth out the data on the controller. This means adding a new variable called `alpha` and `old_reading` to save the reading for the next iteration.
+    !!! quote "Start with this prompt"
 
-        filtered_reading = old_reading + alpha * (adc_reading – old_reading);
+        Write a Python script that will act like a real-time oscilloscope. It should read two comma-separated integers per line from a serial port (raw and filtered data). Use collections.deque with a maximum length of 100 to keep the memory footprint small, and use matplotlib.animation.FuncAnimation for smooth, efficient line graph plotting. Plot both the raw and filtered data on the same graph with a legend.
 
-    Plot both the unfiltered and filtered signal on the same plot.
+9. **Save and Run** your Python script and **Build, Flash, Run** your C code on the MCU to see everything in action. You should see a triangular wave (simulating noisy data) and the smoothed filtered wave running together on the screen.
+
+10. Experiment with changing the alpha value in your C code and observe how it changes the phase delay and smoothness on the Python plot.
 
 Once you've completed all the steps above (and ONLY when you are ready, as you'll only have one opportunity to demo), ask the lab professor or instructor to come over and demonstrate that you've completed the lab. You may be asked to explain some of the concepts you've learned in this lab.
 
 ## Reference
 
 - [Infinite Impulse Response](https://en.wikipedia.org/wiki/Infinite_impulse_response)
+- This lab manual was generated with the help of Gemini 3 Pro.

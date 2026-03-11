@@ -1,15 +1,17 @@
-# Lab 6 : LCD and Interrupt
-
-<font size="5">
-Seneca Polytechnic</br>
-SEP600 Embedded Systems
-</font>
+# Lab 6: Interrupts and IoT Messaging using MQTT
 
 ## Introduction
 
-Documentation for the Cortex-M4 instruction set, the board user's guide, and the microcontroller reference manual can be found here:
+This lab introduces hardware interrupts within a FreeRTOS environment and bridges your embedded device to the cloud. You will learn how to handle asynchronous hardware events (like a button press) using deferred interrupt processing. Instead of just turning on an LED, you will send a signal over USB serial to a host computer. A Python script on your computer will act as an IoT edge gateway, publishing that event to a public MQTT broker (HiveMQ), allowing you to view the hardware event live on the web.
 
-Documentation for the Freedom K64 and K66 boards and their microcontrollers can be found here:
+### Learning Objectives
+
+1. Configure GPIO interrupts using the NXP MCUXpresso SDK.
+2. Implement deferred interrupt processing using FreeRTOS Binary Semaphores to safely hand off work from an ISR to an RTOS Task.
+3. Write a Python script using `pyserial` and `paho-mqtt` to bridge local microcontroller UART data to a cloud MQTT broker.
+4. Understand the Publish/Subscribe messaging model and verify messages using a cloud websocket client.
+
+Documentation for the Cortex-M4 instruction set, board user's guide, and the microcontroller reference manual can be found here:
 
 - [FRDM-K64F Freedom Module User’s Guide](https://www.nxp.com/webapp/Download?colCode=FRDMK64FUG) ([PDF](FRDMK64FUG.pdf))
 - [Kinetis K64 Reference Manual](https://www.nxp.com/webapp/Download?colCode=K64P144M120SF5RM) ([PDF](K64P144M120SF5RM.pdf))
@@ -26,204 +28,136 @@ Documentation for the Cortex-M4 instruction set can be found here:
     - [Table of Processor Instructions](https://developer.arm.com/documentation/100166/0001/Programmers-Model/Instruction-set-summary/Table-of-processor-instructions)
 - [ARMv7-M Architecture Reference Manual](https://developer.arm.com/documentation/ddi0403/latest/) ([PDF](DDI0403E_e_armv7m_arm.pdf))
 
-### 16×2 (or other size) LCD Module
+## MQTT
 
-A 16×2 Liquid Crystal Display module has 16 columns and 2 rows of characters. Most 16×2 (as well as 8×1, 20×2, and 20×4) LCD modules use a Hitachi HD44780 (or compatible) LCD controller. Each character space can display a single alphanumeric character, symbol, or custom character. The display operates by selectively controlling the liquid crystal pixels, making them opaque or transparent to create characters or graphics. The LCD controller works in 2 main modes: 
+Message Queuing Telemetry Transport (MQTT) is a lightweight, publish-subscribe network protocol specifically designed for IoT (Internet of Things) applications and low-bandwidth, high-latency networks. Unlike traditional request-response models (like HTTP), MQTT relies on a central server called a **Broker** to manage and route messages. Devices (Clients) connect to this broker and can either **Publish** data to specific categories known as Topics (e.g., lab6/board1/button), or **Subscribe** to topics to instantly receive any new messages posted there.
 
-- **4-bit Mode:** Data is sent to the LCD module in two consecutive nibbles. The higher nibble, consisting of data lines D4 to D7, is sent first, followed by the lower nibble with data lines D0 to D3. This configuration allows us to send 8-bit data using only four data lines, conserving valuable I/O pins on the microcontroller.
-- **8-bit Mode:** The LCD can directly receive 8-bit data in a single transmission, using all eight data lines (D0 to D7). As a result, this mode offers faster and more efficient data transfer compared to the 4-bit mode. However, it requires more I/O pins on the microcontroller, potentially limiting its application in projects with limited resources.
+This decoupled architecture means the publisher and subscriber never need to know about each other directly—they only need to know the broker and the topic. Because of its extremely small packet overhead and efficient resource usage, MQTT is the perfect protocol for embedded microcontrollers sending quick hardware events to the cloud.
 
-When using the LCD module in 4-bit mode, only 4 wires are required for parallel data transfer, plus 2 wires for enable. However, with the help of an I2C parallel port expander (I2C backpack), only 2 wires through I2C are required to work with the LCD module.
+![Figure 6.1](lab6-mqtt.gif)
 
-![Figure 6.1](lab6-lcd.png)
-
-***Figure 6.1** 16x2 LCD*
-
-Some common commands are:
-
-| Command Name | HEX Value | Description |
-|---|---|---|
-| Clear Display | 0x01 | This command clears the entire display, resetting the cursor position to the home position (0, 0). |
-| Return Home | 0x02 | Sending this command moves the cursor to the home position (0, 0) without clearing the display. |
-| Entry Mode Set | 0x04 | This command determines the cursor movement direction and whether the display should shift. |
-| Display On/Off Control | 0x08 | This command controls the display, cursor, and cursor blinking options. |
-| Cursor or Display Shift | 0x10 | Used to shift the cursor or the entire display left or right without changing the display data. |
-| Function Set | 0x20 | This command sets the LCD data length (4-bit or 8-bit), number of display lines, and font size. |
-| Set CGRAM Address | 0x40 | This command sets the address of the Character Generator RAM (CGRAM) for custom character creation. |
-| Set DDRAM Address | 0x80 | This command sets the address of the Display Data RAM (DDRAM), allowing data to be written to a specific location on the LCD. |
-
-Reference: [HD44780 LCD Controller](https://en.wikipedia.org/wiki/Hitachi_HD44780_LCD_controller)
+***Figure 6.1** How MQTT PUBLISH works*
 
 ## Materials
-- Safety glasses (PPE)
-- Freedom K64F or K66F Board
-- Breadboard
-- Jumper Wires
-- LCD Display (Parallel or I2C)
-- Various 1kΩ–10kΩ resistors
-- Button
 
-**If you are using an I2C LCD, connect the LCD to the I2C pins and use the I2C library instead of the parallel LCD library.**
+- Safety glasses (PPE)
+- FRDM-K64F or FRDM-K66F microcontroller board
+- A Host PC (Windows/Mac/Linux) with Python 3 installed and internet connection
 
 ## Preparation
 
-> ### Lab Preparation Question
-> 1. Read over the lab and understand the procedures.
+1.  Read through the lab manual for this lab.
+2.  Install the required `pyserial` and `paho-mqtt` Python libraries by running:
+    
+        pip install pyserial paho-mqtt
 
 ## Procedures
 
-### Part 1: LCD Module
+### Part 1: FreeRTOS Deferred Interrupts
 
-1. Acquire an LCD and a resistor, then connect them to the Freedom K64F/K66F board as per the connection table and the diagram below. If you are using an I2C LCD, connect the LCD to the I2C pins.
+Hardware interrupts allow the MCU to respond to external events instantly without continuously polling. However, in an RTOS, Interrupt Service Routines (ISRs) must be extremely short. You should never call slow functions like `PRINTF()`, `vTaskDelay()`, or heavy processing inside an ISR.
 
-    ![Figure 6.2](lab6-lcd-connection.png)
+Instead, a technique called **Deferred Interrupt Processing** should be used. In this approach, the ISR simply sets a flag (a Binary Semaphore) and exits immediately. An RTOS Task waiting for that semaphore immediately wakes up and does the heavy lifting.
 
-    ***Figure 6.2** LCD connection with Freedom board*
+1.  Start a new C/C++ project in MCUXpresso, and ensure the **Operating System** is set to "FreeRTOS kernel". Add the **fsl_port** and **fsl_gpio** driver to your project via **SDK Management > Manage SDK Components**. You can name the project "sep600_lab6".
 
-    The typical pinout and connection for a parallel 16x2 LCD are given below. Please keep in mind that depending on the manufacturer, some labels and configurations may vary.
+2.  The next task is to write code that will trigger an interrupt using SW2 from your FRDM-K64F or FRDM-K66F microcontroller board. Ask a GenAI agent of your choice to help you write the code.
 
-    | LCD Pin # | LCD Label | K64F/K66F Pin |
-    |---|---|---|
-    | 1 | GND / VSS | GND / 0V |
-    | 2 | VDD / VCC | 5V |
-    | 3 | VO | 1kΩ to GND / 0V |
-    | 4 | RS | D9 |
-    | 5 | R/W | GND / 0V |
-    | 6 | E | D8 |
-    | 7 | DB0 | N/C |
-    | 8 | DB1 | N/C |
-    | 9 | DB2 | N/C |
-    | 10 | DB3 | N/C |
-    | 11 | DB4 | D4 |
-    | 12 | DB5 | D5 |
-    | 13 | DB6 | D6 |
-    | 14 | DB7 | D7 |
-    | 15 | LED+ | 1kΩ to 5V |
-    | 16 | LED- | N/C |
+    !!! warning "Use GenAI smartly and understand what it is doing!"
+   
+        Do NOT just copy and paste code from GenAI! Remember, you still need to understand what GenAI is doing as you might be tested on the content of this lab.
 
-    - Some models work with 3.3V instead of 5V.
-    - VO pin configuration varies depending on the manufacturer. A potentiometer can be used instead of a 1kΩ resistor for adjustable contrast.
+    !!! quote "Start with this prompt"
 
-    You may change the pins used on the K64F/K66F board depending on your application and pin availability.
+        Write a C code for MCUXpresso using FreeRTOS on a FRDM-K64F. I want a hardware GPIO interrupt on SW2 triggered on a falling edge. The ISR should use a Binary Semaphore to unblock a FreeRTOS task. The task should print 'SW2 PRESSED\n' to serial terminal and blink the Red LED. Include the SetPinInterruptConfig, the IRQHandler, and the task definition. I also want a task that displays text to the terminal showing that the system is still alive.
 
-1. Open Keil Studio and install the following library to your project depending on whether you are using the Parallel or I2C version of the LCD.
+3. GenAI might make dangerous mistakes with RTOS interrupts. Verify the generated code on the following:
 
-    - Parallel LCD: [https://os.mbed.com/users/sstaub/code/mbedLCD/](https://os.mbed.com/users/sstaub/code/mbedLCD/)
-    - I2C LCD: [https://os.mbed.com/users/sstaub/code/mbedLCDi2c/](https://os.mbed.com/users/sstaub/code/mbedLCDi2c/)
+    - **Did it clear the interrupt flag?** If the ISR does not call `GPIO_PortClearInterruptFlags()`, the MCU will get stuck in an infinite interrupt loop and freeze.
+    - **Did it use the FromISR API?** FreeRTOS requires special API calls inside interrupts. It must use `xSemaphoreGiveFromISR()`, not `xSemaphoreGive()`.
+    - **Did it yield?** A proper RTOS ISR checks if a higher-priority task was woken up by the semaphore and requests a context switch using `portYIELD_FROM_ISR(xHigherPriorityTaskWoken)`.
 
-1. Use the following code to output a message on the display. Uncomment the necessary lines for the LCD screen you are using:
-
-        #include "mbed.h"
-        // #include "LCD.h" // for parallel LCD
-        // #include "LCDi2c.h" // for I2C LCD
-
-        // LCD lcd(D9, D8, D4, D5, D6, D7, LCD16x2); // for parallel LCD: RS, EN, D4-D7, Type
-        // LCDi2c lcd(I2C_SDA, I2C_SCL, LCD16x2); // for I2C LCD: SDA, SCL
- 
-        int main() {
-
-            lcd.cls(); // clear display
-            lcd.locate(0, 0); // set cursor location
-            lcd.printf("SEP600\n"); // display text
-            ThisThread::sleep_for(2s);
-            lcd.cls(); // clear display
-            lcd.locate(0, 0); // set cursor location
-            lcd.printf("Hello World!\n"); // display text
-
-        }
-
-    When the LCD is operating in 4-bit mode, command and data are sent to the LCD 4-bit at a time throught D4-D7. When the RS pin on the LCD is low (0), the LCD treat the parallel input as command. When the RS pin on the LCD is high (1), the LCD treat the parallel input as data to be displayed.
-
-    Here's the sequence for printing "SEP":
-
-    | Command/Data | RS Pin | Description |
-    |---|---|---|
-    | 0x80 | LOW | Display the next charater at Row 0, Col 0 |
-    | 0x53 | HIGH | ASCII of captial "S" in HEX |
-    | 0x81 | LOW | Display the next charater at Row 0, Col 0 |
-    | 0x45 | HIGH | ASCII of captial "E" in HEX |
-    | 0x82 | LOW | Display the next charater at Row 0, Col 0 |
-    | 0x50 | HIGH | ASCII of captial "P" in HEX |
-
-1. After uploading your code, the LCD should show "SEP600" for 2 seconds, then "Hello World!".
-
-1. If you are using a parallel LCD, you may skip this steps as tools for sniffing the four data line will be required to read the signals. If you are using an I2C LCD module, use the oscilloscope to take a look at the I2C data frame. You should be able to see the command and data that you are sending to the module.
-
-    The I2C I/O expander is attached to the LCD as follow:
-
-    | Bit-7 (MSB) | Bit-6 | Bit-5 | Bit-4 | Bit-3 | Bit-2 | Bit-1 | Bit-0 (LSB) |
-    |---|---|---|---|---|---|---|---|
-    | DB7 | DB6 | DB5 | DB4 | BL | E | RW | RS |
-
-    * BL (Backlight) is LED+. Set this to high to turn on the backlight.
-    * E is Enable. Transistion of this pin from HIGH to LOW trigger reading of the command/data.
-    * RW is Read/Write. Set this to LOW when writing to the LCD.
-    * RS is Register Select. Set this to LOW when writing command, set this to HIGH when writing data.
-
-    Since only 4-bit will be sent at a time, each command and data is divided into high and low nibbles for data transmission in bits 4-7 along with settings in bits 0-3.
-
-    As a result, the I2C transmission you'll see is:
-
-    | Data | Description |
-    |---|---|
-    | 0x27 << 1 | 7-bit address + Write |
-    | 0x8X | High nibble of first command "0x80" + X settings depending on your code |
-    | 0x27 << 1 | 7-bit address + Write |
-    | 0x0X | Low nibble of first command "0x80" + X settings depending on your code |
-    | 0x27 << 1 | 7-bit address + Write |
-    | 0x5X | High nibble of first data "S" + X settings depending on your code |
-    | 0x27 << 1 | 7-bit address + Write |
-    | 0x3X | High nibble of first data "S" + X settings depending on your code |
-    | 0x27 << 1 | 7-bit address + Write |
-    | 0x8X | High nibble of second command "0x81" + X settings depending on your code |
-    | 0x27 << 1 | 7-bit address + Write |
-    | 0x1X | Low nibble of second command "0x81" + X settings depending on your code |
-    | 0x27 << 1 | 7-bit address + Write |
-    | 0x4X | High nibble of second data "E" + X settings depending on your code |
-    | 0x27 << 1 | 7-bit address + Write |
-    | 0x5X | High nibble of second data "E" + X settings depending on your code |
-    | | Same pattern for the remaining command and data |
-
-    > **Lab Question:** Based on your message, compare the I2C signal and see if you can find the "Hel" from "Hello World!".
+    Ensure your code has the following (or similar naming) in the ISR:
     
-    (Optional) If you want to take a screenshot of your oscilloscope for analysis, an easy way to do this is to connect to its web interface using the computer at your workstation. Press Utility > I/O > LAN on the oscilloscope to find it's IP address then navigate to this IP address using a browser on the workstation computer.
-
-1. Let's display some longer message.
-
-    > **Lab Question:** Modify your code to display your name and student number on row 1, and your lab partner's name and student number on row 2 (or be creative, like "SEP600 Embedded Systems is Awesome"). Since the message will be too wide for the LCD, display the text as a horizontal scrolling message at a reasonable rate.
-    >
-    > **Hint:** There are many ways to do this. Refer to the library documentation on how to move the print cursor.
-
-### Part 2: Interrupt
-
-An interrupt is a way for the microcontroller to listen for events without continuously polling the input. Most of the GPIO pins on the Freedom K64F or K66F board can be attached to an interrupt.
-
-1. Connect a pull-up or pull-down button to any digital pin of your choosing.
-
-2. Add the following code before `main()` to create an interrupt object.
-
-        InterruptIn button(PTXX);
-
-3. Add the following interrupt routine before `main()` and include the appropriate code for displaying a message on the LCD when the interrupt is triggered. Display the message for a few seconds, then return to displaying the previous message.
-
-        void button_isr(){
-            // Display an interrupt message on the LCD
-            // Use wait_us for delay
-            // Do NOT use ThisThread::sleep_for
+        int main(void)
+        {
+            ...
+            sw2_semaphore = xSemaphoreCreateBinary();
+            ...
         }
 
-    > **Hint:** You can try triggering a flag in the interrupt and then display the message in the `main()` loop or in a separate thread.
+        void SW2_GPIOC_IRQHANDLER(void)
+        {
+            BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+            
+            GPIO_PortClearInterruptFlags(BOARD_SW2_GPIO, 1U << BOARD_SW2_GPIO_PIN);
+            xSemaphoreGiveFromISR(sw2_semaphore, &xHigherPriorityTaskWoken);
+            portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+        }
 
-4. Within `main()`, attach the interrupt routine to the button and adjust for the rising or falling edge, depending on your circuit configuration.
+4. **Build, Flash, Run** your code and open a serial terminal. Every time you press SW2, you should see "SW2 PRESSED" appear exactly once per press.
 
-        button.rise(&button_isr);
+5. As we are transitioning into an environment where GenAI is becoming a tool that helps us write code, we cannot fully trust the code that is provided to us and must always question its validity. Perform the following exercises to simulate faulty code generated by AI and observe the system behaviour. Then try to figure out why the system did not function properly.
 
-5. Upload and test your interrupt.
+    - **Exercise 1:** Comment out the `GPIO_PortClearInterruptFlags()` line in the ISR.
+    - **Exercise 2:** Use `xSemaphoreGive(sw2_semaphore)` instead of `xSemaphoreGiveFromISR(sw2_semaphore, &xHigherPriorityTaskWoken)`.
+    - **Exercise 3:** Comment out `sw2_semaphore = xSemaphoreCreateBinary()`.
+    - **Exercise 4:** Comment out all `vTaskDelay()` if they exist.
 
-    > **Lab Question:** What will happen if you put a wait() function in the interrupt?
+    ### Part 2: Python Serial-to-MQTT Bridge
+
+    Now that the MCU is sending data over USB, we want the host computer to listen to that USB Serial port and forward the message to the internet. We will use MQTT to perform this task. 
+
+6. Ask a GenAI agent of your choice to help you write the host computer side Python code.
+
+    !!! quote "Start with this prompt"
+
+        Write a Python 3 script using 'pyserial' and 'paho-mqtt'. The script should continuously read lines from a serial port at 115200 baud. If the string 'SW2 PRESSED' is received, it should publish a JSON payload `{"event": "sw2_press", "status": "active"}` to the MQTT broker 'broker.hivemq.com' on the topic 'sep600/lab6/<your_unique_id>'. Print a confirmation to the console when published.
+
+7.  Once again, verify the generated code:
+
+    - **Did the AI decode the raw bytes correctly?** It should use line.decode('utf-8').strip() before checking if the string matches. If it compares a byte array to a string, it will fail.
+    - **Did the script call client.connect("broker.hivemq.com", 1883, 60)?**
+    - **Ensure `<your_unique_id>` in the Python script is actually a unique ID** so your code doesn't clash with someone else's code!
+
+8. Save the script as `mqtt_bridge.py` on your computer.
+
+9. Disconnect the serial terminal from MCUXpresso if it's connected, then run the script via your computer's terminal:
+
+        python mqtt_bridge.py
+
+    The script should sit and wait for "SW2 PRESSED" on serial. Press the button on your MCU board and the Python terminal should indicate that it detected the button press and published the message to HiveMQ.
+
+    !!! warning "A serial or COM port can only be used by one application."
+
+    ### Part 3: Cloud Verification (HiveMQ Web Client)
+
+    To prove the message actually made it to the cloud, we will use a public web client to subscribe to your specific topic.
+
+10.  Open your web browser and navigate to the HiveMQ public websocket client: [http://www.hivemq.com/demos/websocket-client/](http://www.hivemq.com/demos/websocket-client/)
+
+11. Leave the default connection settings as they are and click "Connect".
+
+12. Under the "Subscriptions" section, click "Add New Topic Subscription".
+
+13. In the "Topic" field, enter the exact topic you used in your Python script (e.g., sep600/lab6/your_unique_id) and click "Subscribe".
+
+14. Press the SW2 button on your microcontroller and see it in action.
+
+    ### Part 4: Additional Exploration
+
+    Now that publishing to MQTT is functional, let's try subscribing.
+
+15. Update your MCU as well as Python scripts to also listen for messages on a topic and flash the green LED when one is received. HiveMQ's public websocket client can also be used to publish messages to a topic for testing.
+
+16. Work with another group to try MCU to MCU communication over MQTT.
 
 Once you've completed all the steps above (and ONLY when you are ready, as you'll only have one opportunity to demo), ask the lab professor or instructor to come over and demonstrate that you've completed the lab. You may be asked to explain some of the concepts you've learned in this lab.
 
 ## Reference
 
-- [InterruptIn](https://os.mbed.com/docs/mbed-os/v6.16/apis/interruptin.html)
+- [GPIO Driver](https://mcuxpresso.nxp.com/api_doc/dev/1529/a00237.html)
+- [FreeRTOS: Semaphores](https://www.freertos.org/Documentation/02-Kernel/04-API-references/10-Semaphore-and-Mutexes/00-Semaphores)
+- [Paho Python Client](https://eclipse.dev/paho/clients/python/)
+- [HiveMQ Platform](https://docs.hivemq.com/hivemq/latest/user-guide/index.html)
+- This lab manual was generated with the help of Gemini 3 Pro.

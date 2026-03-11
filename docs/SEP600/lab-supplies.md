@@ -58,5 +58,5 @@ Also included on the list are some of the places you can purchase the items. The
 | --- | --- | --- | --- |
 | Alligator Leads | [10 pcs](https://www.canadarobotix.com/products/637) | [10 pcs](https://secure.sayal.com/STORE4/prodetails.php?SKU=263885) | Nice to have |
 | (1x) 10DoF IMU Breakout Module (MPU6050, QMC5883L, BMP180) or Similar  | [1 pc](https://www.canadarobotix.com/products/5134) | [1pc](https://secure.sayal.com/STORE4/prodetails.php?SKU=271572) | For Lab 5 |
-| (1x) I2C Character LCD Module or Similar | [1 pc](https://www.canadarobotix.com/products/2008) | [1 pc](https://secure.sayal.com/STORE4/prodetails.php?SKU=256801) | For Lab 6 |
+| (1x) I2C Character LCD Module or Similar | [1 pc](https://www.canadarobotix.com/products/2008) | [1 pc](https://secure.sayal.com/STORE4/prodetails.php?SKU=256801) | For Lab 5 |
 | (1x) Mini Photocell (Light Sensor) | [1 pc](https://www.canadarobotix.com/products/1138) | [1 pc](https://secure.sayal.com/STORE4/prodetails.php?SKU=271348) | For Lab 7 |

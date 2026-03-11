@@ -128,7 +128,7 @@ Instead, a technique called **Deferred Interrupt Processing** should be used. In
 
     The script should sit and wait for "SW2 PRESSED" on serial. Press the button on your MCU board and the Python terminal should indicate that it detected the button press and published the message to HiveMQ.
 
-    !!! warning "A serial or COM port can only be used by one application."
+    !!! warning "A serial or COM port can only be used by one application. You must disconnect the port from MCUXpresso before you can connect it with Python."
 
     ### Part 3: Cloud Verification (HiveMQ Web Client)
 

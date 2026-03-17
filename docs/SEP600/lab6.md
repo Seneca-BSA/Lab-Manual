@@ -59,7 +59,7 @@ Hardware interrupts allow the MCU to respond to external events instantly withou
 
 Instead, a technique called **Deferred Interrupt Processing** should be used. In this approach, the ISR simply sets a flag (a Binary Semaphore) and exits immediately. An RTOS Task waiting for that semaphore immediately wakes up and does the heavy lifting.
 
-1.  Start a new C/C++ project in MCUXpresso, and ensure the **Operating System** is set to "FreeRTOS kernel". Add the **fsl_port** and **fsl_gpio** driver to your project via **SDK Management > Manage SDK Components**. You can name the project "sep600_lab6".
+1.  Start a new C/C++ project in MCUXpresso, and ensure the **Operating System** is set to "FreeRTOS kernel". Add the **port (fsl_port.h)** and **gpio (fsl_gpio.h)** driver to your project via **SDK Management > Manage SDK Components**. You can name the project "sep600_lab6".
 
 2.  The next task is to write code that will trigger an interrupt using SW2 from your FRDM-K64F or FRDM-K66F microcontroller board. Ask a GenAI agent of your choice to help you write the code.
 

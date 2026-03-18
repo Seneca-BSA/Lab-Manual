@@ -93,7 +93,7 @@ The robot we are using for this course is the JetAuto Pro, assembled in the conf
 
         sudo systemctl stop start_app_node.service
 
-    !!! info
+    !!! info "You must stop the App service"
 
         You must stop this service every time you want to control the robot using your own script through ROS because the JetAuto robot automatically starts an App service to allow for control using an Android or iOS application.
 
@@ -115,7 +115,7 @@ The robot we are using for this course is the JetAuto Pro, assembled in the conf
 
         rostopic pub -1 /jetauto_controller/cmd_vel geometry_msgs/Twist '{linear: {x: 0.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}'
 
-    Your robot should not do anything. Issue the stop command again by pressing the up arrow key to view the previous command, then hit Enter.
+    Your robot should not do anything. Issue the stop command again by pressing the <kbd>&uarr;</kbd> **up arrow key** to view the previous command, then hit <kbd>Enter</kbd>.
 
 1. Place the robot on the ground and be ready to issue the stop command immediately after issuing the move command that moves the robot in the x-direction (forward) at 0.3 m/s, `x: 0.3`:
 
@@ -133,7 +133,7 @@ The robot we are using for this course is the JetAuto Pro, assembled in the conf
 
     The angular values refer to the rotation speed of the robot. Only Z-rotation is considered, with positive values as counter-clockwise. Do not exceed 1.0 rad/s.
 
-1. Next, try using the controller you created in Lab 4 to control the robot by copying your Lab 4 workspace (`lab4_jetauto_control`) over to the home directory on the JetAuto robot. You do NOT need to copy the `jetauto_ws` workspace as it's already on the JetAuto robot. You may use SSH, SFTP, WinSCP, or any file transfer method.
+1. Next, try using the keyboard controller you created in Lab 4 to control the robot by copying your Lab 4 workspace (`lab4_jetauto_control`) over to the home directory on the JetAuto robot. You do NOT need to copy the `jetauto_ws` workspace as it's already on the JetAuto robot. You may use SSH, SFTP, WinSCP, or any file transfer method.
 
 1. Once your new workspace is on the JetAuto robot, source it the same way as you've done in Lab 3 and Lab 4. Afterward, you'll be able to run the script just like you ran it on Gazebo.
 

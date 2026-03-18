@@ -10,6 +10,7 @@ Labs:
 - [Project 2 [10%]](project2.md)
 - [Lab 5 : JetAuto Robot](lab5.md)
 - [Project 3 [10%]](project3.md)
+- [Lab 6 : JetAuto Mapping](lab6.md)
 
 Reference Document:
 

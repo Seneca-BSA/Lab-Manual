@@ -60,7 +60,7 @@ Run this on the real world robot.
 
 1. A link to your project folder (e.g., on GitHub (private) or Google Drive) containing all the necessary files and code.
 2. A video showing your robot running in the real world.
-3. A text file containing the answers to the questions for every group member.
+3. A text file containing the answers to the questions (one per group).
 
 ### Late Submission Penalty
 

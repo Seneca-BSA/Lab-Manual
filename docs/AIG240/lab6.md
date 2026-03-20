@@ -118,9 +118,9 @@ Before running SLAM on your robot, we'll use Gazebo and RViz to simulate lidar r
 
         roslaunch jetauto_navigation rviz_navigation.launch
 
-    ### (Optional) SLAM with JetAuto Robot over SSH
+    ### (Advanced) SLAM with JetAuto Robot over SSH
 
-    !!! info "This method has not been tested. We will explore it together during the lab session."
+    !!! info "This method has not been fully tested. We will explore it together during the lab session."
 
     **[Local]** means perform this locally on your laptop.
 
@@ -128,11 +128,13 @@ Before running SLAM on your robot, we'll use Gazebo and RViz to simulate lidar r
 
     The approach is to run all services required to control the robot's motors and get data from the sensors on the robot using the command line. Any services requiring visualization of data will be processed locally using data published from the robot over the network.
 
+1. **[Local]** Turn off your virtual machine and change the network adapter setting in VirtualBox to "Bridged Adapter". **Settings > Network > Attached to "Bridged Adapter"**. By doing so allow the JetAuto's AP to see your virtual machine as a seperated device and get assigned an IP address instead of hidding behind NAT. Start the virtual machine back up after you changed the settings.
+
 1. **[Local]** ROS can be configured to search for a master node on the network so you can listen and publish to topics from a remote computer. In order to do this, we'll need to know the IP address for both the robot (192.168.149.1) and the IP address assigned to your laptop. Open a terminal and run the following on your computer:
 
         hostname -I
 
-    You should see an IP address in the range of 192.168.XXX.XXX. Make a note of this as "your IP". If you see an IP address in the range of 10.XXX.XXX.XXX, you are most likely still connected to the school's network. 
+    You should see an IP address in the range of 192.168.149.XXX. Make a note of this as "your IP". If you see an IP address in the range of 10.XXX.XXX.XXX, you are most likely still connected to the school's network.
 
 1. **[SSH]** Close the SLAM and RViz terminals. SSH into the robot and edit the `~/.bashrc` file to add the ROS master's IP using the nano editor:
 
@@ -175,6 +177,14 @@ Before running SLAM on your robot, we'll use Gazebo and RViz to simulate lidar r
     Verify that you see a list of topics from the ROS master, then run:
 
         roslaunch jetauto_slam rviz_slam.launch slam_methods:=gmapping
+
+    !!! info "RViz launch issue"
+    
+        If RViz does not load with the proper config (not as shown in Fig 6.2), go to **File > Open Config** and open the config file in:
+
+        **~/jetauto_ws/src/jetauto_slam/rviz/gmapping_sim.rviz**
+
+        You can close the default.rviz without saving.
 
 1. **[Local]** Open a new terminal and start your keyboard controller from [Lab 5](lab5.md) and move the robot around the classroom to map the entire room.
 

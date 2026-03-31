@@ -12,6 +12,8 @@ Labs:
 - [Project 3 [10%]](project3.md)
 - [Lab 6 : JetAuto Mapping](lab6.md)
 - [Project 4 [20%]](project4.md)
+- [Lab 7 : JetAuto Navigation](lab7.md)
+- [Project 5 [20%]](project5.md)
 
 Reference Document:
 

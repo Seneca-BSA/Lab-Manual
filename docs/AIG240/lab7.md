@@ -38,11 +38,13 @@ The `move_base` package is the central node of the ROS Navigation Stack, serving
 
     You can run RViz from your local computer if you have the ROS network sharing set up. In general, all RViz and robot control commands can be run locally on your computer instead of using the remote desktop if you have the ROS network sharing set up.
 
-    Once the RViz navigation window is up, you can use the **2D Pose Estimate**, **2D Nav Goal**, and **Publish Point** to manually navigate the robot.
+1. Once the RViz navigation window is up, you can use the **2D Pose Estimate**, **2D Nav Goal**, and **Publish Point** to manually navigate the robot.
 
     - **2D Pose Estimate** is used to set the initial position of JetAuto.
     - **2D Nav Goal** is used to set a target point.
     - **Publish Point** is used to set multiple target points.
+
+    Try navigating the robot by providing it an initial pose estimate and setting nav goal.
 
 1. Next, we'll try using a script for navigation instead of manually setting a goal in RViz. Open a new terminal, run `rostopic list`, and find the `/jetauto_1/move_base_simple/goal` topic. If `jetauto_1` is not in the topic path, adjust the publisher path in the code below accordingly.
 
@@ -59,7 +61,7 @@ The `move_base` package is the central node of the ROS Navigation Stack, serving
         from geometry_msgs.msg import PoseStamped
         from visualization_msgs.msg import Marker, MarkerArray
 
-        # Define your array of waypoints here: (x, y, yaw_in_degrees)
+        # Define your array of waypoints here: (x, y, orientation_in_degrees)
         waypoints = [
             (-0.825, 0.2, 0.0),
         ]
@@ -67,17 +69,17 @@ The `move_base` package is the central node of the ROS Navigation Stack, serving
         current_wp_index = 0
         markerArray = MarkerArray()
 
-        def send_current_waypoint():
+        def set_current_waypoint():
             global current_wp_index, markerArray
 
             if current_wp_index >= len(waypoints):
                 rospy.loginfo("=====================================================")
-                rospy.loginfo("STATUS UPDATE: All waypoints reached! Navigation complete.")
+                rospy.loginfo("STATUS UPDATE: All waypoints reached!")
                 rospy.loginfo("=====================================================")
                 return
 
             target_x, target_y, target_yaw = waypoints[current_wp_index]
-            rospy.loginfo(f"STATUS UPDATE: Sending goal for Waypoint {current_wp_index + 1}/{len(waypoints)} -> x: {target_x}, y: {target_y}, yaw: {target_yaw}")
+            rospy.loginfo(f"STATUS UPDATE: Setting goal for Waypoint {current_wp_index + 1}/{len(waypoints)} -> x: {target_x}, y: {target_y}, yaw: {target_yaw}")
 
             # Clear previous markers
             marker_Array = MarkerArray()
@@ -139,9 +141,9 @@ The `move_base` package is the central node of the ROS Navigation Stack, serving
                 if current_wp_index < len(waypoints):
                     rospy.loginfo("STATUS UPDATE: Preparing for the next waypoint in 2 seconds...")
                     rospy.sleep(2.0)
-                    send_current_waypoint()
+                    set_current_waypoint()
                 else:
-                    send_current_waypoint() # This will trigger the "Navigation complete" block
+                    set_current_waypoint() # This will trigger the "Navigation complete" block
                     
             # Handle failure states
             elif status == 4:
@@ -171,7 +173,7 @@ The `move_base` package is the central node of the ROS Navigation Stack, serving
             input(">>> Press [ENTER] to begin the navigation sequence... <<<")
             
             rospy.loginfo("STATUS UPDATE: Starting waypoint sequence!")
-            send_current_waypoint()
+            set_current_waypoint()
             
             try:
                 rospy.spin()
@@ -190,9 +192,9 @@ The `move_base` package is the central node of the ROS Navigation Stack, serving
 
 1. **The Challenge:** There's a very high chance that the robot will lose its localization. Make adjustments to the script and ask an AI as necessary to increase the reliability of the navigation (without installing any new packages on the robot).
 
-## Lab Questions
+## Lab Tasks and Questions
 
-1. Reliability navigate through all the waypoints of the small room twice for [Project 5](project5.md)
+1. Reliability navigate through all the waypoints of the small room for [Project 5](project5.md).
 
 ## References
 

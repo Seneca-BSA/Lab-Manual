@@ -46,6 +46,8 @@ The `move_base` package is the central node of the ROS Navigation Stack, serving
 
     Try navigating the robot by providing it an initial pose estimate and setting nav goal.
 
+1. Before moving to the next step, try moving the robot manually using the teleop package (the keyboard controller you created previous from lab 4 or project 3) to see how the robot use its lidar to localize itself in the map. You can also try to move the robot around and see how it reacts to obstacles in the environment. Try to understand how the robot is using the map and its sensors to navigate. You'll notice it take some time for the robot to localize itself.
+
 1. Next, we'll try using a script for navigation instead of manually setting a goal in RViz. Open a new terminal, run `rostopic list`, and find the `/jetauto_1/move_base_simple/goal` topic. If `jetauto_1` is not in the topic path, adjust the publisher path in the code below accordingly.
 
 1. Create a new workspace or use one of your previous workspaces (not `jetauto_ws`) and create a file named `waypoint_navigation.py` in the `scripts` directory of a new or existing package.

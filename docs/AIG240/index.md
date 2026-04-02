@@ -15,6 +15,7 @@ Labs:
 - [Lab 7 : JetAuto Navigation](lab7.md)
 - [Project 5 [20%]](project5.md)
 
-Reference Document:
+Reference Documents:
 
 - [JetAuto User Manual](JetAuto-User-Manual.pdf)
+- [JetAuto & JetAuto Pro Resources](https://drive.google.com/drive/folders/16pwHYO8rK-22oAzStc7-olP9Weq7AbzY)

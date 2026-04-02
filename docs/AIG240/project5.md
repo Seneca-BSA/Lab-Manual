@@ -24,7 +24,7 @@ robot’s behavior.
 
 ### Scenario 1: Navigating without obstacles
 
-1. Load the saved map from Project 4 (or a map provided to you)
+1. Load the saved map from Project 4 (or a map provided to you from [Lab 7](lab7.md))
 1. Launch the JetAuto ROS navigation stack.
 1. Initialize the robot's localization system (using RViz or script).
 1. Set a series of target poses (goal position and orientation), or "waypoint", using a script.

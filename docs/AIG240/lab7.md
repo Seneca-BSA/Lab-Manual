@@ -10,7 +10,7 @@ The `move_base` package is the central node of the ROS Navigation Stack, serving
 
 1. In Lab 6, you created a map using the lidar and the gmapping SLAM algorithm. Now, we'll try to use that map for navigation.
 
-1. Download the map of a small room from here, then unzip it locally. You should find a `room_map.pgm` and `room_map.yaml`. The `.pgm` file is the actual grid map, and the `.yaml` file provides the specifications for the map file.
+1. Download the map of a small room from [here](https://drive.google.com/file/d/1jJzOqjQ_nKUWFbsGKDJoC3sSI2CkMU-8/view?usp=drive_link), then unzip it locally. You should find a `room_map.pgm` and `room_map.yaml`. The `.pgm` file is the actual grid map, and the `.yaml` file provides the specifications for the map file.
 
 1. Copy and paste the map files into the `jetauto_slam/maps` directory on the robot:
 

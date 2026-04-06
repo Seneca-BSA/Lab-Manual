@@ -58,10 +58,11 @@ The `move_base` package is the central node of the ROS Navigation Stack, serving
         import math
         import rospy
         import numpy as np
-        import jetauto_sdk.common as common
+
+        from geometry_msgs.msg import Quaternion, PoseStamped
         from move_base_msgs.msg import MoveBaseActionResult
-        from geometry_msgs.msg import PoseStamped
         from visualization_msgs.msg import Marker, MarkerArray
+        from tf.transformations import quaternion_from_euler
 
         # Define your array of waypoints here: (x, y, orientation_in_degrees)
         waypoints = [
@@ -96,10 +97,15 @@ The `move_base` package is the central node of the ROS Navigation Stack, serving
             pose.header.frame_id = map_frame
             pose.header.stamp = rospy.Time.now()
             
-            q = common.rpy2qua(0.0, 0.0, math.radians(target_yaw))
             pose.pose.position.x = target_x
             pose.pose.position.y = target_y
-            pose.pose.orientation = q
+            qx, qy, qz, qw = quaternion_from_euler(
+                0.0,
+                0.0,
+                math.radians(target_yaw)
+            )
+            pose.pose.orientation = Quaternion(qx, qy, qz, qw)
+
 
             # Set up the visual marker (flag) in RViz
             marker = Marker()

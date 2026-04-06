@@ -1,0 +1,2927 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://seneca-bsa.github.io/lab-manual/SEA700/lab5/">
+      
+      
+        <link rel="prev" href="../lab4/">
+      
+      
+        <link rel="next" href="../../SEP600/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lab 5: Robotic Arm and SLAM - Lab Manuals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-5-robotic-arm-and-slam" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Lab Manuals" class="md-header__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lab Manuals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 5: Robotic Arm and SLAM
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Lab Manuals" class="md-nav__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Lab Manuals
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Manuals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AIG240
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Introduction to ROS and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: ROS Workspace, Package, Publisher, and Subscriber
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: Robot Model and Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: JetAuto Robot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6: Simultaneous Localization and Mapping (SLAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7: Navigation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 1 - Setting up ROS1 and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 2 - Moving JetAuto in Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 3 - Moving JetAuto in Real World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 4 - JetAuto Mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 5 - JetAuto Navigation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEA700
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SEA700
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEA700 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1 : Intro to ROS and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3 : ROS Workspace, Package, Publisher and Subscriber
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 : Robot Model, Gazebo and JetAuto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: Robotic Arm and SLAM
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: Robotic Arm and SLAM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#forward-kinematics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forward Kinematics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Forward Kinematics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#denavithartenberg-dh-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Denavit–Hartenberg (DH) Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Denavit–Hartenberg (DH) Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#four-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Four Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jetauto-arm-forward-kinematics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetAuto Arm Forward Kinematics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ros-moveit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROS MoveIt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simultaneous-localization-and-mapping-slam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simultaneous Localization and Mapping (SLAM)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Simultaneous Localization and Mapping (SLAM)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jetauto-robot-arm-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetAuto Robot Arm Control
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JetAuto Robot Arm Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#moveit-python-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MoveIt Python Interface
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jetauto-robot-arm-control-without-moveit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetAuto Robot Arm Control (Without MoveIt)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jetauto-slam-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetAuto SLAM (Simulation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jetauto-slam-physical-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetAuto SLAM (Physical Robot)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SEP600
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab-supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: FreeRTOS and MCUXpresso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2: Comparator and Digital I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: PWM Smoothing and DAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: ADC and RTOS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: Serial UART and I2C Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6: Interrupts and IoT Messaging using MQTT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7: Software Filtering and RTOS Data Logging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SES250
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/instruction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Instructions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Project : RC Lowpass Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Electrostatics and Triboelectric Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 10: RLC Circuit Resonance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : Digital Multimeter, Power Supply, and Ohm's Law
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: Series and Parallel Resistive Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 : Kirchhoff's Laws
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Thévenin Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : Digital Storage Oscilloscope (DSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7 : Capacitor and RC Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 8 : RL Circuit and Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 9 : RC and RL Circuit in AC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Common
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../common/lab-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#forward-kinematics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forward Kinematics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Forward Kinematics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#denavithartenberg-dh-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Denavit–Hartenberg (DH) Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Denavit–Hartenberg (DH) Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#four-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Four Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jetauto-arm-forward-kinematics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetAuto Arm Forward Kinematics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ros-moveit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROS MoveIt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simultaneous-localization-and-mapping-slam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simultaneous Localization and Mapping (SLAM)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Simultaneous Localization and Mapping (SLAM)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jetauto-robot-arm-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetAuto Robot Arm Control
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JetAuto Robot Arm Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#moveit-python-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MoveIt Python Interface
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jetauto-robot-arm-control-without-moveit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetAuto Robot Arm Control (Without MoveIt)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jetauto-slam-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetAuto SLAM (Simulation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jetauto-slam-physical-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetAuto SLAM (Physical Robot)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+  
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Lab Manuals
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    SEA700
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="lab-5-robotic-arm-and-slam">Lab 5: Robotic Arm and SLAM</h1>
+<p><font size="5">
+Seneca Polytechnic</br>
+SEA700 Robotics for Software Engineers
+</font></p>
+<h2 id="forward-kinematics">Forward Kinematics</h2>
+<p>As discussed in lecture, the forward kinematics problem involves <strong>finding</strong> the <strong>configuration</strong> of a <strong>specified</strong> link in a
+robotic manipulator relative to some other reference frame, given the angles of each of the joints in the manipulator.</p>
+<h3 id="denavithartenberg-dh-parameters">Denavit–Hartenberg (DH) Parameters</h3>
+<p>In mechanical engineering, the Denavit–Hartenberg parameters (also called DH parameters) are the four parameters associated with a particular convention for attaching reference frames to the links of a spatial kinematic chain, or robot manipulator. In this convention, coordinate frames are attached to the joints between two links such that one transformation is associated with the joint <span class="arithmatex">\([Z]\)</span>, and the second is associated with the link <span class="arithmatex">\([X]\)</span>. The coordinate transformations along a serial robot consisting of n links form the kinematics equations of the robot:</p>
+<div class="arithmatex">\[[T] = [Z_1][X_1][Z_2][X_2]...[Z_{n-1}][X_{n-1}][Z_n][X_n]\]</div>
+<p>where <span class="arithmatex">\([T]\)</span> is the transformation that characterizes the location and orientation of the end-link.</p>
+<p><img alt="Figure 5.1 DH Kinematics Links" src="../lab5-dh-kinematics-links.png" /></p>
+<p><em><strong>Figure 5.1</strong> DH Kinematics Links</em></p>
+<p>As shown in the figure above, each <strong>joint</strong> (i-1, i, and i+1) has a unique line <span class="arithmatex">\(S\)</span> (shown as a dotted line in the figure above) in space that forms the joint axis and <strong>defines</strong> the relative movement of its two links. For each sequence of lines <span class="arithmatex">\(S_i\)</span> and <span class="arithmatex">\(S_{i+1}\)</span>, there is a common normal line <span class="arithmatex">\(A_{i, i+1}\)</span>.</p>
+<p><strong>By convention:</strong></p>
+<ul>
+<li><span class="arithmatex">\(z\)</span>-direction - is in the joint <strong>axis</strong> <span class="arithmatex">\(S\)</span> direction. <span class="arithmatex">\(z_i\)</span> <strong>describes</strong> the joint attached to the end of <span class="arithmatex">\(\textrm{Link}_i\)</span> (i.e., the next joint).</li>
+<li><span class="arithmatex">\(x\)</span>-direction - is the common normal <span class="arithmatex">\(A\)</span>. <span class="arithmatex">\(x_i = z_{i} \times z_{i-1}\)</span> is the common normal <span class="arithmatex">\(A_{i, i+1}\)</span>. If there is no <strong>unique</strong> common normal, <span class="arithmatex">\(d_i\)</span> below <strong>becomes</strong> a free parameter and can be defined by joint configuration. Also, the <span class="arithmatex">\(x_i\)</span> axis must <strong>intersect</strong> both the <span class="arithmatex">\(z_{i-1}\)</span> and <span class="arithmatex">\(z_i\)</span> axes.</li>
+<li><span class="arithmatex">\(y\)</span>-direction - is the third direction using the right-hand rule.</li>
+<li>the origin of joint i is at the intersection of <span class="arithmatex">\(x_i\)</span> and <span class="arithmatex">\(z_i\)</span>.</li>
+</ul>
+<blockquote>
+<h4 id="four-parameters">Four Parameters</h4>
+<p>The following four transformation parameters (<strong>labeled</strong> in red text in the figure above) are known as the DH parameters:</p>
+<p><strong>Descriptions of the Joint</strong></p>
+<ul>
+<li><span class="arithmatex">\(d_i\)</span>: sliding / offset along the joint axis <span class="arithmatex">\(S_i\)</span> (<span class="arithmatex">\(z_{i-1}\)</span>) from the old common normal <span class="arithmatex">\(A_{i-1, i}\)</span> (<span class="arithmatex">\(x_{x-1}\)</span>) to the common normal <span class="arithmatex">\(A_{i, i+1}\)</span> (<span class="arithmatex">\(x_i\)</span>)</li>
+<li><span class="arithmatex">\(\theta_i\)</span>: rotation about joint axis <span class="arithmatex">\(S_i\)</span> (<span class="arithmatex">\(z_{i-1}\)</span>) from the old common normal <span class="arithmatex">\(A_{i-1, i}\)</span> (<span class="arithmatex">\(x_{x-1}\)</span>) to the common normal <span class="arithmatex">\(A_{i, i+1}\)</span> (<span class="arithmatex">\(x_i\)</span>)</li>
+</ul>
+<p><strong>Physical Dimensions of the Link</strong></p>
+<ul>
+<li><span class="arithmatex">\(a_i\)</span> (or <span class="arithmatex">\(r_i\)</span>): arm length / length along the common normal <span class="arithmatex">\(A_{i, i+1}\)</span> (<span class="arithmatex">\(x_i\)</span>) from the joint axis <span class="arithmatex">\(S_i\)</span> (<span class="arithmatex">\(z_{i-1}\)</span>) to the next joint axis <span class="arithmatex">\(S_{i+1}\)</span> (<span class="arithmatex">\(z_i\)</span>) at the end of <span class="arithmatex">\(\textrm{Link}_i\)</span></li>
+<li><span class="arithmatex">\(\alpha_i\)</span>: rotation about the common normal <span class="arithmatex">\(A_{i, i+1}\)</span> (<span class="arithmatex">\(x_i\)</span>) from the joint axis <span class="arithmatex">\(S_i\)</span> (<span class="arithmatex">\(z_{i-1}\)</span>) to the next joint axis <span class="arithmatex">\(S_{i+1}\)</span> (<span class="arithmatex">\(z_i\)</span>) at the end of <span class="arithmatex">\(\textrm{Link}_i\)</span></li>
+</ul>
+</blockquote>
+<p>This convention allows the definition of the movement of links around a common joint axis <span class="arithmatex">\(S_i\)</span> by the screw displacement:</p>
+<div class="arithmatex">\[
+[Z_i] =
+\begin{bmatrix}
+    cos \theta_i &amp; -sin \theta_i &amp; 0 &amp; 0 \\
+    sin \theta_i &amp; cos \theta_i &amp; 0 &amp; 0 \\
+    0 &amp; 0 &amp; 1 &amp; d_i \\
+    0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\]</div>
+<p>Each of these parameters could be a constant depending on the structure of the robot. Under this convention, the dimensions of each link in the serial chain are defined by the screw displacement around the common normal <span class="arithmatex">\(A_{i, i+1}\)</span> from joint <span class="arithmatex">\(S_i\)</span> to <span class="arithmatex">\(S_{i+1}\)</span>, which is given by:</p>
+<div class="arithmatex">\[
+[X_i] =
+\begin{bmatrix}
+    1 &amp; 0 &amp; 0 &amp; a_{i, i+1} \\
+    0 &amp; cos \alpha_{i, i+1} &amp; -sin \alpha_{i, i+1} &amp; 0 \\
+    0 &amp; sin \alpha_{i, i+1} &amp; cos \alpha_{i, i+1} &amp; 0 \\
+    0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\]</div>
+<p>where <span class="arithmatex">\(\alpha_{i, i+1}\)</span> and <span class="arithmatex">\(a_{i, i+1}\)</span> define the physical dimensions of the link in terms of the angle measured around and distance measured along the x-axis.</p>
+<h3 id="jetauto-arm-forward-kinematics">JetAuto Arm Forward Kinematics</h3>
+<p><img alt="Figure 5.2 JetAuto Arm Links" src="../lab5-jetauto-kinematics.png" /></p>
+<p><em><strong>Figure 5.2</strong> JetAuto Arm Links</em></p>
+<p>The figure above shows the kinematic link diagram of the JetAuto arm. Let's create the DH parameters table for the first two links:</p>
+<p>First, let's define the joints:</p>
+<ul>
+<li>Joint-1 is the rotation platform of the <strong>robotic</strong> arm. We'll define <span class="arithmatex">\(z_1\)</span> along the joint axis. For convenience, we'll define <span class="arithmatex">\(z_1\)</span> as upward, <span class="arithmatex">\(x_1\)</span> as right, then <span class="arithmatex">\(y_1\)</span> must point into the page due to the right-hand rule.</li>
+<li>Joint-0 is the base of the robot and will be used as the global reference. We'll define it in the same direction as Joint-1 for convenience. Consideration of Joint-0 is only necessary in this case because there's an offset between the base platform and Joint-1. Normally, Joint-1 can be used as the global reference.</li>
+<li>Joint-2 is the rotation servo of the first segment of the <strong>robotic</strong> arm. We can define the joint axis <span class="arithmatex">\(z_2\)</span> as into the page. Taking the cross product of <span class="arithmatex">\(x_2 = z_{2} \times z_{1}\)</span> <strong>yields</strong> an <span class="arithmatex">\(x_2\)</span> that is to the right. Therefore, <span class="arithmatex">\(y_1\)</span> is upward due to the right-hand rule.</li>
+<li>Joint-3 is the rotation servo of the second segment of the <strong>robotic</strong> arm. We can define the joint axis <span class="arithmatex">\(z_3\)</span> as into the page to stay consistent with Joint-2. Since <span class="arithmatex">\(z_2\)</span> and <span class="arithmatex">\(z_3\)</span> are parallel, <span class="arithmatex">\(x_3\)</span> will need to intersect <span class="arithmatex">\(z_2\)</span> and <span class="arithmatex">\(z_3\)</span> and point to the right. Therefore, <span class="arithmatex">\(y_1\)</span> is upward due to the right-hand rule.</li>
+<li>Joint-4 and Joint-5 can be defined in a similar manner as above.</li>
+</ul>
+<p>Now, we can define the links and find the DH parameters:</p>
+<ul>
+<li>Link-1 is from the base platform to the rotation platform Joint-1; this link is just an offset of <span class="arithmatex">\(d_1\)</span> along the <span class="arithmatex">\(z_0\)</span> direction.</li>
+<li>Link-2 is from the rotation platform to the rotation servo of the <strong>robotic</strong> arm. There's a distance of <span class="arithmatex">\(d_2\)</span> along the <span class="arithmatex">\(z_1\)</span> direction, and the joint will have <span class="arithmatex">\(\theta_2\)</span> rotation about <span class="arithmatex">\(z_1\)</span>. There is no offset in the <span class="arithmatex">\(x_2\)</span> <strong>direction</strong>, and from the <span class="arithmatex">\(z_1\)</span> direction to the <span class="arithmatex">\(z_2\)</span> direction, there's a rotation of <span class="arithmatex">\(\alpha_2 = -90°\)</span>.</li>
+<li>Link-3 is from the first rotation servo to the second rotation servo of the <strong>robotic</strong> arm. There is no offset in the <span class="arithmatex">\(z_2\)</span> <strong>direction</strong>, and the joint will have <span class="arithmatex">\(\theta_3\)</span> rotation about <span class="arithmatex">\(z_2\)</span>. There is an offset of <span class="arithmatex">\(a_3\)</span> in the <span class="arithmatex">\(x_3\)</span> <strong>direction</strong> between <span class="arithmatex">\(z_2\)</span> to <span class="arithmatex">\(z_3\)</span>, and there is no rotation between the <span class="arithmatex">\(z_2\)</span> direction and the <span class="arithmatex">\(z_3\)</span> direction.</li>
+<li>Link-4 and Link-5 can be defined in a similar manner as above.</li>
+</ul>
+<p>Putting this all together <strong>yields</strong> the following DH parameters table:</p>
+<p><em><strong>Table 5.1</strong> JetAuto DH Parameters Table</em></p>
+<table>
+<thead>
+<tr>
+<th>Link #</th>
+<th>d</th>
+<th>θ</th>
+<th>a</th>
+<th>α</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><span class="arithmatex">\(d_1\)</span></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td><span class="arithmatex">\(d_2\)</span></td>
+<td><span class="arithmatex">\(\theta_2\)</span></td>
+<td>0</td>
+<td>-90°</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0</td>
+<td><span class="arithmatex">\(\theta_3\)</span></td>
+<td><span class="arithmatex">\(a_3\)</span></td>
+<td>0</td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Your task as part of the lab is to complete this table.</p>
+<h2 id="ros-moveit">ROS MoveIt</h2>
+<p>ROS MoveIt is a powerful software framework designed for robot motion planning and manipulation within the Robot Operating System (ROS) ecosystem. It provides a robust set of tools and libraries that enable developers to implement complex motion planning algorithms, manage robot kinematics, and execute real-time motion tasks. With features such as collision detection, trajectory optimization, and support for various robotic platforms, MoveIt simplifies the process of programming robots to perform intricate movements. Its flexibility and extensibility make it a popular choice for both research and industrial applications, allowing users to create sophisticated robotic solutions tailored to specific needs.</p>
+<p><img alt="Figure 5.3 ROS MoveIt" src="../lab5-moveit.png" /></p>
+<p><em><strong>Figure 5.3</strong> ROS MoveIt</em></p>
+<p>More details on MoveIt can be found <a href="https://docs.ros.org/en/melodic/api/moveit_tutorials/html/index.html">here</a>.</p>
+<h2 id="simultaneous-localization-and-mapping-slam">Simultaneous Localization and Mapping (SLAM)</h2>
+<p>Simultaneous localization and mapping (SLAM) is the computational problem of constructing or updating a map of an unknown environment while simultaneously keeping track of an agent's location within it. Popular approximate solution methods include the particle filter, extended Kalman filter, covariance intersection, and GraphSLAM. SLAM algorithms are based on concepts in computational geometry and computer vision, and are used in robot navigation, robotic mapping, and odometry for virtual reality or augmented reality.</p>
+<p>SLAM algorithms are tailored to the available resources and are not aimed at perfection but at operational compliance. Published approaches are employed in self-driving cars, unmanned aerial vehicles, autonomous underwater vehicles, planetary rovers, newer domestic robots, and even inside the human body.</p>
+<h3 id="jetauto-robot-arm-control">JetAuto Robot Arm Control</h3>
+<ol>
+<li>
+<p>Before controlling JetAuto's robot arm, <strong>let's</strong> make sure we have all the <strong>necessary packages</strong> installed. We'll also install the GMapping package for the second part of this Lab. Open a terminal and run the following command:</p>
+<pre><code>sudo apt install ros-melodic-moveit ros-melodic-trac-ik-kinematics-plugin ros-melodic-slam-gmapping ros-melodic-map-server ros-melodic-amcl ros-melodic-move-base ros-melodic-global-planner
+</code></pre>
+</li>
+<li>
+<p>First, we'll try simulating JetAuto's robot arm in ROS using MoveIt along with a Gazebo model. Open a terminal and run:</p>
+<pre><code>roslaunch jetauto_moveit_config demo_gazebo.launch fake_execution:=false
+</code></pre>
+<p>This should load RViz and Gazebo <strong>windows</strong>. By <strong>providing</strong> <code>false</code> to the <code>fake_execution</code> argument, we'll be able to move the robot arm in the Gazebo model as well.</p>
+<p><img alt="Figure 5.4 JetAuto MoveIt" src="../lab5-jetauto-moveit.png" /></p>
+<p><em><strong>Figure 5.4</strong> JetAuto MoveIt</em></p>
+<p>The top-left Panel <strong>labeled</strong> "Displays" is the RViz Tool Bar, the bottom-left Panel <strong>labeled</strong> "MotionPlanning" is the MoveIt Tool Area, and the right Panel is the Simulation view. In the Simulation view, you can use your mouse (<strong>right-click</strong>, left-click, middle-click, and wheel) to adjust the view.</p>
+</li>
+<li>
+<p>Select the <strong>"Planning"</strong> tab in MoveIt and ensure the <strong>"Planning Group"</strong> is "arm". Move the model in the Simulation view around to set the joint goal of the arm:</p>
+<ul>
+<li>The Blue ball <strong>controls</strong> the position of the end effector in 3D space.</li>
+<li>The Red Arrow <strong>controls</strong> the y-axis of the end effector.</li>
+<li>The Green Arrow <strong>controls</strong> the x-axis of the end effector.</li>
+<li>The Blue Arrow <strong>controls</strong> the z-axis of the end effector.</li>
+</ul>
+<p>Remember, once the arm is moved, the <strong>axes</strong> <strong>refer</strong> to the end effector's frame of reference.</p>
+<p><img alt="Figure 5.5 JetAuto MoveIt Planning" src="../lab5-planning-moveit.png" /></p>
+<p><em><strong>Figure 5.5</strong> JetAuto MoveIt Planning</em></p>
+<p>When you set the goal for the robot arm, MoveIt performs inverse kinematics (IK) to determine the configuration for each joint to reach the goal. When calculating the IK, collisions with other parts of the robot are already taken into consideration. If there are any anticipated collisions, they are indicated in red.</p>
+</li>
+<li>
+<p>You can also perform forward kinematics by scrolling over to the <strong>"Joints"</strong> tab in MoveIt to view and adjust the goal rotation angle of each joint.</p>
+<p><img alt="Figure 5.6 JetAuto MoveIt Planning Joints" src="../lab5-planning-joints.png" /></p>
+<p><em><strong>Figure 5.6</strong> JetAuto MoveIt Planning Joints</em></p>
+</li>
+<li>
+<p>Once you are ready with the position for the arm to move to, go back to the <strong>"Planning"</strong> tab and click <strong>"Plan &amp; Execute"</strong>. You should see the model move from the current state to the goal state. The Gazebo model should move as well.</p>
+<p><img alt="Figure 5.7 JetAuto MoveIt Planning Gazebo View" src="../lab5-planning-gazebo.png" /></p>
+<p><em><strong>Figure 5.7</strong> JetAuto MoveIt Planning Gazebo View</em></p>
+</li>
+<li>
+<p>(Optional) If you want, you can go through the demo videos and <strong>lessons</strong> provided by the manufacturer to gain a better understanding of the robot arm.</p>
+<p><a href="https://drive.google.com/drive/folders/16pwHYO8rK-22oAzStc7-olP9Weq7AbzY">JetAuto &amp; JetAuto Pro Resources</a></p>
+<ul>
+<li>Chapter 15.1 All <strong>Lessons</strong></li>
+<li>Chapter 15.2<ul>
+<li>Lesson 2 - <a href="https://youtu.be/OQAjGv3DnG4">Demo Video</a></li>
+<li>Lesson 3 - <a href="https://youtu.be/99P79cR54tE">Demo Video</a></li>
+<li>Lesson 4</li>
+<li>Lesson 5 - <a href="https://youtu.be/e-AjB7BJyoo">Demo Video</a></li>
+<li>Lesson 6 - <a href="https://youtu.be/vNk_7Xl6QTw">Demo Video</a></li>
+<li>Lesson 7 - <a href="https://youtu.be/TChFPe_zgd8">Demo Video</a></li>
+<li>Lesson 8 - <a href="https://youtu.be/n7zQQqZfCtU">Demo Video</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="moveit-python-interface">MoveIt Python Interface</h4>
+</li>
+<li>
+<p>Next, let's use a Python interface to work with MoveIt. Build a new ROS package in your <code>ros_ws</code> workspace and put the following script into your package and call it <strong>move_group_python_interface_tutorial.py</strong>.</p>
+<p>This script is from the <a href="https://docs.ros.org/en/melodic/api/moveit_tutorials/html/doc/move_group_python_interface/move_group_python_interface_tutorial.html">MoveIt Tutorial</a> using the Panda robot but changed to work with the JetAuto robot.</p>
+<pre><code>#!/usr/bin/env python
+
+import sys
+import copy
+import rospy
+import moveit_commander
+import moveit_msgs.msg
+import geometry_msgs.msg
+from math import pi
+from std_msgs.msg import String
+from moveit_commander.conversions import pose_to_list
+## END_SUB_TUTORIAL
+
+def all_close(goal, actual, tolerance):
+    """
+    Convenience method for testing if a list of values are within a tolerance of their counterparts in another list
+    @param: goal       A list of floats, a Pose or a PoseStamped
+    @param: actual     A list of floats, a Pose or a PoseStamped
+    @param: tolerance  A float
+    @returns: bool
+    """
+    all_equal = True
+    if type(goal) is list:
+        for index in range(len(goal)):
+            if abs(actual[index] - goal[index]) &gt; tolerance:
+                return False
+
+    elif type(goal) is geometry_msgs.msg.PoseStamped:
+        return all_close(goal.pose, actual.pose, tolerance)
+
+    elif type(goal) is geometry_msgs.msg.Pose:
+        return all_close(pose_to_list(goal), pose_to_list(actual), tolerance)
+
+    return True
+
+class MoveGroupPythonIntefaceTutorial(object):
+    """MoveGroupPythonIntefaceTutorial"""
+    def __init__(self):
+        super(MoveGroupPythonIntefaceTutorial, self).__init__()
+
+        ## BEGIN_SUB_TUTORIAL setup
+        ##
+        ## First initialize `moveit_commander`_ and a `rospy`_ node:
+        moveit_commander.roscpp_initialize(sys.argv)
+        rospy.init_node('move_group_python_interface_tutorial', anonymous=True)
+
+        ## Instantiate a `RobotCommander`_ object. Provides information such as the robot's
+        ## kinematic model and the robot's current joint states
+        robot = moveit_commander.RobotCommander()
+
+        ## Instantiate a `PlanningSceneInterface`_ object.  This provides a remote interface
+        ## for getting, setting, and updating the robot's internal understanding of the
+        ## surrounding world:
+        scene = moveit_commander.PlanningSceneInterface()
+
+        ## Instantiate a `MoveGroupCommander`_ object.  This object is an interface
+        ## to a planning group (group of joints).  In this tutorial the group is the primary
+        ## arm joints in the Panda robot, so we set the group's name to "panda_arm".
+        ## If you are using a different robot, change this value to the name of your robot
+        ## arm planning group.
+        ## This interface can be used to plan and execute motions:
+        ##group_name = "panda_arm"
+        group_name = "arm"
+        move_group = moveit_commander.MoveGroupCommander(group_name)
+
+        ## Create a `DisplayTrajectory`_ ROS publisher which is used to display
+        ## trajectories in Rviz:
+        display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path',
+                                                        moveit_msgs.msg.DisplayTrajectory,
+                                                        queue_size=20)
+
+        ## END_SUB_TUTORIAL
+
+        ## BEGIN_SUB_TUTORIAL basic_info
+        ##
+        ## Getting Basic Information
+        ## ^^^^^^^^^^^^^^^^^^^^^^^^^
+        # We can get the name of the reference frame for this robot:
+        planning_frame = move_group.get_planning_frame()
+        print "============ Planning frame: %s" % planning_frame
+
+        # We can also print the name of the end-effector link for this group:
+        eef_link = move_group.get_end_effector_link()
+        print "============ End effector link: %s" % eef_link
+
+        # We can get a list of all the groups in the robot:
+        group_names = robot.get_group_names()
+        print "============ Available Planning Groups:", robot.get_group_names()
+
+        # Sometimes for debugging it is useful to print the entire state of the
+        # robot:
+        print "============ Printing robot state"
+        print robot.get_current_state()
+        print ""
+        ## END_SUB_TUTORIAL
+
+        # Misc variables
+        self.box_name = ''
+        self.robot = robot
+        self.scene = scene
+        self.move_group = move_group
+        self.display_trajectory_publisher = display_trajectory_publisher
+        self.planning_frame = planning_frame
+        self.eef_link = eef_link
+        self.group_names = group_names
+
+    def go_to_joint_state(self):
+        # Copy class variables to local variables to make the web tutorials more clear.
+        # In practice, you should use the class variables directly unless you have a good
+        # reason not to.
+        move_group = self.move_group
+
+        ## BEGIN_SUB_TUTORIAL plan_to_joint_state
+        ##
+        ## Planning to a Joint Goal
+        ## ^^^^^^^^^^^^^^^^^^^^^^^^
+        ## The Panda's zero configuration is at a `singularity &lt;https://www.quora.com/Robotics-What-is-meant-by-kinematic-singularity&gt;`_ so the first
+        ## thing we want to do is move it to a slightly better configuration.
+        # We can get the joint values from the group and adjust some of the values:
+        joint_goal = move_group.get_current_joint_values()
+
+        joint_goal[0] = pi/4
+        joint_goal[1] = pi/4
+        joint_goal[2] = pi/4
+        joint_goal[3] = pi/4
+
+        # The go command can be called with joint values, poses, or without any
+        # parameters if you have already set the pose or joint target for the group
+        move_group.go(joint_goal, wait=True)
+
+        # Calling ``stop()`` ensures that there is no residual movement
+        move_group.stop()
+
+        ## END_SUB_TUTORIAL
+
+        # For testing:
+        current_joints = move_group.get_current_joint_values()
+        return all_close(joint_goal, current_joints, 0.01)
+
+def main():
+    try:
+        print ""
+        print "----------------------------------------------------------"
+        print "Welcome to the MoveIt MoveGroup Python Interface Tutorial"
+        print "----------------------------------------------------------"
+        print "Press Ctrl-D to exit at any time"
+        print ""
+        print "============ Press `Enter` to begin the tutorial by setting up the moveit_commander ..."
+        raw_input()
+        tutorial = MoveGroupPythonIntefaceTutorial()
+        print "============ Press `Enter` to execute a movement using a joint state goal ..."
+        raw_input()
+        tutorial.go_to_joint_state()
+        print "============ Python tutorial demo complete!"
+    except rospy.ROSInterruptException:
+        return
+    except KeyboardInterrupt:
+        return
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+<p>To use the Python MoveIt interfaces, we will import the <code>moveit_commander</code> namespace. This namespace provides us with a <code>MoveGroupCommander</code> class, a <code>PlanningSceneInterface</code> class, and a <code>RobotCommander</code> class. More on these below. We also import <code>rospy</code> and some messages that we will use:</p>
+<pre><code>import sys
+import copy
+import rospy
+import moveit_commander
+import moveit_msgs.msg
+import geometry_msgs.msg
+from math import pi
+from std_msgs.msg import String
+from moveit_commander.conversions import pose_to_list
+</code></pre>
+<p>First, initialize <code>moveit_commander</code> and a <code>rospy</code> node:</p>
+<pre><code>moveit_commander.roscpp_initialize(sys.argv)
+rospy.init_node('move_group_python_interface_tutorial', anonymous=True)
+</code></pre>
+<p>Instantiate a <code>RobotCommander</code> object. This object provides information such as the robot’s kinematic model and its current joint states.</p>
+<pre><code>robot = moveit_commander.RobotCommander()
+</code></pre>
+<p>Instantiate a <code>PlanningSceneInterface</code> object. This provides a remote interface for getting, setting, and updating the robot’s internal understanding of the surrounding world:</p>
+<pre><code>scene = moveit_commander.PlanningSceneInterface()
+</code></pre>
+<p>Instantiate a <code>MoveGroupCommander</code> object. This object is an interface to a planning group (a group of joints). In this tutorial, the group is the primary arm joints in the JetAuto robot, so we set the group’s name to <code>arm</code>. If you are using a different robot, change this value to the name of your robot arm planning group. This interface can be used to plan and execute motions:</p>
+<pre><code>group_name = "arm"
+move_group = moveit_commander.MoveGroupCommander(group_name)
+</code></pre>
+<p>Create a <code>DisplayTrajectory</code> ROS publisher, which is used to display trajectories in RViz:</p>
+<pre><code>display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path',
+                                            moveit_msgs.msg.DisplayTrajectory,
+                                            queue_size=20)
+</code></pre>
+<p>Getting Basic Information:</p>
+<pre><code># We can get the name of the reference frame for this robot:
+planning_frame = move_group.get_planning_frame()
+print "============ Planning frame: %s" % planning_frame
+
+# We can also print the name of the end-effector link for this group:
+eef_link = move_group.get_end_effector_link()
+print "============ End effector link: %s" % eef_link
+
+# We can get a list of all the groups in the robot:
+group_names = robot.get_group_names()
+print "============ Available Planning Groups:", robot.get_group_names()
+
+# Sometimes for debugging, it is useful to print the entire state of the
+# robot:
+print "============ Printing robot state"
+print robot.get_current_state()
+print ""
+</code></pre>
+<p>Planning to a Joint Goal:</p>
+<pre><code># We can get the joint values from the group and adjust some of the values:
+joint_goal = move_group.get_current_joint_values()
+joint_goal[0] = pi/4
+joint_goal[1] = pi/4
+joint_goal[2] = pi/4
+joint_goal[3] = pi/4
+
+# The go command can be called with joint values, poses, or without any
+# parameters if you have already set the pose or joint target for the group
+move_group.go(joint_goal, wait=True)
+
+# Calling ``stop()`` ensures that there is no residual movement
+move_group.stop()
+</code></pre>
+</li>
+<li>
+<p>Make sure you have made the file <strong>executable</strong> using <code>chmod +x</code>.</p>
+</li>
+<li>
+<p>Build the package and run the script. You should see the robot arm in RViz and Gazebo move to the new configuration you defined.</p>
+</li>
+<li>
+<p>Lastly, let's try everything out on the physical robot. Copy your workspace to the JetAuto, then SSH into the JetAuto.</p>
+</li>
+<li>
+<p>Stop the APP service on the robot:</p>
+<pre><code>sudo systemctl stop start_app_node.service
+</code></pre>
+</li>
+</ol>
+<!-- 1. For the robot arm on the JetAuto to work, we need to start the servo controller service:
+
+        roslaunch hiwonder_servo_controllers start.launch -->
+
+<ol>
+<li>
+<p>Next, start MoveIt on the JetAuto. This time, we won't be using the Gazebo simulation:</p>
+<pre><code>roslaunch jetauto_moveit_config demo.launch fake_execution:=false
+</code></pre>
+</li>
+<li>
+<p>You can now move the robot arm using the MoveIt interface as well as the script in your package.</p>
+</li>
+</ol>
+<h3 id="jetauto-robot-arm-control-without-moveit">JetAuto Robot Arm Control (Without MoveIt)</h3>
+<ol>
+<li>
+<p>Although MoveIt is a good tool for simulating and moving the robot arm, you can also control the robot arm without using MoveIt. Create another Python script in your package with the following:</p>
+<pre><code>#!/usr/bin/env python3
+
+import rospy
+import signal
+from hiwonder_servo_msgs.msg import MultiRawIdPosDur
+from hiwonder_servo_controllers.bus_servo_control import set_servos
+from kinematics.search_kinematics_solutions import SearchKinematicsSolutions
+
+class MoveServoNode:
+    def __init__(self, name):
+        rospy.init_node(name, anonymous=True)
+        self.z_dis = 0.4
+        self.y_init = 0.15
+        signal.signal(signal.SIGINT, self.shutdown)
+
+        self.joints_pub = rospy.Publisher('servo_controllers/port_id_1/multi_id_pos_dur', MultiRawIdPosDur, queue_size=1)
+        rospy.sleep(0.2)        
+        self.search_kinematics_solutions = SearchKinematicsSolutions()
+        while not rospy.is_shutdown():
+            try:
+                if rospy.get_param('/hiwonder_servo_manager/running') and rospy.get_param('/joint_states_publisher/running'):
+                    break
+            except:
+                rospy.sleep(0.1)
+        self.move_servo()
+
+    def shutdown(self, signum, frame):
+        rospy.loginfo('shutdown')
+
+    def move_servo(self):
+        if self.z_dis &gt; 0.43:
+            self.z_dis = 0.43
+        if self.z_dis &lt; 0.33:
+            self.z_dis = 0.33
+
+        res = self.search_kinematics_solutions.solveIK((0, self.y_init, self.z_dis), 0, -90, 90)
+        if res:
+            joint_data = res[1]
+            rospy.sleep(0.5)
+            set_servos(self.joints_pub, 1500, ((1, 500), (2, joint_data['joint4']), (3, joint_data['joint3']), (4, joint_data['joint2']), (5, joint_data['joint1'])))
+            rospy.sleep(1.8)
+
+        rospy.signal_shutdown('shutdown')
+
+if __name__ == '__main__':
+    MoveServoNode('move_servo')
+</code></pre>
+</li>
+<li>
+<p>The above code is extracted from example code found in:</p>
+<p>~/jetauto_ws/src/jetauto_example/scripts/</p>
+<p>It allows you to control the position of the robot arm end effector through inverse kinematics. Controlling the arm's servo directly is <strong>NOT</strong> recommended as you'll need to manually define collision limits.</p>
+<p>Run the script, and the robot arm should move to the given position in the first three terms of the inverse kinematics solver function <code>(0, self.y_init, self.z_dis)</code>.</p>
+</li>
+</ol>
+<h3 id="jetauto-slam-simulation">JetAuto SLAM (Simulation)</h3>
+<ol>
+<li>
+<p>Open a terminal on your computer (not the robot) and run the following:</p>
+<pre><code>roslaunch jetauto_gazebo room_worlds.launch
+</code></pre>
+<p>This will open up a JetAuto model in a room populated with <strong>furniture</strong>.</p>
+<p><img alt="Figure 5.8 Gazebo Room" src="../lab5-gazebo-room.png" /></p>
+<p><em><strong>Figure 5.8</strong> Gazebo Room</em></p>
+</li>
+<li>
+<p>Press the <strong>"Play"</strong> button at the <strong>bottom</strong> of the Gazebo simulator.</p>
+</li>
+<li>
+<p>Start the SLAM node. Open a new terminal and start:</p>
+<pre><code>roslaunch jetauto_slam slam.launch sim:=true
+</code></pre>
+<p>You can ignore the "No module named 'smbus2'" error because we don't have a joystick connected.</p>
+</li>
+<li>
+<p>Start RViz to visualize the map. Open a new terminal and start:</p>
+<pre><code>roslaunch jetauto_slam rviz_slam.launch sim:=true
+</code></pre>
+<p>If RViz does not load with the proper config, go to <strong>File &gt; Open Config</strong> and open the <strong>following</strong> config file:</p>
+<p><strong>~/jetauto_ws/src/jetauto_slam/rviz/without_namespace/gmapping_sim.rviz</strong></p>
+<p>You can close the default.rviz without saving.</p>
+<p><img alt="Figure 5.8 Gazebo Room Mapping" src="../lab5-gazebo-mapping.png" /></p>
+<p><em><strong>Figure 5.8</strong> Gazebo Room Mapping</em></p>
+</li>
+<li>
+<p>Start the keyboard controller and move the robot around to map the entire room.</p>
+</li>
+<li>
+<p>Once you are satisfied, open a new terminal and navigate to the slam map directory:</p>
+<pre><code>roscd jetauto_slam/maps
+</code></pre>
+</li>
+<li>
+<p>We'll save the map as <code>map_01</code>:</p>
+<pre><code>rosrun map_server map_saver -f map_01 map:=/map
+</code></pre>
+<p>You should see something similar to this output from the terminal:</p>
+<pre><code>[ INFO] [1729620059.595167203]: Waiting for the map
+[ INFO] [1729620060.388306846]: Received a 1248 X 384 map @ 0.025 m/pix
+[ INFO] [1729620060.388618676]: Writing map occupancy data to map_01.pgm
+[ INFO] [1729620060.400554480, 1407.036000000]: Writing map occupancy data to map_01.yaml
+[ INFO] [1729620060.400909179, 1407.036000000]: Done
+</code></pre>
+<p>Your map has now been saved.</p>
+</li>
+<li>
+<p>Close the SLAM and RViz terminals. You can keep the Gazebo room open.</p>
+</li>
+<li>
+<p>With the map saved, we'll now use it for navigation. Open a new terminal and run:</p>
+<pre><code>roslaunch jetauto_navigation navigation.launch sim:=true map:=map_01
+</code></pre>
+</li>
+</ol>
+<div style="padding: 15px; border: 1px solid orange; background-color: orange; color: black;">
+<ul>
+<li>There's an error with the navigation code in simulation that still needs to be solved. We will need to perform the SLAM step using a <strong>physical</strong> robot for now.</li>
+</ul>
+</div>
+
+<ol>
+<li>Open a new terminal and run:<pre><code>roslaunch jetauto_navigation rviz_navigation.launch sim:=true
+</code></pre>
+</li>
+</ol>
+<div style="padding: 15px; border: 1px solid orange; background-color: orange; color: black;">
+<ul>
+<li>There's an error with the navigation code in simulation that still needs to be solved. We will need to perform the SLAM step using a <strong>physical</strong> robot for now.</li>
+</ul>
+</div>
+
+<h3 id="jetauto-slam-physical-robot">JetAuto SLAM (Physical Robot)</h3>
+<ol>
+<li>
+<p>Let's try everything out on the physical robot. <strong>Connect</strong> to the JetAuto using NoMachine or any remote <strong>desktop</strong> software and stop the APP service on the robot:</p>
+<pre><code>sudo systemctl stop start_app_node.service
+</code></pre>
+</li>
+<li>
+<p>Start the SLAM node and use <code>gmapping</code> as the mapping method:</p>
+<pre><code>roslaunch jetauto_slam slam.launch slam_methods:=gmapping
+</code></pre>
+</li>
+<li>
+<p>Open a new terminal and start RViz to visualize the map:</p>
+<pre><code>roslaunch jetauto_slam rviz_slam.launch slam_methods:=gmapping
+</code></pre>
+</li>
+<li>
+<p>Open a new terminal and start the keyboard controller and move the robot around to map the entire room.</p>
+</li>
+<li>
+<p>Once you are satisfied, open a new terminal and navigate to the slam map directory:</p>
+<pre><code>roscd jetauto_slam/maps
+</code></pre>
+</li>
+<li>
+<p>We'll save the map as <code>map_01</code>:</p>
+<pre><code>rosrun map_server map_saver -f map_01 map:=/jetauto_1/map
+</code></pre>
+<p>You should see something similar to this output from the terminal:</p>
+<pre><code>[ INFO] [1729620059.595167203]: Waiting for the map
+[ INFO] [1729620060.388306846]: Received a 1248 X 384 map @ 0.025 m/pix
+[ INFO] [1729620060.388618676]: Writing map occupancy data to map_01.pgm
+[ INFO] [1729620060.400554480, 1407.036000000]: Writing map occupancy data to map_01.yaml
+[ INFO] [1729620060.400909179, 1407.036000000]: Done
+</code></pre>
+<p>Your map has now been saved.</p>
+</li>
+<li>
+<p>Close the SLAM and RViz terminals.</p>
+</li>
+<li>
+<p>With the map saved, we'll now use it for navigation. Open a new terminal and run:</p>
+<pre><code>roslaunch jetauto_navigation navigation.launch map:=map_01
+</code></pre>
+</li>
+<li>
+<p>Open a new terminal and run:</p>
+<pre><code>roslaunch jetauto_navigation rviz_navigation.launch
+</code></pre>
+<p>Now you can use the <strong>2D Pose Estimate</strong>, <strong>2D Nav Goal</strong>, and <strong>Publish Point</strong> to help you navigate.</p>
+<ul>
+<li><strong>2D Pose Estimate</strong> is used to set the initial position of JetAuto.</li>
+<li><strong>2D Nav Goal</strong> is used to set a target point.</li>
+<li><strong>Publish Point</strong> is used to set multiple target points.</li>
+</ul>
+</li>
+</ol>
+<h2 id="lab-questions">Lab Questions</h2>
+<ol>
+<li>
+<p>Find the approximate <strong>Cartesian</strong> coordinate of the end effector (tip of the gripper) of the JetAuto if:</p>
+<ul>
+<li><span class="arithmatex">\(\theta_1 = 45^\circ\)</span></li>
+<li><span class="arithmatex">\(\theta_2 = -30^\circ\)</span></li>
+<li><span class="arithmatex">\(\theta_3 = 85^\circ\)</span></li>
+<li><span class="arithmatex">\(\theta_4 = 25^\circ\)</span></li>
+</ul>
+<p>You'll need to measure the <strong>dimensions</strong> of each link and construct the <strong>forward</strong> kinematics using DH parameters. You can perform the calculation by hand or using software (such as Python). You are not allowed to just read the position from ROS, but you can find the length of each link in MoveIt.</p>
+</li>
+<li>
+<p>Write a program that will move the robot arm to the position in question 1.</p>
+</li>
+<li>
+<p>Use SLAM to create and save a map of the <strong>classroom</strong>. Afterward, <strong>demonstrate</strong> navigating from one corner of the class to another.</p>
+</li>
+</ol>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Denavit%E2%80%93Hartenberg_parameters">Denavit–Hartenberg parameters</a></li>
+<li><a href="https://wiki.ros.org/ROS/Tutorials">ROS Tutorials</a></li>
+<li>EECS 106A Labs</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.section", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

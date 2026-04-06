@@ -1,0 +1,2254 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://seneca-bsa.github.io/lab-manual/AIG240/lab7/">
+      
+      
+        <link rel="prev" href="../lab6/">
+      
+      
+        <link rel="next" href="../project1/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lab 7: Navigation - Lab Manuals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-7-navigation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Lab Manuals" class="md-header__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lab Manuals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 7: Navigation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Lab Manuals" class="md-nav__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Lab Manuals
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Manuals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AIG240
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Introduction to ROS and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: ROS Workspace, Package, Publisher, and Subscriber
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: Robot Model and Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: JetAuto Robot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6: Simultaneous Localization and Mapping (SLAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7: Navigation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7: Navigation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ros-move_base-navigation-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROS move_base Navigation Stack
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#navigation-using-move_base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Navigation using move_base
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-tasks-and-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Tasks and Questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 1 - Setting up ROS1 and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 2 - Moving JetAuto in Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 3 - Moving JetAuto in Real World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 4 - JetAuto Mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 5 - JetAuto Navigation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEA700
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SEA700
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEA700/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEA700 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEA700/extra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEA700/lab-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEA700/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1 : Intro to ROS and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEA700/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEA700/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3 : ROS Workspace, Package, Publisher and Subscriber
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEA700/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 : Robot Model, Gazebo and JetAuto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEA700/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: Robotic Arm and SLAM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SEP600
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab-supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: FreeRTOS and MCUXpresso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2: Comparator and Digital I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: PWM Smoothing and DAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: ADC and RTOS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: Serial UART and I2C Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6: Interrupts and IoT Messaging using MQTT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEP600/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7: Software Filtering and RTOS Data Logging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SES250
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/instruction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Instructions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Project : RC Lowpass Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Electrostatics and Triboelectric Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 10: RLC Circuit Resonance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : Digital Multimeter, Power Supply, and Ohm's Law
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: Series and Parallel Resistive Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 : Kirchhoff's Laws
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Thévenin Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : Digital Storage Oscilloscope (DSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7 : Capacitor and RC Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 8 : RL Circuit and Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 9 : RC and RL Circuit in AC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Common
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../common/lab-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ros-move_base-navigation-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROS move_base Navigation Stack
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#navigation-using-move_base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Navigation using move_base
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-tasks-and-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Tasks and Questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+  
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Lab Manuals
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    AIG240
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="lab-7-navigation">Lab 7: Navigation</h1>
+<h2 id="ros-move_base-navigation-stack">ROS move_base Navigation Stack</h2>
+<p>The <code>move_base</code> package is the central node of the ROS Navigation Stack, serving as the primary interface for point-to-point autonomous mobile robot navigation. By exposing a ROS action server, it accepts high-level goal poses and orchestrates the complex interaction between a global planner, which calculates the optimal macroscopic path to the destination, and a local planner, which generates the immediate kinematic velocity commands required to follow that path while dynamically avoiding real-time obstacles. To achieve this, it maintains both global and local costmaps that continuously aggregate sensor data to map environmental traversability and keep the robot safe. Furthermore, <code>move_base</code> features a robust state machine with built-in recovery behaviors, such as clearing costmaps or executing in-place rotations, allowing the robot to autonomously untangle itself from challenging situations when it becomes temporarily stuck or blocked.</p>
+<h2 id="procedures">Procedures</h2>
+<h3 id="navigation-using-move_base">Navigation using <code>move_base</code></h3>
+<ol>
+<li>
+<p>In Lab 6, you created a map using the lidar and the gmapping SLAM algorithm. Now, we'll try to use that map for navigation.</p>
+</li>
+<li>
+<p>Download the map of a small room from <a href="https://drive.google.com/file/d/1jJzOqjQ_nKUWFbsGKDJoC3sSI2CkMU-8/view?usp=drive_link">here</a>, then unzip it locally. You should find a <code>room_map.pgm</code> and <code>room_map.yaml</code>. The <code>.pgm</code> file is the actual grid map, and the <code>.yaml</code> file provides the specifications for the map file.</p>
+</li>
+<li>
+<p>Copy and paste the map files into the <code>jetauto_slam/maps</code> directory on the robot:</p>
+<p><strong>~/jetauto_ws/src/jetauto_slam/maps/</strong></p>
+<p>This is the default map directory used by the SLAM and navigation scripts.</p>
+</li>
+<li>
+<p>Open a new terminal <strong>on the robot</strong> and run the following.</p>
+<p>Stop the App service:</p>
+<pre><code>sudo systemctl stop start_app_node.service
+</code></pre>
+<p>Launch the motor controller node:</p>
+<pre><code>roslaunch jetauto_controller jetauto_controller.launch
+</code></pre>
+<p>Then start the navigation stack with the room map that you copied over:</p>
+<pre><code>roslaunch jetauto_navigation navigation.launch map:=room_map
+</code></pre>
+</li>
+<li>
+<p>To view the map on RViz, open a new terminal and run:</p>
+<pre><code>roslaunch jetauto_navigation rviz_navigation.launch
+</code></pre>
+<p>You can run RViz from your local computer if you have the ROS network sharing set up. In general, all RViz and robot control commands can be run locally on your computer instead of using the remote desktop if you have the ROS network sharing set up.</p>
+</li>
+<li>
+<p>Once the RViz navigation window is up, you can use the <strong>2D Pose Estimate</strong>, <strong>2D Nav Goal</strong>, and <strong>Publish Point</strong> to manually navigate the robot.</p>
+<ul>
+<li><strong>2D Pose Estimate</strong> is used to set the initial position of JetAuto.</li>
+<li><strong>2D Nav Goal</strong> is used to set a target point.</li>
+<li><strong>Publish Point</strong> is used to set multiple target points.</li>
+</ul>
+<p>Try navigating the robot by providing it an initial pose estimate and setting nav goal.</p>
+</li>
+<li>
+<p>Before moving to the next step, try moving the robot manually using the teleop package (the keyboard controller you created previous from lab 4 or project 3) to see how the robot use its lidar to localize itself in the map. You can also try to move the robot around and see how it reacts to obstacles in the environment. Try to understand how the robot is using the map and its sensors to navigate. You'll notice it take some time for the robot to localize itself.</p>
+</li>
+<li>
+<p>Next, we'll try using a script for navigation instead of manually setting a goal in RViz. Open a new terminal, run <code>rostopic list</code>, and find the <code>/jetauto_1/move_base_simple/goal</code> topic. If <code>jetauto_1</code> is not in the topic path, adjust the publisher path in the code below accordingly.</p>
+</li>
+<li>
+<p>Create a new workspace or use one of your previous workspaces (not <code>jetauto_ws</code>) and create a file named <code>waypoint_navigation.py</code> in the <code>scripts</code> directory of a new or existing package.</p>
+<p>The following will be your starter code for navigation. Once the navigation stack is running from the <code>navigation.launch</code> command from a previous step, you can run the following code, and the robot will navigate to waypoint 1 in the room map.</p>
+<pre><code>#!/usr/bin/env python3
+import math
+import rospy
+import numpy as np
+
+from geometry_msgs.msg import Quaternion, PoseStamped
+from move_base_msgs.msg import MoveBaseActionResult
+from visualization_msgs.msg import Marker, MarkerArray
+from tf.transformations import quaternion_from_euler
+
+# Define your array of waypoints here: (x, y, orientation_in_degrees)
+waypoints = [
+    (-0.825, 0.2, 0.0),
+]
+
+current_wp_index = 0
+markerArray = MarkerArray()
+
+def set_current_waypoint():
+    global current_wp_index, markerArray
+
+    if current_wp_index &gt;= len(waypoints):
+        rospy.loginfo("=====================================================")
+        rospy.loginfo("STATUS UPDATE: All waypoints reached!")
+        rospy.loginfo("=====================================================")
+        return
+
+    target_x, target_y, target_yaw = waypoints[current_wp_index]
+    rospy.loginfo(f"STATUS UPDATE: Setting goal for Waypoint {current_wp_index + 1}/{len(waypoints)} -&gt; x: {target_x}, y: {target_y}, yaw: {target_yaw}")
+
+    # Clear previous markers
+    marker_Array = MarkerArray()
+    marker = Marker()
+    marker.header.frame_id = map_frame
+    marker.action = Marker.DELETEALL
+    marker_Array.markers.append(marker)
+    mark_pub.publish(marker_Array)
+
+    # Create Pose
+    pose = PoseStamped()
+    pose.header.frame_id = map_frame
+    pose.header.stamp = rospy.Time.now()
+
+    pose.pose.position.x = target_x
+    pose.pose.position.y = target_y
+    qx, qy, qz, qw = quaternion_from_euler(
+        0.0,
+        0.0,
+        math.radians(target_yaw)
+    )
+    pose.pose.orientation = Quaternion(qx, qy, qz, qw)
+
+    # Set up the visual marker (flag) in RViz
+    marker = Marker()
+    marker.header.frame_id = map_frame
+    marker.type = marker.MESH_RESOURCE
+    marker.mesh_resource = "package://rviz_plugin/media/flag.dae"
+    marker.action = marker.ADD
+    marker.scale.x = 0.08
+    marker.scale.y = 0.08
+    marker.scale.z = 0.2
+
+    # Randomize marker color
+    color = list(np.random.choice(range(256), size=3))
+    marker.color.a = 1
+    marker.color.r = color[0] / 255.0
+    marker.color.g = color[1] / 255.0
+    marker.color.b = color[2] / 255.0
+
+    marker.pose.position.x = pose.pose.position.x
+    marker.pose.position.y = pose.pose.position.y
+    marker.pose.orientation = pose.pose.orientation
+
+    markerArray.markers.clear()
+    markerArray.markers.append(marker)
+
+    # Publish marker and navigation goal
+    mark_pub.publish(markerArray)
+    goal_pub.publish(pose)
+    rospy.loginfo(f"STATUS UPDATE: Robot is now moving to Waypoint {current_wp_index + 1}...")
+
+def status_callback(msg):
+    global current_wp_index
+
+    status = msg.status.status
+
+    # Status 3 means the goal was reached successfully
+    if status == 3:
+        rospy.loginfo(f'STATUS UPDATE: Waypoint {current_wp_index + 1} reached successfully.')
+        current_wp_index += 1
+
+        if current_wp_index &lt; len(waypoints):
+            rospy.loginfo("STATUS UPDATE: Preparing for the next waypoint in 2 seconds...")
+            rospy.sleep(2.0)
+            set_current_waypoint()
+        else:
+            set_current_waypoint() # This will trigger the "Navigation complete" block
+
+    # Handle failure states
+    elif status == 4:
+        rospy.logwarn(f'STATUS UPDATE: Waypoint {current_wp_index + 1} was aborted by move_base. Stopping sequence.')
+    elif status == 5:
+        rospy.logwarn(f'STATUS UPDATE: Waypoint {current_wp_index + 1} was rejected by move_base. Stopping sequence.')
+    elif status == 9:
+        rospy.logwarn(f'STATUS UPDATE: Waypoint {current_wp_index + 1} was lost. Stopping sequence.')
+
+if __name__ == '__main__':
+    rospy.init_node('key_start_waypoint_nav', anonymous=True)
+
+    map_frame = rospy.get_param('~map_frame', 'jetauto_1/map')
+    move_base_result = rospy.get_param('~move_base_result', '/jetauto_1/move_base/result')
+
+    goal_pub = rospy.Publisher('/jetauto_1/move_base_simple/goal', PoseStamped, queue_size=1)
+    mark_pub = rospy.Publisher('jetauto_1/path_point', MarkerArray, queue_size=100)
+
+    rospy.Subscriber(move_base_result, MoveBaseActionResult, status_callback)
+
+    # Give a brief moment for publishers to register with the ROS Master
+    rospy.sleep(0.5)
+
+    rospy.loginfo("STATUS UPDATE: Node initialized and ready.")
+
+    # Wait for the user to press Enter in the terminal
+    input("&gt;&gt;&gt; Press [ENTER] to begin the navigation sequence... &lt;&lt;&lt;")
+
+    rospy.loginfo("STATUS UPDATE: Starting waypoint sequence!")
+    set_current_waypoint()
+
+    try:
+        rospy.spin()
+    except Exception as e:
+        rospy.logerr(str(e))
+</code></pre>
+<p>If your robot has good localization, it should start navigating to waypoint 1.</p>
+<p><img alt="Figure 7.1 Small Room Map" src="../lab7-room-map.png" /></p>
+<p><em><strong>Figure 7.1</strong> Small Room Map</em></p>
+</li>
+<li>
+<p>To add additional waypoints to your script, you'll need to inspect both <code>room_map.pgm</code> and <code>room_map.yaml</code>. The pixel location in the <code>.pgm</code> file needs to be translated to coordinates that ROS can understand using the origin and resolution data from the <code>.yaml</code> file. Open the <code>.pgm</code> file using an image editing tool such as GIMP and find the x-y pixel coordinates of waypoints 2, 3, and 4. Luckily, once you have found the coordinates of the waypoint, you can ask an AI to calculate the real x-y coordinates with respect to the origin and resolution of the map data.</p>
+</li>
+<li>
+<p>Add the coordinates to your navigation script and see how the robot performs.</p>
+</li>
+<li>
+<p><strong>The Challenge:</strong> There's a very high chance that the robot will lose its localization. Make adjustments to the script and ask an AI as necessary to increase the reliability of the navigation (without installing any new packages on the robot).</p>
+</li>
+</ol>
+<h2 id="lab-tasks-and-questions">Lab Tasks and Questions</h2>
+<ol>
+<li>Reliability navigate through all the waypoints of the small room for <a href="../project5/">Project 5</a>.</li>
+</ol>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://wiki.ros.org/ROS/Tutorials">ROS Tutorials</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.section", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

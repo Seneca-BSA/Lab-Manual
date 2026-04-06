@@ -1,0 +1,2432 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://seneca-bsa.github.io/lab-manual/SEP600/lab3/">
+      
+      
+        <link rel="prev" href="../lab2/">
+      
+      
+        <link rel="next" href="../lab4/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lab 3: PWM Smoothing and DAC - Lab Manuals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-3-pwm-smoothing-and-dac" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Lab Manuals" class="md-header__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lab Manuals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 3: PWM Smoothing and DAC
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Lab Manuals" class="md-nav__button md-logo" aria-label="Lab Manuals" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Lab Manuals
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Manuals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AIG240
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIG240 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Introduction to ROS and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: ROS Workspace, Package, Publisher, and Subscriber
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: Robot Model and Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: JetAuto Robot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6: Simultaneous Localization and Mapping (SLAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7: Navigation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 1 - Setting up ROS1 and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 2 - Moving JetAuto in Gazebo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 3 - Moving JetAuto in Real World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 4 - JetAuto Mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AIG240/project5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 5 - JetAuto Navigation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEA700
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SEA700
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEA700/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEA700 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEA700/extra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEA700/lab-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEA700/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1 : Intro to ROS and TurtleSim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEA700/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : ROS Nodes, Topics, Services, Parameters, Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEA700/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3 : ROS Workspace, Package, Publisher and Subscriber
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEA700/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 : Robot Model, Gazebo and JetAuto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SEA700/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: Robotic Arm and SLAM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SEP600
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SEP600 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: FreeRTOS and MCUXpresso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2: Comparator and Digital I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: PWM Smoothing and DAC
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: PWM Smoothing and DAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Objectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pulse-width-modulation-pwm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pulse Width Modulation (PWM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-to-analog-converter-dac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digital-to-Analog Converter (DAC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Materials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-1-pwm-output-as-analog-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1: PWM Output as Analog Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-2-pwm-vs-dac-as-current-driver-genai-assisted-development-challenge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2: PWM vs DAC as Current Driver: GenAI-assisted Development Challenge
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4: ADC and RTOS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5: Serial UART and I2C Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6: Interrupts and IoT Messaging using MQTT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7: Software Filtering and RTOS Data Logging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SES250
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SES250 Lab Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/instruction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Instructions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Project : RC Lowpass Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1: Electrostatics and Triboelectric Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 10: RLC Circuit Resonance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 : Digital Multimeter, Power Supply, and Ohm's Law
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3: Series and Parallel Resistive Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 : Kirchhoff's Laws
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 : Thévenin Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 6 : Digital Storage Oscilloscope (DSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 7 : Capacitor and RC Circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 8 : RL Circuit and Filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/lab9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 9 : RC and RL Circuit in AC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SES250/supplies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Supplies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Common
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../common/lab-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Objectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pulse-width-modulation-pwm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pulse Width Modulation (PWM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-to-analog-converter-dac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digital-to-Analog Converter (DAC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Materials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-1-pwm-output-as-analog-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1: PWM Output as Analog Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-2-pwm-vs-dac-as-current-driver-genai-assisted-development-challenge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2: PWM vs DAC as Current Driver: GenAI-assisted Development Challenge
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+  
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Lab Manuals
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    SEP600
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="lab-3-pwm-smoothing-and-dac">Lab 3: PWM Smoothing and DAC</h1>
+<h2 id="introduction">Introduction</h2>
+<p>This lab focuses on generating analog signals using digital microcontrollers. You will explore two methods: Pulse Width Modulation (PWM) combined with an RC filter, and using a dedicated Digital-to-Analog Converter (DAC). You will implement these using FreeRTOS tasks and the NXP MCUXpresso SDK, leveraging Generative AI to accelerate driver development.</p>
+<h3 id="learning-objectives">Learning Objectives</h3>
+<ol>
+<li>Analyze the behavior of RC Low-Pass filters in smoothing PWM signals.</li>
+<li>Compare the efficiency and signal quality of PWM-based driving vs. DAC-based driving.</li>
+<li>Implement FlexTimer (FTM) and DAC on the FRDM-K64F or FRDM-K66F.</li>
+<li>Design FreeRTOS tasks to control analog output over time (fading effects).</li>
+</ol>
+<p>Documentation for the Cortex-M4 instruction set, board User’s Guide, and the microcontroller reference manual can be found here:</p>
+<ul>
+<li><a href="https://www.nxp.com/webapp/Download?colCode=FRDMK64FUG">FRDM-K64F Freedom Module User’s Guide</a> (<a href="../FRDMK64FUG.pdf">PDF</a>)</li>
+<li><a href="https://www.nxp.com/webapp/Download?colCode=K64P144M120SF5RM">Kinetis K64 Reference Manual</a> (<a href="../K64P144M120SF5RM.pdf">PDF</a>)</li>
+<li><a href="https://os.mbed.com/platforms/FRDM-K64F/">FRDM-K64F Mbed Reference</a></li>
+<li><a href="https://os.mbed.com/teams/Freescale/wiki/frdm-k64f-pinnames">FRDM-K64F Mbed Pin Names</a></li>
+<li><a href="https://www.nxp.com/webapp/Download?colCode=FRDMK66FUG">FRDM-K66F Freedom Module User’s Guide</a> (<a href="../FRDMK66FUG.pdf">PDF</a>)</li>
+<li><a href="https://www.nxp.com/webapp/Download?colCode=K66P144M180SF5RMV2">Kinetis K66 Reference Manual</a> (<a href="../K66P144M180SF5RMV2.pdf">PDF</a>)</li>
+<li><a href="https://os.mbed.com/platforms/FRDM-K66F/">FRDM-K66F Mbed Reference</a></li>
+<li><a href="https://os.mbed.com/teams/NXP/wiki/FRDM-K66F-Pinnames">FRDM-K66F Mbed Pin Names</a></li>
+</ul>
+<p>Documentation for the Cortex-M4 instruction set can be found here:</p>
+<ul>
+<li><a href="https://developer.arm.com/documentation/100166/0001">Arm Cortex-M4 Processor Technical Reference Manual Revision</a> (<a href="../Cortex-M4-Proc-Tech-Ref-Manual.pdf">PDF</a>)<ul>
+<li><a href="https://developer.arm.com/documentation/100166/0001/Programmers-Model/Instruction-set-summary/Table-of-processor-instructions">Table of Processor Instructions</a></li>
+</ul>
+</li>
+<li><a href="https://developer.arm.com/documentation/ddi0403/latest/">ARMv7-M Architecture Reference Manual</a> (<a href="../DDI0403E_e_armv7m_arm.pdf">PDF</a>)</li>
+</ul>
+<h3 id="pulse-width-modulation-pwm">Pulse Width Modulation (PWM)</h3>
+<p>As discussed in class and tested in Lab 2, Pulse Width Modulation (PWM) controls power delivery by varying the width of signal pulses. It involves switching a signal on and off at a high frequency. The "Duty Cycle" is the proportion of time the signal is high.</p>
+<ul>
+<li><strong>High Duty Cycle:</strong> More power/voltage delivered.</li>
+<li><strong>Low Duty Cycle:</strong> Less power/voltage delivered.</li>
+</ul>
+<p>PWM is efficient because the switch is either fully on or fully off, minimizing heat generation compared to linear regulation using a resistive circuit. PWM is widely used in applications such as motor control, light dimming, and power regulation.</p>
+<p><img alt="Figure 3.1" src="../lab3-pwm.png" /></p>
+<p><em><strong>Figure 3.1</strong> PWM</em></p>
+<h3 id="digital-to-analog-converter-dac">Digital-to-Analog Converter (DAC)</h3>
+<p>A DAC converts digital binary values into a continuous analog voltage. Unlike PWM, which simulates an analog voltage via averaging, a DAC outputs a true physical voltage level. This is crucial for applications like audio playback, where the digital data stored in devices like smartphones or computers must be transformed into analog signals to drive speakers or headphones. The quality of a DAC can significantly influence sound fidelity, as it directly impacts the smoothness and accuracy of the analog signal. DACs are used in a wide variety of devices, from audio equipment and televisions to medical devices and instrumentation, playing a key role in bridging the digital world with the analog one.</p>
+<p><img alt="Figure 3.2" src="../lab3-dac.png" /></p>
+<p><em><strong>Figure 3.2</strong> DAC Output</em></p>
+<h2 id="materials">Materials</h2>
+<ul>
+<li>Safety glasses (PPE)</li>
+<li>FRDM-K64F or FRDM-K66F microcontroller board</li>
+<li>Breadboard</li>
+<li>Jumper wires</li>
+<li>Various 1kΩ–10kΩ resistors</li>
+<li>Various 0.1µF–10µF capacitors</li>
+<li>(2x) NPN Transistors (2N2222, 2N3904, or similar)</li>
+<li>(2x) LEDs</li>
+</ul>
+<h2 id="preparation">Preparation</h2>
+<ol>
+<li>Read through the lab manual for this lab.</li>
+<li>Ensure you have all the necessary materials for this lab.</li>
+<li>Review how to use an Oscilloscope (DSO).</li>
+</ol>
+<h2 id="procedures">Procedures</h2>
+<h3 id="part-1-pwm-output-as-analog-output">Part 1: PWM Output as Analog Output</h3>
+<p><img alt="Figure 3.3" src="../lab3-rc-circuit.png" /></p>
+<p><em><strong>Figure 3.3</strong> PWM Output with RC Smoothing Circuit.</em></p>
+<ol>
+<li>
+<p>Assemble the RC circuit shown in Figure 3.3. Connect the input to a PWM-capable pin (refer back to <a href="../lab2/">Lab 2</a> on how to identify a PWM-capable pin). Check the manual to ensure the pin supports FTM.</p>
+<div class="admonition warning">
+<p class="admonition-title">Polarized Capacitor</p>
+<p>If you are using a polarized capacitor, ensure the polarity of your connection is correct (Negative to Ground).</p>
+</div>
+</li>
+<li>
+<p>Calculate the RC time constant for your circuit, as you will need this for your code later.</p>
+<div class="arithmatex">\[\tau = RC\]</div>
+</li>
+<li>
+<p>Start a new C/C++ project in MCUXpresso, and ensure the <strong>Operating System</strong> is set to "FreeRTOS kernel". Also add <strong>dac</strong> and <strong>ftm</strong> under "Drivers" onto the <strong>Components</strong> list. You can name the project "sep600_lab3".</p>
+</li>
+<li>
+<p>You can reuse the code you created from Lab 2 if you didn't use PTC3, or use the code below as an example to generate a PWM signal.</p>
+<div class="admonition info">
+<p class="admonition-title">You must use another PWM pin other than PTC3!</p>
+<p>The following example code generates a PWM signal at PTC3 on the FRDM-K64F board. You must use another PWM-capable pin to demonstrate your understanding of how to create a PWM signal. </p>
+</div>
+<p>Add the following header files, macros, and function prototypes into your code:</p>
+<pre><code>#include "FreeRTOS.h"
+#include "task.h"
+#include "fsl_ftm.h"
+#include "fsl_port.h"
+
+#define BOARD_FTM_BASEADDR FTM0 // &lt;&lt;&lt;&lt;&lt;&lt; change this for the PWM channel you used
+#define BOARD_FTM_CHANNEL  kFTM_Chnl_2 // &lt;&lt;&lt;&lt;&lt;&lt; change this for the PWM channel you used
+#define PWM_FREQUENCY 1000U // &lt;&lt;&lt;&lt;&lt;&lt; replace 1000U (1kHz)
+    // with a frequency that will produces a period that is half of the RC time constant
+
+#define vTaskFunction_PRIORITY (configMAX_PRIORITIES - 1)
+static void vTaskFunction(void *pvParameters);
+void InitPWM(void);
+</code></pre>
+<p>Replace your <code>main()</code> function after all the <code>Board_Init...</code> calls with the following:</p>
+<pre><code>PRINTF("SEP600 Lab 3 Start\r\n");
+
+InitPWM();
+
+if (xTaskCreate(vTaskFunction, "vTaskFunction", configMINIMAL_STACK_SIZE + 100, NULL, vTaskFunction_PRIORITY, NULL) != pdPASS)
+{
+    PRINTF("Task creation failed!.\r\n");
+    while (1)
+        ;
+}
+vTaskStartScheduler();
+for (;;)
+    ;
+return 0;
+</code></pre>
+<p>Add the following code under the <code>main()</code> function to implement the initialization function:</p>
+<pre><code>void InitPWM(void)
+{
+    ftm_config_t ftmInfo;
+    ftm_chnl_pwm_signal_param_t ftmParam;
+
+    CLOCK_EnableClock(kCLOCK_PortC);
+    CLOCK_EnableClock(kCLOCK_Ftm0);
+    PORT_SetPinMux(PORTC, 3U, kPORT_MuxAlt4);
+
+    FTM_GetDefaultConfig(&amp;ftmInfo);
+    ftmInfo.prescale = FTM_CalculateCounterClkDiv(BOARD_FTM_BASEADDR, PWM_FREQUENCY, CLOCK_GetFreq(kCLOCK_BusClk));
+    FTM_Init(BOARD_FTM_BASEADDR, &amp;ftmInfo);
+
+    ftmParam.chnlNumber            = BOARD_FTM_CHANNEL;
+    ftmParam.level                 = kFTM_HighTrue;
+    ftmParam.dutyCyclePercent      = 50U;
+    ftmParam.firstEdgeDelayPercent = 0U;
+    ftmParam.enableComplementary   = false;
+    ftmParam.enableDeadtime        = false;
+
+    if (kStatus_Success != FTM_SetupPwm(BOARD_FTM_BASEADDR, &amp;ftmParam, 1U, kFTM_EdgeAlignedPwm, PWM_FREQUENCY, CLOCK_GetFreq(kCLOCK_BusClk)))
+    {
+        PRINTF("PWM Setup Failed\r\n");
+        return;
+    }
+
+    FTM_StartTimer(BOARD_FTM_BASEADDR, kFTM_SystemClock);
+}
+
+static void vTaskFunction(void *pvParameters)
+{
+    uint8_t dutyCycle = 50;
+
+    for (;;)
+    {
+
+        FTM_UpdatePwmDutycycle(BOARD_FTM_BASEADDR, BOARD_FTM_CHANNEL, kFTM_EdgeAlignedPwm, dutyCycle);
+        FTM_SetSoftwareTrigger(BOARD_FTM_BASEADDR, true);
+
+        vTaskDelay(pdMS_TO_TICKS(20));
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>Turn on the DSO and connect CH1 to your PWM output pin before the RC circuit and CH2 to the output signal of the RC circuit, as shown in Figure 3.3. The DSO ground should be common with your circuit ground.</p>
+</li>
+<li>
+<p><strong>Build, Flash, Run</strong> and observe the waveform. Adjust the DSO so both CH1 and CH2 have the same voltage division setting and both channels are visible on the display. Your signal should look similar to the graph below, with a sawtooth pattern that corresponds to the charging and discharging of the capacitor.</p>
+<p><img alt="Figure 3.4" src="../lab3-rc-pwm.png" /></p>
+<p><em><strong>Figure 3.4</strong> PWM Signal after RC Smoothing.</em></p>
+</li>
+<li>
+<p>What you are seeing is a "ripply" DC voltage (or a poorly filtered analog output) on CH2. Adjust your PWM settings (e.g., frequency) and re-run your code to achieve less than 10% voltage ripple (peak-to-peak voltage &lt; 0.33V).</p>
+<p><strong>Hint:</strong> Think about the charging/discharging and transient response of a capacitor.</p>
+</li>
+<li>
+<p>Find the IP address of your DSO by pressing the <strong>Utility</strong> button &gt; <strong>I/O</strong> &gt; <strong>LAN Settings</strong> and connect to it using the computer at your work station. Take a screenshot of the improved DC ripple and be prepared to show it to the professor at the end of the lab.</p>
+</li>
+<li>
+<p>Next, replace the code in the <code>vTaskFunction()</code> function to vary the PWM duty cycle.</p>
+<pre><code>static void vTaskFunction(void *pvParameters)
+{
+    bool increasing = true;
+    uint8_t dutyCycle = 0;
+
+    for (;;)
+    {
+        if (increasing) {
+            dutyCycle++;
+            if (dutyCycle &gt;= 100) increasing = false;
+        } else {
+            dutyCycle--;
+            if (dutyCycle &lt;= 0) increasing = true;
+        }
+
+        FTM_UpdatePwmDutycycle(BOARD_FTM_BASEADDR, BOARD_FTM_CHANNEL, kFTM_EdgeAlignedPwm, dutyCycle);
+        FTM_SetSoftwareTrigger(BOARD_FTM_BASEADDR, true);
+
+        vTaskDelay(pdMS_TO_TICKS(20));
+    }
+}
+</code></pre>
+<h3 id="part-2-pwm-vs-dac-as-current-driver-genai-assisted-development-challenge">Part 2: PWM vs DAC as Current Driver: GenAI-assisted Development Challenge</h3>
+<p>Next, you will compare a "Fake" analog signal (PWM) against a "Real" analog signal (DAC) for driving a transistor.</p>
+<p><img alt="Figure 3.5" src="../lab3-current-driver.png" /></p>
+<p><em><strong>Figure 3.5</strong> Current driver circuit</em></p>
+</li>
+<li>
+<p>Build <strong>two</strong> copies of the current driver circuit shown in Figure 3.5.</p>
+<ul>
+<li>Circuit A: Connect a PWM output pin to the input signal of the current driver.</li>
+<li>Circuit B: Connect a DAC output pin (DACX_OUT from the pin diagram) to the input signal of the current driver.</li>
+</ul>
+<p>Connect <strong>CH1</strong> and <strong>CH2</strong> of the DSO to the BJT emitter of the current driver circuits respectively. Use the microcontroller's 3.3V output and GND connection for the current driver circuit.</p>
+</li>
+<li>
+<p>Select <span class="arithmatex">\(R_B\)</span> and <span class="arithmatex">\(R_L\)</span> appropriately.</p>
+<ul>
+<li><span class="arithmatex">\(R_L\)</span> should limit the current passing through the LED to ~20mA.</li>
+<li><span class="arithmatex">\(R_B\)</span> should allow the NPN transistor to drive at least 20mA of current when it's fully ON at saturation.</li>
+</ul>
+<p>Find the datasheet of the NPN transistor you are using and search for the gain value. It is often referred to as <span class="arithmatex">\(h_{FE}\)</span> by manufacturers. Use interpolation to estimate the gain as required if the value for your operating condition is not given.</p>
+<p>The following formula might be useful for your calculation of <span class="arithmatex">\(R_B\)</span>.</p>
+<div class="arithmatex">\[I_C = \beta I_B\]</div>
+<div class="arithmatex">\[V_{Signal} - V_{BE} = I_B R_B\]</div>
+</li>
+<li>
+<p>Setting up the DAC is simpler than FTM but requires specific buffer configuration. Ask a GenAI agent of your choice to help you write a code snippet that generates an analog output signal using the DAC.</p>
+<div class="admonition quote">
+<p class="admonition-title">Start with this prompt</p>
+<p>Write a C function for the FRDM-K64F running FreeRTOS using the MCUXpresso SDK to initialize DAC0 and include code to output the analog signal at about 1.65V.</p>
+</div>
+</li>
+<li>
+<p>Continue the conversation with the GenAI and work collaboratively to achieve the following:</p>
+<ul>
+<li>Create an <code>InitDAC()</code> function for initializing the DAC.</li>
+<li>Maintaining the task loop with a 20ms delay:<ul>
+<li>Increase the PWM duty cycle from 0% to 100% using <code>FTM_UpdatePwmDutycycle</code> and the DAC voltage from 0V to 3.3V using <code>DAC_SetBufferValue</code> over 500ms.</li>
+<li>Decrease the PWM duty cycle from 100% to 0% using <code>FTM_UpdatePwmDutycycle</code> and the DAC voltage from 3.3V to 0V using <code>DAC_SetBufferValue</code> over 500ms.</li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">12-bit DAC</p>
+<p>Remember, the DAC on the FRDM-K64F and FRDM-K66F is 12-bit meaning their value range from 0-4095.</p>
+</div>
+</li>
+<li>
+<p><strong>Build, Flash, Run</strong> and observe the waveform from the DSO. Adjust the time division so you can see at least one full period of the DAC waveform. You should see something similar to the figure below on your DSO, but the PWM will be too fast for the DSO to display the square wave properly.</p>
+<p><img alt="Figure 3.6" src="../lab3-dac-pwm.png" /></p>
+<p><em><strong>Figure 3.6</strong> DAC and PWM Output</em></p>
+</li>
+<li>
+<p>Observe the LED driven by PWM vs the LED driven by DAC. Do they fade linearly? Does one turn on "sooner" than the other? At what PWM duty cycle does the LED brightness noticeably drop? Think about the operation of each method and understand why they don't turn on and off at the same time with the help of GenAI.</p>
+</li>
+<li>
+<p>Ensure you fully understand the concepts of PWM, RC circuit, DAC, and the current driver.</p>
+</li>
+</ol>
+<p>Once you've completed all the steps above (and ONLY when you are ready, as you'll only have one opportunity to demo), ask the lab professor or instructor to come over and demonstrate that you've completed the lab. You may be asked to explain some of the concepts you've learned in this lab.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://mcuxpresso.nxp.com/api_doc/dev/1533/a00021.html">FTM: FlexTimer Driver</a></li>
+<li><a href="https://mcuxpresso.nxp.com/api_doc/dev/102/group__dac.html">DAC: Digital-to-Analog Converter Driver</a></li>
+<li>This lab manual was generated with the help of Gemini 3 Pro.</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.section", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

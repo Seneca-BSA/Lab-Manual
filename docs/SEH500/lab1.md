@@ -220,7 +220,7 @@ Using the skills and knowledge acquired from this lab, answer the following post
     
         The instruction is at a hex address within the instruction region. You can find it in the disassembled code or in the Disassembly view during debug.
 
-    !!! tip "Hint"
+    !!! success "Hint"
 
         The main function starts at address 0x00000924.
 

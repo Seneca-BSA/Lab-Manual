@@ -212,6 +212,10 @@ This step can only be done with a microcontroller board running during debugging
 
 Using the skills and knowledge acquired from this lab, answer the following post-lab question(s) on Blackboard.
 
+!!! warning "Show and Demo to your Professor"
+    
+    Show and demo the last question to the profesor during lab to receive any credit for this lab.
+
 1. Refer to the Memory map shown in class or from Figure 4.18 of Yiu, what is the starting address and ending address of the instruction code region of the M4 processor?
 
 1. In the hello_world.c example, what is the instruction address of the first line of code that it halts on once you start the debugging process? Take a screenshot of where you found this address and place it onto Blackboard.
@@ -230,4 +234,4 @@ Using the skills and knowledge acquired from this lab, answer the following post
 
 1. Change the C-code from the hello_world program to also display your name and student number within the print statement. Copy your main function onto blackboard.
 
-1. Run your modified code and view the result using the serial terminal. Your name and student number should now be displayed in the serial terminal. Take a screenshot of the printout and place it onto Blackboard.
+1. Run your modified code and view the result using the serial terminal. Your name and student number should now be displayed in the serial terminal. Take a screenshot of the printout and place it onto Blackboard. Show and demo this question to the profesor during lab to receive any credit for this lab.

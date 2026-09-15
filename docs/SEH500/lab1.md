@@ -212,9 +212,9 @@ This step can only be done with a microcontroller board running during debugging
 
 Using the skills and knowledge acquired from this lab, answer the following post-lab question(s) on Blackboard.
 
-!!! warning "Show and Demo to your Professor"
+!!! warning "Individual Submission and Demo to your Professor!"
     
-    Show and demo the last question to the profesor during lab to receive any credit for this lab.
+    Every student need to submit their own Lab assignment. Show and demo the last question to the profesor during lab to receive any credit for this lab.
 
 1. Refer to the Memory map shown in class or from Figure 4.18 of Yiu, what is the starting address and ending address of the instruction code region of the M4 processor?
 

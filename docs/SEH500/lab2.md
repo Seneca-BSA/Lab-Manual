@@ -90,13 +90,13 @@ Documentation of the Cortex-M4 instruction set can be found here:
 
     ***Figure 2.4** New Project Name and Settings*
 
-1. Once the project is created, rename the C-code file from ".c" to ".s". If the IDE is not allowing you to rename, delete the C-code file and create a new file of the same name but with the extension ".s".
+1. Once the project is created, delete the C-code file (SEH500-Lab-2.c) and create a new file of the same name but with the extension ".s" (SEH500-Lab-2.s).
 
     ![Figure 2.5 Rename File](lab2-rename.PNG)
 
     ***Figure 2.5** Rename File*
 
-1. Replace the code within the file with the following:
+1. Replace the entire code within the file with the following:
 
         @ add directives
         .syntax unified             @ unified syntax used
@@ -123,14 +123,14 @@ Documentation of the Cortex-M4 instruction set can be found here:
 
     ***Figure 2.6** Assembly Code*
 
-1. Build and run the code using the debug option. Open both the register view and the memory view and set to address 0x20000000.
+1. Build and run the code using the debug option. Open both the register view and the memory view and set it to monitor address 0x20000000.
 
     ![Figure 2.7a Register and Memory View](lab2-registers.PNG)
     ![Figure 2.7b Register and Memory View](lab2-memory.PNG)
 
     ***Figure 2.7** Register and Memory View*
 
-1. Step through (using Step Into or Step Over) the code and pay attention to the changes in the registers (register view) and memory (memory monitor). Step until you reach the stop label. Your code should not go any further as it will loop between the `nop` and `b` instructions. You can also see the program counter jumping back and forward.
+1. Step through (using Step Into or Step Over) the code and pay attention to the changes in the registers (register view) and memory (memory monitor). Step until you reach the `stop` label. Your code should not go any further as it will loop between the `nop` and `b` instructions. You can also see the program counter jumping back and forward.
 
 1. Next, re-run the code but this time, expand the program status register and notice the flags that change especially after an arithmetics instruction.
 
@@ -153,9 +153,9 @@ Using the skills and knowledge acquired from this lab, answer the following post
 
     - GenAI used: Copilot for concept research; ChatGPT for editing and grammar enhancement; Gemini for code generation in section 1, as identified.
 
-1. Referring to the Cortex-M4 technical manual (Table 3.1), how many "Add" instructions can you find in the manual, and what are they?
+1. Referring to the Cortex-M4 technical manual (Table 3.1), how many "Add" instructions can you find in the manual, and what are they? You can provide a screenshot or list them.
 
-1. What is the assembly instruction that loads the address 0x20000010 into register R0? Provide the full instructions.
+1. What is the assembly instruction (write out the line) that loads the address 0x20000010 into register R0? Provide the full instructions.
 
 1. Write a functional assembly code that performs Exercise #2 from the module 3 lecture: Perform the calculation: A + B – C = D.
     - Use address 0x20000010 to store value A = first 2 digits of your student #

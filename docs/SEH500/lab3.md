@@ -194,7 +194,7 @@ For example, consider the 32-bit hexadecimal number 0x12345678:
 
         .data                       @ define the data section, used for variables
         num:    .word #             @ declare two word size labels (fill in the values)
-        sum:    .word #             @ assign num and sum with values of 5 and 0
+        sum:    .word #             @ assign num and sum with values of 5 and 0 respectively
 
         .text                       @ define the text section, used for code
         .global main                @ declare main as a global variable
@@ -249,7 +249,7 @@ Using the skills and knowledge acquired from this lab, answer the following post
     - C = 5 * (F - 32) / 9    
     - F = (9 * C / 5) + 32
 
-    Put your name and student number as comments in the code, then copy and paste your code into Blackboard. Also, take a screenshot of your register bank as well as your memory space, highlighting the final variable value after code execution and paste them into Blackboard as well. **No mark will be awarded if no screenshot with the expected result is provided.**
+    Put your name and student number as comments in the code, then copy and paste your code into Blackboard. Also, take a screenshot of your register bank as well as your memory space, highlighting the final variable value after code execution and paste them into Blackboard as well. Show and demo this question to the profesor during lab to receive any credit for this lab. **No mark will be awarded if no screenshot with the expected result is provided.**
 
 ## Reference
 

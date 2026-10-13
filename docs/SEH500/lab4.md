@@ -14,14 +14,14 @@ In the previous lab, we explored how to use the program status flags and how to 
 
 | Mnemonic | Meaning |
 |---|---|
-| B label  | Branch |
+| B label | Branch |
 | B{cond} label | Branch with condition |
 | BL label | Branch with Link |
 | BL{cond} label | Branch with Link with condition |
 | BX Rm  | Branch to register value |
 | BX{cond} Rm | Branch to register value with condition |
 | BLX Rm | Branch with Link to register value |
-| BLX{cond} Rm| Branch with Link to register value with condition |
+| BLX{cond} Rm | Branch with Link to register value with condition |
 
 See below for conditions that are set by a compare, usually `CMP`, instruction. The `CMP Rm, Rn` instruction operates `Rm-Rn` for the sole purpose of setting the condition flags.
 

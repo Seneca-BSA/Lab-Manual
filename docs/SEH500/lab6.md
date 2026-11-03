@@ -95,19 +95,53 @@ In our labs so far, we've been programming the processor directly using assembly
     
     **Question 3:** Take a screenshot of your `while` or `for` loop C-code and its assembly code and paste them into Blackboard.
 
-1. Lastly, we are going to familarize ourself with the idea of interrupt by including a periodic interrupt timer (PIT) into our code to generate an interrupt once every second. Instead of programming the interrupt from scratch, we'll use the built-in ConfigTools in MCUXpresso for ease of implementation. The ConfigTools allow us to setup components of the processor and the microcontroller board in a quick and fast manner instead of manually coding all the necessary settings. Go to "ConfigTools > Peripherals" from the top menu. In the "Components" tab, Under "Peripheral drivers (Device specific)" add the "PIT" configuration components.
+!!! info "The GUI and menu may not be the same depending on the version of the tool and the platform you are using."
+    
+    The GUI and menu may varies depending on the version of the tool and the platform you are using. If you encounter an error or can't find a particular menu or settings, be resourceful and try to find the solution from the vendor's website or other sources on the internet.
+
+1. Lastly, we are going to familarize ourself with the idea of interrupt by including a periodic interrupt timer (PIT) into our code to generate an interrupt once every second. Instead of programming the interrupt from scratch, we'll use the built-in ConfigTools in MCUXpresso for ease of implementation. The ConfigTools allow us to setup components of the processor and the microcontroller board in a quick and fast manner instead of manually coding all the necessary settings.
+
+1. Double-click on your current project in the "Project Explorer" to ensure it is the active project. You should see the word "Debug" beside your project.
+
+1. Go to "ConfigTools > Peripherals" from the top menu.
+
+    ![Figure 6.2 ConfigTools from Top Menu](lab6-menu-configtools.png)
+
+    ***Figure 6.2** ConfigTools from Top Menu*
+
+1. Check and ensure the active project is your current project.
+
+    ![Figure 6.3 ConfigTools Active Project](lab6-configtools-active.png)
+
+    ***Figure 6.3** ConfigTools Active Project*
+
+1. In the "Components" tab > under "Peripheral drivers (Device specific)", click add and select the "PIT" configuration components.
+
+    ![Figure 6.4 ConfigTools Peripheral Menu](lab6-configtools-peripheral.png)
+
+    ***Figure 6.4** ConfigTools Peripheral Menu*
+
+    ![Figure 6.5 ConfigTools Components List](lab6-configtools-components.png)
+
+    ***Figure 6.5** ConfigTools Components List*
+
+!!! info "Components that you haven't installed the driver will appear with a small warning sign."
 
 1. Under the PIT settings, **uncheck** "start channel". Leave everything default so the setting page should look like this:
 
-    ![Figure 6.2 PIT settings](lab6-pit-settings.png)
+    ![Figure 6.6 PIT settings](lab6-pit-settings.png)
 
-    ***Figure 6.2** PIT settings*
+    ***Figure 6.6** PIT settings*
 
 1. Once confirmed, click "Update Code" at the top menu button bar and click yes when prompted. The `peripherals.c` and `peripherals.h` will now be updated accordingly to include the timer interrupt settings.
 
+    ![Figure 6.7 Update Code](lab6-update-code.png)
+
+    ***Figure 6.7** Update Code*
+
 1. Next, we'll need to add some code for the interrupt handler and to start the interrupt.
     
-    Paste the following handler code into your program on top of main.
+    Paste the following handler code into your program on top of `main()`.
 
         void PIT_CHANNEL_0_IRQHANDLER(void) /*ISR to process PIT channel 0 interrupts*/
         {
@@ -116,7 +150,7 @@ In our labs so far, we've been programming the processor directly using assembly
             PRINTF("*\r\n");
         }
 
-    Then use the following code to start the PIT in your main function. You can put it at the beginning of main after all the initialization or just before the empty while loop.
+    Then use the following code to start the PIT in your `main()` function. You can put it at the beginning of `main()` after all the initializations and before the empty while loop.
 
         PIT_StartTimer(PIT_PERIPHERAL, PIT_CHANNEL_0);
 

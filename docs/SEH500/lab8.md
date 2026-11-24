@@ -271,7 +271,7 @@ Using the skills and knowledge acquired from this lab, answer the following post
     - You cannot use a SIN function lookup table
     - There should be no change to the output and number of intervals (ie. when x = 3125, sin_x = 15)
 
-    Paste your code with an explanation of every change, and a screenshot of the terminal output before and after optimization on blackboard. The output value after optimization should be the same after optimization. **No mark will be awarded if no code and screenshot with the expected result are provided.**
+    Paste your code with an explanation of every change, and a screenshot of the terminal output before and after optimization on blackboard. The output value after optimization should be the same after optimization. Show and demo this question to the profesor during lab to receive any credit for this lab. **No mark will be awarded if no code and screenshot with the expected result are provided.**
 
     **Challenge 1:** Extra 3 marks if you achieve at least 50% improvement in speed and **at least four optimizations are done in assembly language**.
 
